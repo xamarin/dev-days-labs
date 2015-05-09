@@ -21,7 +21,7 @@ namespace TripExpenses.WinPhone
 			SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
 
 			global::Xamarin.Forms.Forms.Init();
-			LoadApplication(new Matriarch.App());
+			LoadApplication(new TripExpenses.App());
 		}
 	}
 }
