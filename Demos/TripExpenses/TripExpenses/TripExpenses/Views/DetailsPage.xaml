@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="TripExpenses.Views.DetailsPage"
+             Title="Details">
+	<StackLayout Padding="20" Spacing="20">
+        <Entry Placeholder="Expense Name"
+               Text="{Binding Name, Mode=TwoWay}"/>
+        
+        <Entry Placeholder="0.00"
+               Text="{Binding Price, Mode=TwoWay}"
+               Keyboard="Numeric"/>
+        
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Label Text ="Billable" VerticalOptions="Center"/>
+            <Switch IsToggled="{Binding Billable}"/>
+        </StackLayout>
+        
+        <Picker x:Name="PickerCategory"
+                Title="Category"
+                SelectedIndex="{Binding Category}"/>
+        
+        <Button Text="Save"
+                BackgroundColor="#77D065"
+                TextColor="#FFFFFF"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding SaveCommand}"/>
+        
+         <ActivityIndicator IsVisible="{Binding IsBusy}"
+                            IsRunning="{Binding IsBusy}"/>
+        
+    </StackLayout> 
+</ContentPage>
