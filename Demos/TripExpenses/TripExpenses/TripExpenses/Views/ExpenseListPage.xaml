@@ -1,26 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-					   x:Class="TripExpenses.Views.ExpenseListPage"
-             Title="Expenses">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="TripExpenses.Views.ExpenseListPage"
+			 Title="Expenses"
+       IsBusy="{Binding IsBusy}">
+   <ContentPage.ToolbarItems>
+   	<ToolbarItem x:Name="AddItem" Text="add" Icon="add.png"/>
+   </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Spacing="10" Padding="10">
-            <ActivityIndicator IsVisible="{Binding IsBusy}"
-                    IsRunning="{Binding IsBusy}"/>
-
-            <ListView x:Name="ExpenseList" ItemsSource="{Binding Expenses}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Name}"
-                        Detail="{Binding Price}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <Button x:Name="ButtonNewExpense"
-                    Text="Add Expense"
-                      BackgroundColor="#77D065"
-                TextColor="#FFFFFF"/>
-        </StackLayout>
+        <ListView x:Name="ExpenseList" 
+        		 ItemsSource="{Binding Expenses}"
+        		 IsPullToRefreshEnabled="true"
+        		 RefreshCommand="{Binding LoadExpenses}"
+        		 IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}"
+                    Detail="{Binding Price}">
+                     	<TextCell.ContextActions>
+                     		<MenuItem Clicked="OnDelete"
+           						Text="Delete" IsDestructive="True" 
+           						CommandParameter="{Binding .}"/>
+                     	</TextCell.ContextActions>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

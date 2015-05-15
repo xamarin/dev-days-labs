@@ -8,10 +8,15 @@ using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using System.Diagnostics;
 using System;
+using Xamarin.Forms;
+using TripExpenses.Services;
 
+//Comment back in to use azure
+
+//[assembly: Dependency(typeof(AzureDataStore))]
 namespace TripExpenses.Services
 {
-  public class DataStore
+  public class AzureDataStore : IDataStore
   {
     public List<TripExpense> Expenses { get; set; }
     public MobileServiceClient MobileService { get; set; }
@@ -19,7 +24,7 @@ namespace TripExpenses.Services
     private IMobileServiceSyncTable<TripExpense> expenseTable;
     private bool initialized = false;
 
-    public DataStore()
+    public AzureDataStore()
     {
 
       Expenses = new List<TripExpense>();
@@ -34,8 +39,8 @@ namespace TripExpenses.Services
 
       //comment back in to enable Azure Mobile Services.
       MobileService = new MobileServiceClient("https://" 
-		+ "PUT-SITE-HERE" + ".azure-mobile.net/",
-		"PUT-API-KEY-HERE");
+		+ "SITE-HERE" + ".azure-mobile.net/",
+				"API-KEY-HERE");
 
       
     }
@@ -52,30 +57,39 @@ namespace TripExpenses.Services
     }
 
 
-    public async Task InsertExpenseAsync(TripExpense expense)
+		public async Task<TripExpense> InsertExpenseAsync(TripExpense expense)
     {
       if (!initialized)
         await Init();
-      //expense.Id = (Expenses.Count + 1).ToString();
-      //Expenses.Add(expense);
+
       
       await expenseTable.InsertAsync(expense);
+			return expense;
     }
 
-    public async Task UpdateExpenseAsync(TripExpense expense)
+		public async Task<TripExpense> UpdateExpenseAsync(TripExpense expense)
     {
       if (!initialized)
         await Init();
       
       await expenseTable.UpdateAsync(expense);
+			return expense;
     }
+
+		public async Task DeleteExpenseAsync(TripExpense expense)
+		{
+			if (!initialized)
+				await Init();
+
+
+			await expenseTable.DeleteAsync(expense);
+		}
 
     public async Task<IEnumerable<TripExpense>> GetExpensesAsync()
     {
       if (!initialized)
         await Init();
 
-      //return Expenses;
       await SyncExpensesAsync();
       return await expenseTable.ToEnumerableAsync();
     }
@@ -85,7 +99,7 @@ namespace TripExpenses.Services
       try
       {
         await MobileService.SyncContext.PushAsync();
-		await expenseTable.PullAsync("allItems", expenseTable.CreateQuery());
+				await expenseTable.PullAsync("allItems", expenseTable.CreateQuery());
       }
       catch(Exception ex)
       {
@@ -95,15 +109,15 @@ namespace TripExpenses.Services
 
 
 
-    static readonly DataStore instance = new DataStore();
+    static readonly AzureDataStore instance = new AzureDataStore();
     /// <summary>
     /// Gets the instance of the Azure Web Service
     /// </summary>
-    public static DataStore Instance
+    public static AzureDataStore Instance
     {
       get
       {
-        return instance;
+		return instance;
       }
     }
 

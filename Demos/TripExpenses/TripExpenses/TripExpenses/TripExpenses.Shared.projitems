@@ -11,10 +11,12 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TripExpense.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\DataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExpensesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AzureDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\XMLDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -25,12 +27,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\DetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ExpenseListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

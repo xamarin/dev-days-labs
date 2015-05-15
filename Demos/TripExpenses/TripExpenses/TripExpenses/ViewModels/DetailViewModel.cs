@@ -22,8 +22,10 @@ namespace TripExpenses.ViewModels
     private bool isNew;
 
     INavigation navigation;
+		IDataStore dataStore;
     public DetailViewModel(TripExpense expense, INavigation navigation)
     {
+			dataStore = DependencyService.Get<IDataStore> ();
       this.navigation = navigation;
       if(expense == null)
       {
@@ -66,12 +68,12 @@ namespace TripExpenses.ViewModels
 
 
       if (isNew)
-        await DataStore.Instance.InsertExpenseAsync(expense);
+				await dataStore.InsertExpenseAsync(expense);
       else
-        await DataStore.Instance.UpdateExpenseAsync(expense);
+				await dataStore.UpdateExpenseAsync(expense);
 
 
-      await DataStore.Instance.SyncExpensesAsync();
+			await dataStore.SyncExpensesAsync();
 
       //Send a message to insert/update the expense to all subscribers
       if(isNew)

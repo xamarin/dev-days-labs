@@ -19,12 +19,11 @@ namespace TripExpenses.Views
 
 			this.BindingContext = viewModel = new ExpensesViewModel();
 
-			ToolbarItems.Add(new ToolbarItem
-			  {
-				  Name = "refresh",
-				  Icon = "refresh.png",
-				  Command = viewModel.LoadExpenses
-			  });
+			AddItem.Command = new Command (() => {
+				var detailPage = new DetailsPage (null);
+				Navigation.PushAsync (detailPage);
+			});
+
 
 			ExpenseList.ItemTapped += (sender, args) =>
 			{
@@ -36,12 +35,13 @@ namespace TripExpenses.Views
 
 				ExpenseList.SelectedItem = null;
 			};
+				
 
-			ButtonNewExpense.Clicked += async (sender, args) =>
-			{
-				var detailPage = new DetailsPage(null);
-				await Navigation.PushAsync(detailPage);
-			};
+		}
+
+		public void OnDelete (object sender, EventArgs e) {
+			var mi = ((MenuItem)sender);
+			viewModel.DeleteExpense.Execute (mi.CommandParameter);
 		}
 
 

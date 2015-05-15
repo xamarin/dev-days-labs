@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 x:Class="TripExpenses.Views.DetailsPage"
+		     xmlns:local="clr-namespace:TripExpenses.UI;assembly=TripExpenses.UI"
              Title="Details">
+     <ContentPage.Resources>
+	     <ResourceDictionary>
+	   		<local:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
 	<StackLayout Padding="20" Spacing="20">
-        <Entry Placeholder="Expense Name"
+        <Entry x:Name="ExpenseName"
+        	   Placeholder="Expense Name"
                Text="{Binding Name, Mode=TwoWay}"/>
         
-        <Entry Placeholder="0.00"
+        <Entry x:Name="ExpenseTotal"
+               Placeholder="0.00"
                Text="{Binding Price, Mode=TwoWay}"
                Keyboard="Numeric"/>
         
@@ -15,7 +23,6 @@
             <Label Text ="Billable" VerticalOptions="Center"/>
             <Switch IsToggled="{Binding Billable}"/>
         </StackLayout>
-        
         <Picker x:Name="PickerCategory"
                 Title="Category"
                 SelectedIndex="{Binding Category}"/>
@@ -24,7 +31,9 @@
                 BackgroundColor="#77D065"
                 TextColor="#FFFFFF"
                 HorizontalOptions="FillAndExpand"
-                Command="{Binding SaveCommand}"/>
+                Command="{Binding SaveCommand}">
+             
+        </Button>
         
          <ActivityIndicator IsVisible="{Binding IsBusy}"
                             IsRunning="{Binding IsBusy}"/>

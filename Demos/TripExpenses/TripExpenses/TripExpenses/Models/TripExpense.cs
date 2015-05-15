@@ -7,6 +7,10 @@ namespace TripExpenses.Models
 {
   public class TripExpense
   {
+		public TripExpense()
+		{
+		}
+
     [JsonProperty(PropertyName = "id")]
     public string Id { get; set; }
 
@@ -19,6 +23,12 @@ namespace TripExpenses.Models
     [Microsoft.WindowsAzure.MobileServices.Version]
     public string Version { get; set; }  
 
-
+		public void SyncProperties(TripExpense expense)
+		{
+			this.Billable = expense.Billable;
+			this.Category = expense.Category;
+			this.Name = expense.Name;
+			this.Price = expense.Price;
+		}
   }
 }

@@ -16,11 +16,12 @@ namespace TripExpenses.ViewModels
     public bool Initialized { get; set; }
 
     public ObservableCollection<TripExpense> Expenses { get; set; }
+		IDataStore dataStore;
 
     public ExpensesViewModel()
-    { 
+		{ 
+			dataStore = DependencyService.Get<IDataStore> ();
       Expenses = new ObservableCollection<TripExpense>();
-
       //Subscibe to insert expenses
       MessagingCenter.Subscribe<TripExpense>(this, "NewExpense", (expense) =>
       {
@@ -55,7 +56,7 @@ namespace TripExpenses.ViewModels
 
       Expenses.Clear();
 
-      var expenses = await DataStore.Instance.GetExpensesAsync();
+			var expenses = await dataStore.GetExpensesAsync();
       foreach (var expense in expenses)
        Expenses.Add(expense);
 
@@ -80,5 +81,44 @@ namespace TripExpenses.ViewModels
       Expenses[index] = expense;
       IsBusy = false;
     }
+
+		private Command<TripExpense> deleteExpense;
+		public ICommand DeleteExpense
+		{
+			get
+			{
+				return deleteExpense ??
+					(deleteExpense = new Command<TripExpense>((expense)=>ExecuteDeleteExpense(expense)));
+			}
+		}
+
+		private async Task ExecuteDeleteExpense(TripExpense expense)
+		{
+			IsBusy = true;
+			await dataStore.DeleteExpenseAsync(expense);
+			await dataStore.SyncExpensesAsync ();
+			Expenses.Remove (expense);
+			IsBusy = false;
+		}
+
+
+		public void SpeakTotal()
+		{
+			var total = 0.0f;
+			var temp = 0.0f;
+			foreach (var expense in Expenses) {
+				
+				if (float.TryParse (expense.Price, out temp))
+					total += temp;
+			}
+
+			var message = "You have a total of " + 
+				Expenses.Count + 
+				" expenses that need to be filed totaling " +
+				total.ToString("C");
+	
+
+
+		}
   }
 }

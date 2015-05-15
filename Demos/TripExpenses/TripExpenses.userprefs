@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="TripExpenses/TripExpenses.iOS/TripExpenses.iOS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TripExpenses/TripExpenses/Views/ExpenseListPage.xaml">
+    <Files>
+      <File FileName="TripExpenses/TripExpenses/Services/AzureDataStore.cs" Line="1" Column="1" />
+      <File FileName="TripExpenses/TripExpenses/Services/XMLDataStore.cs" Line="1" Column="1" />
+      <File FileName="TripExpenses/TripExpenses/Views/ExpenseListPage.xaml" Line="22" Column="23" />
+      <File FileName="TripExpenses/TripExpenses/Views/DetailsPage.xaml" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
