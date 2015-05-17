@@ -16,7 +16,9 @@ namespace MyWeather.WinPhone
 		{
 			InitializeComponent();
 			SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
-
+			Xamarin.Insights.Initialize("dbf5b73b9b8dc2b52514eb4d62edb05b63a6c8b5");
+			Xamarin.Insights.ForceDataTransmission = true;
+			
 			global::Xamarin.Forms.Forms.Init();
 			LoadApplication(new MyWeather.App());
 		}
