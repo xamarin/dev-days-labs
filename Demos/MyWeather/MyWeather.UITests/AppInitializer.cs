@@ -18,7 +18,7 @@ namespace MyWeather.UITests
 					.Android
 				// TODO: Update this path to point to your Android app and uncomment the
 				// code if the app is not included in the solution.
-					.ApkFile ("../../../MyWeather/MyWeather.Droid/bin/Debug/com.devdays.myweather.apk")
+					.ApkFile ("../../../MyWeather/MyWeather.Droid/bin/Release/com.devdays.myweather.apk")
 					.StartApp ();
 			}
 
