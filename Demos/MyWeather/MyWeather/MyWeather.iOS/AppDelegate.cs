@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace MyWeather.iOS
 {
@@ -22,8 +23,21 @@ namespace MyWeather.iOS
 		//
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
+			#if DEBUG
+			Xamarin.Calabash.Start();
+			#endif
+
+			Xamarin.Insights.Initialize("dbf5b73b9b8dc2b52514eb4d62edb05b63a6c8b5");
+			Xamarin.Insights.ForceDataTransmission = true;
 			global::Xamarin.Forms.Forms.Init();
 			LoadApplication(new App());
+
+			Forms.ViewInitialized += (object sender, ViewInitializedEventArgs e) => {
+				// http://developer.xamarin.com/recipes/testcloud/set-accessibilityidentifier-ios/
+				if (null != e.View.StyleId) {
+					e.NativeView.AccessibilityIdentifier = e.View.StyleId;
+				}
+			};
 
 			return base.FinishedLaunching(app, options);
 		}

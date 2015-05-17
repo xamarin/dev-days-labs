@@ -130,11 +130,23 @@ namespace MyWeather.ViewModels
 				var units = IsImperial ? Units.Imperial : Units.Metric;
 				if(UseCity)
 				{
+					Xamarin.Insights.Track("GetWeather", new Dictionary<string, string>
+						{
+							{"city", Location.Trim()},
+							{"units", units.ToString()}
+						});
 					weatherRoot = await weatherService.GetWeather(Location.Trim(), units);
+
 				}
 				else
 				{
+					
 					var location = await CrossGeolocator.Current.GetPositionAsync(10000);
+					Xamarin.Insights.Track("GetWeather", new Dictionary<string, string>
+						{
+							{"city", "gps"},
+							{"units", units.ToString()}
+						});
 					weatherRoot = await weatherService.GetWeather(location.Latitude, location.Longitude, units);
 				}
 
@@ -174,6 +186,7 @@ namespace MyWeather.ViewModels
 			catch (Exception ex)
 			{
 				Temp = "Unable to get Weather";
+				Xamarin.Insights.Report (ex);
 			}
 			finally
 			{
