@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
+using System.Threading;
 
 namespace MyWeather.UITests
 {
@@ -43,13 +44,13 @@ namespace MyWeather.UITests
 			app.Tap (x => x.Marked ("LabelUseCity"));//dismiss keyboard
 			app.Tap(x => x.Marked("ButtonGetWeather"));
 			app.Screenshot ("Click Get Weather");
-			app.WaitForElement (x => x.Marked ("IsBusyIndicator"));
+			Thread.Sleep (100);
 			app.Screenshot ("Is Loading");
 			app.WaitForNoElement (x => x.Marked ("IsBusyIndicator"));
 			app.Screenshot ("Done Loading");
 			app.WaitForElement (x => x.Marked ("LabelBigTemp"));
 			app.Screenshot ("Display Weather");
-			var results = app.Query (x => x.Marked ("LabelTempBig"));
+			var results = app.Query (x => x.Marked ("LabelBigTemp"));
 			int test = 0;
 			var passed = int.TryParse (results [0].Text.Replace("°", ""), out test);
 			Assert.IsTrue (passed, "Didn't Display Result");
