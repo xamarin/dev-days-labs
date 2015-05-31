@@ -35,26 +35,25 @@ namespace TwitterSearch.Mac
 		public Tweet Tweet { get; set; }
 
 		static Dictionary<string, NSImage> cachedImages = new Dictionary<string, NSImage> ();
-		public override void ViewDidMoveToSuperview ()
+		async Task LoadImage ()
+		{
+			NSData d = await Task.Factory.StartNew<NSData> (() => NSData.FromUrl (new NSUrl (Tweet.Image)));
+			NSImage i = new NSImage (d);
+			if (!cachedImages.ContainsKey (Tweet.Image))
+				cachedImages.Add (Tweet.Image, i);
+			Image.Image = i;
+		}
+
+		public override async void ViewDidMoveToSuperview ()
 		{
 			Title.StringValue = string.Format ("{0} at {1}", Tweet.ScreenName, Tweet.Date);
 			Text.StringValue = Tweet.Text;
 
 			// We don't have SDWebImage to do caching for us
-			if (cachedImages.ContainsKey (Tweet.Image)) {
+			if (cachedImages.ContainsKey (Tweet.Image))
 				Image.Image = cachedImages [Tweet.Image];
-			}
-			else {
-				Task.Factory.StartNew (() => {
-					NSData d = NSData.FromUrl (new NSUrl (Tweet.Image));
-					BeginInvokeOnMainThread (() => {
-						NSImage i = new NSImage (d);
-						if (!cachedImages.ContainsKey (Tweet.Image))
-							cachedImages.Add (Tweet.Image, i);
-						Image.Image = i;
-					});
-				});
-			}
+			else
+				await LoadImage ();
 		}
 	}
 }
