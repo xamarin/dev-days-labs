@@ -115,7 +115,7 @@ namespace MyWeather.ViewModels
 			get
 			{
 				return getWeather ?? (getWeather = new Command(
-				  () => ExecuteGetWeatherCommand()));
+				  async () => await ExecuteGetWeatherCommand()));
 			}
 		}
 		private async Task ExecuteGetWeatherCommand()
@@ -180,8 +180,7 @@ namespace MyWeather.ViewModels
 				string weatherMessageTemplate = "{0}. The current temperature in {1} is {2}°F, with a high today of {3}° and a low of {4}°.";
 				string weatherMessage = string.Format(weatherMessageTemplate, greeter, weatherRoot.Name, (int)weatherRoot.MainWeather.Temperature, (int)weatherRoot.MainWeather.MaxTemperature, (int)weatherRoot.MainWeather.MinTemperature);
 
-				CrossTextToSpeech.Current.Speak(weatherMessage,
-					speakRate: Device.OS == TargetPlatform.iOS ? .25f : 1.0f);
+				CrossTextToSpeech.Current.Speak(weatherMessage);
 			}
 			catch (Exception ex)
 			{
