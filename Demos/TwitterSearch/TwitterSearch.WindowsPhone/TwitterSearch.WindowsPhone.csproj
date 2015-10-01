@@ -153,13 +153,13 @@
     <Reference Include="LinqToTwitterPcl">
       <HintPath>..\packages\LinqToTwitter.3.1.2\lib\wp8\LinqToTwitterPcl.dll</HintPath>
     </Reference>
-    <Reference Include="Refractored.Xam.TTS, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Xam.Plugins.TextToSpeech.1.0.1\lib\wp8\Refractored.Xam.TTS.dll</HintPath>
+    <Reference Include="Refractored.Xam.TTS, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.TextToSpeech.1.0.5\lib\wp8\Refractored.Xam.TTS.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Refractored.Xam.TTS.Abstractions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Xam.Plugins.TextToSpeech.1.0.1\lib\wp8\Refractored.Xam.TTS.Abstractions.dll</HintPath>
+    <Reference Include="Refractored.Xam.TTS.Abstractions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.TextToSpeech.1.0.5\lib\wp8\Refractored.Xam.TTS.Abstractions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.IO.Compression">
       <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.85\lib\wp8\System.IO.Compression.dll</HintPath>

@@ -64,7 +64,7 @@ namespace TwitterSearch.Portable.ViewModels
              CreatedAt = tweet.CreatedAt,
              Url = string.Format("https://m.twitter.com/{0}/status/{1}", tweet.User.ScreenNameResponse, tweet.StatusID),
              Image = (tweet.RetweetedStatus != null && tweet.RetweetedStatus.User != null ?
-                            tweet.RetweetedStatus.User.ProfileImageUrl : tweet.User.ProfileImageUrl)
+                            tweet.RetweetedStatus.User.ProfileImageUrl.Replace("http://", "https://") : tweet.User.ProfileImageUrl.Replace("http://", "https://"))
            }).ToList();
 
         foreach (var tweet in tweets)
@@ -72,7 +72,7 @@ namespace TwitterSearch.Portable.ViewModels
           Tweets.Add(tweet);
         }
       }
-      catch (Exception ex)
+      catch
       {
       }
 
