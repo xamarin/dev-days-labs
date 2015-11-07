@@ -18,8 +18,8 @@ namespace MyWeather.Services
 
 	public class WeatherService
 	{
-        private const string WeatherCoordinatesUri = "http://api.openweathermap.org/data/2.5/weather?lat={0}&lon={1}&units={2}&appid=bd82977b86bf27fb59a04b61b657fb6f";
-        private const string WeatherCityUri = "http://api.openweathermap.org/data/2.5/weather?q={0}&units={1}&appid=bd82977b86bf27fb59a04b61b657fb6f";
+        private const string WeatherCoordinatesUri = "http://api.openweathermap.org/data/2.5/weather?lat={0}&lon={1}&units={2}&appid=fc9f6c524fc093759cd28d41fda89a1b";
+        private const string WeatherCityUri = "http://api.openweathermap.org/data/2.5/weather?q={0}&units={1}&appid=fc9f6c524fc093759cd28d41fda89a1b";
 
 
 		public async Task<WeatherRoot> GetWeather(double latitude, double longitude, Units units = Units.Imperial)
