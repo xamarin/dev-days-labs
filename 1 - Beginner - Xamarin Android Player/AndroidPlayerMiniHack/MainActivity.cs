@@ -57,7 +57,7 @@ namespace AndroidPlayerMiniHack
 					batterystatus.Text = "Status: charging via wireless";
 				}
 			};
-				
+
 			recyclerView = FindViewById<RecyclerView> (Resource.Id.recycler_view);
 			recyclerView.HasFixedSize = true;
 
@@ -89,7 +89,7 @@ namespace AndroidPlayerMiniHack
 			//TODO: Create new geolcator and Call GetPositionAsync() from Geolocator Plugin
 			//var locator = CrossGeolocator.Current;
 			//locator.DesiredAccuracy = 50;
-			 
+
 			//TODO: Set Label to new location
 			/*
 			 var position = await locator.GetPositionAsync (timeout: 10000);
@@ -102,7 +102,7 @@ namespace AndroidPlayerMiniHack
 
 		public class RecyclerItem : Java.Lang.Object
 		{
-			static int[] Ids = new int[]{Resource.Drawable.caterpiller, Resource.Drawable.flying_in_the_light_large, Resource.Drawable.jelly_fish_2, Resource.Drawable.lone_pine_sunset, Resource.Drawable.look_me_in_the_eye, Resource.Drawable.over_there, Resource.Drawable.rainbow, Resource.Drawable.rainbow, Resource.Drawable.sample1, Resource.Drawable.sample2};
+			static int[] Ids = new int[]{Resource.Drawable.sample1, Resource.Drawable.sample2};
 			static int nextId;
 			public RecyclerItem()
 			{
@@ -198,5 +198,3 @@ namespace AndroidPlayerMiniHack
 		}
 	}
 }
-
-

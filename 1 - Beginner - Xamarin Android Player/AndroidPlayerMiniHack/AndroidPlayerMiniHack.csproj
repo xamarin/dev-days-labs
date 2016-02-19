@@ -72,13 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidResource Include="Resources\drawable\caterpiller.jpg" />
-    <AndroidResource Include="Resources\drawable\flying_in_the_light_large.jpg" />
-    <AndroidResource Include="Resources\drawable\jelly_fish_2.jpg" />
-    <AndroidResource Include="Resources\drawable\lone_pine_sunset.jpg" />
-    <AndroidResource Include="Resources\drawable\look_me_in_the_eye.jpg" />
-    <AndroidResource Include="Resources\drawable\over_there.jpg" />
-    <AndroidResource Include="Resources\drawable\rainbow.jpg" />
     <AndroidResource Include="Resources\drawable\sample1.jpg" />
     <AndroidResource Include="Resources\drawable\sample2.jpg" />
     <AndroidResource Include="Resources\layout\recycleritem_card.axml" />
