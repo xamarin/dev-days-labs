@@ -4,6 +4,8 @@ Demo application built with [Xamarin](http://xamarin.com) to do a Bing Image Sea
 
 Watch the .NET conf video: https://channel9.msdn.com/Events/dotnetConf/2016/iOS--Android-Development-for-the-C-Developer-with-Xamarin
 
+Built with C# 6 features, you must be running VS 2015 or Xamarin Studio to compile. 
+
 ## Setup
 
 You must use setup a API key that can be set in ImageSearch/Services/ServiceKeys.cs
