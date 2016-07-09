@@ -1,12 +1,7 @@
 ![Dev Days Labs](header.png)
 
-We invite you to join the Xamarin Dev Days Labs challenge: a fast, easy, and fun way to explore native mobile development with Xamarin. Each lab consists of a small programming challenge involving a specific set of APIs or a particular third-party programming framework. 
+Xamarin Dev Days provide attendees with an intense, hands-on learning experience. Spend the morning exploring mobile development with sessions from Xamarin, our technology partners, and members of your local developer community, then roll up your sleeves for an afternoon dedicated to diving into code.
 
-Labs are designed to stimulate developers of all skill levels—each challenge comes with step-by-step instructions to guide you if you get stuck. You can find all of the challenges in this GitHub repository.
+Each Xamarin Dev Days is unique, but you’ll always walk away with a better understanding of how you can build, test, and monitor native iOS, Android, and Windows apps with Xamarin.
 
-To get started, click one of the labs above and attempt to complete the challenge that is described in the included README file.
-
-
-## Slides
-* [Introduction to Xamarin](http://www.slideshare.net/JamesMontemagno/xamarin-dev-days-introduction-to-xamarin)
-* [Introduction to Xamarin.Forms, Insights, & Test Cloud](http://www.slideshare.net/JamesMontemagno/xamarin-dev-days-introduction-to-xamarinforms-insights-test-cloud)
+Inside this repo you will find all of the presentations, demos, and hands on labs that you will experience at Xamarin Dev Days!
