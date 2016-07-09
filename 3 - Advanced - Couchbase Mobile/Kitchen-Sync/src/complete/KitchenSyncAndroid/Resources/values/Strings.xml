@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="app_name">KitchenSync</string>
-  <string name="add_item_hint">Enter new item.</string>
-  <string name="action_settings">Settings</string>
-</resources>

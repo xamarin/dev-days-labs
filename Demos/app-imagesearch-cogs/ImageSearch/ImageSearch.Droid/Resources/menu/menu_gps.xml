@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <!--Update strings and icons-->
+  <item android:id="@+id/action_edit"
+	      android:title="GPS"
+	      app:showAsAction="ifRoom"/>
+
+</menu>
+
+<!-- Code to implement into Activity:
+
+public override bool OnCreateOptionsMenu(IMenu menu)
+{
+  //change main_compat_menu
+	MenuInflater.Inflate(Resource.Menu.menu_gps, menu);
+	return base.OnCreateOptionsMenu(menu);
+}
+
+
+public override bool OnOptionsItemSelected(IMenuItem item)
+{
+	switch (item.ItemId) {
+	case Resource.Id.action_edit:
+		Toast.MakeText (this, "You pressed edit action!", ToastLength.Short).Show ();
+		break;
+	case Resource.Id.action_save:
+		Toast.MakeText (this, "You pressed save action!", ToastLength.Short).Show ();
+		break;
+	}
+	return base.OnOptionsItemSelected(item);
+}
+
+-->

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWeather.View.ForecastView"
+             Title="Forecast">
+    <ListView ItemsSource="{Binding Forecast.Items}"
+              HasUnevenRows="True"
+              CachingStrategy="RecycleElement"
+              IsPullToRefreshEnabled="True"
+              RowHeight="66"
+              RefreshCommand="{Binding GetWeatherCommand}"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+              x:Name="ListViewWeather">
+        <ListView.SeparatorColor>
+            <OnPlatform x:TypeArguments="Color" iOS="Transparent"/>
+        </ListView.SeparatorColor>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="10,0,0,0">
+                        <Image HeightRequest="44" 
+                               WidthRequest="44" 
+                               Source="{Binding DisplayIcon}"/>
+                        <StackLayout Padding="10" Spacing="5">
+                            <Label Text="{Binding DisplayTemp}"
+                                   TextColor="#3498db"
+                                   Style="{DynamicResource ListItemTextStyle}"/>
+                            <Label Text="{Binding DisplayDate}" 
+                                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
+    
+        
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+<!---->
