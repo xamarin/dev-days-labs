@@ -16,11 +16,11 @@ namespace DevDaysSpeakers.View
     public partial class SpeakersPage : ContentPage
     {
         SpeakersViewModel vm;
-        public SpeakersPage(IEasyMobileServiceClient client)
+        public SpeakersPage()
         {
             InitializeComponent();
 
-            vm = new SpeakersViewModel(client);
+            vm = new SpeakersViewModel();
 
             BindingContext = vm;
             

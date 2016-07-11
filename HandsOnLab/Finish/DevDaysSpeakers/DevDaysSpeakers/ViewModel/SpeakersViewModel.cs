@@ -12,7 +12,6 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using AppServiceHelpers.Abstractions;
-using AppServiceHelpers;
 using System.Runtime.CompilerServices;
 
 namespace DevDaysSpeakers.ViewModel
@@ -23,9 +22,9 @@ namespace DevDaysSpeakers.ViewModel
         public Command GetSpeakersCommand { get; set; }
 
         ITableDataStore<Speaker> table;
-        public SpeakersViewModel(IEasyMobileServiceClient client)
+        public SpeakersViewModel()
         {
-            table = client.Table<Speaker>();
+            table = App.AzureClient.Table<Speaker>();
 
             Speakers = new ObservableCollection<Speaker>();
             GetSpeakersCommand = new Command(

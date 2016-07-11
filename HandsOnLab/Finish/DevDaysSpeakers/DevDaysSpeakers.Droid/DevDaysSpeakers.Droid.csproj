@@ -48,6 +48,10 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Azure.Mobile, Version=1.0.6036.40637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AppService.Helpers.1.0.4\lib\Azure.Mobile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
       <Private>True</Private>
@@ -147,9 +151,6 @@
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Azure.Mobile">
-      <HintPath>..\..\packages\AppService.Helpers.1.0.3\lib\Azure.Mobile.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -6,20 +6,22 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using AppServiceHelpers.Abstractions;
 
 namespace DevDaysSpeakers
 {
     public class App : Application
     {
+        public static IEasyMobileServiceClient AzureClient { get; set; }
         public App()
         {
-            var client = EasyMobileServiceClient.Create();
-            client.Initialize("https://montemagnospeakers.azurewebsites.net");
-            client.RegisterTable<Model.Speaker>();
-            client.FinalizeSchema();
+            AzureClient = EasyMobileServiceClient.Create();
+            AzureClient.Initialize("https://montemagnospeakers.azurewebsites.net");
+            AzureClient.RegisterTable<Model.Speaker>();
+            AzureClient.FinalizeSchema();
 
             // The root page of your application
-            var content = new SpeakersPage(client);
+            var content = new SpeakersPage();
 
             MainPage = new NavigationPage(content);
         }
