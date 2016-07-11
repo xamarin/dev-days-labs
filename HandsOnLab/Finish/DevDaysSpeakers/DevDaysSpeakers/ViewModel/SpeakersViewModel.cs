@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Xamarin.Forms;
 using DevDaysSpeakers.Model;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace DevDaysSpeakers.ViewModel
 {
@@ -17,9 +19,14 @@ namespace DevDaysSpeakers.ViewModel
     {
 
         public ObservableCollection<Speaker> Speakers { get; set; }
+        public Command GetSpeakersCommand { get; set; }
+
         public SpeakersViewModel()
         {
             Speakers = new ObservableCollection<Speaker>();
+            GetSpeakersCommand = new Command(
+                async () => await GetSpeakers(),
+                () => !IsBusy);
         }
 
         bool busy;
@@ -30,36 +37,43 @@ namespace DevDaysSpeakers.ViewModel
             set
             {
                 busy = value;
-                OnPropertyChanged("IsBusy");
+                OnPropertyChanged();
+
+                GetSpeakersCommand.ChangeCanExecute();
             }
         }
 
-        public async Task GetSpeakers()
+
+
+        async Task GetSpeakers()
         {
             if (IsBusy)
                 return;
 
+            Exception error = null;
             try
             {
                 IsBusy = true;
-
 
                 var items = await AzureStore.Current.GetSpeakers();
 
                 Speakers.Clear();
                 foreach (var item in items)
                     Speakers.Add(item);
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine("Error: " + ex);
-                throw;
+                error = ex;
             }
             finally
             {
                 IsBusy = false;
             }
+
+            if (error != null)
+                await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
         }
 
 
@@ -67,7 +81,7 @@ namespace DevDaysSpeakers.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        void OnPropertyChanged(string name)
+        void OnPropertyChanged([CallerMemberName] string name = null)
         {
             var changed = PropertyChanged;
 

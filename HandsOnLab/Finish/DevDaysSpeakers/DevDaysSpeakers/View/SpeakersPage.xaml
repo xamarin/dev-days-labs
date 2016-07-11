@@ -5,7 +5,7 @@
              Title="Speakers">
 
   <StackLayout Spacing="0">
-    <Button Text="Sync Speakers" x:Name="ButtonSpeakers"/>
+    <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
     
     <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
 
