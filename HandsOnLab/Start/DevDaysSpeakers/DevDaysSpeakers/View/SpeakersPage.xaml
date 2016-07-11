@@ -4,20 +4,4 @@
              x:Class="DevDaysSpeakers.View.SpeakersPage"
              Title="Speakers">
 
-  <StackLayout Spacing="0">
-    <Button Text="Sync Speakers" x:Name="ButtonSpeakers"/>
-    
-    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-
-    <ListView x:Name="ListViewSpeakers"
-              ItemsSource="{Binding Speakers}">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ImageCell Text="{Binding Name}"
-                     Detail="{Binding Title}"
-                     ImageSource="{Binding Avatar}"/>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </StackLayout>
 </ContentPage>
