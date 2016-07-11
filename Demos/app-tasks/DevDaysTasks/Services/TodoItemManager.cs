@@ -63,7 +63,7 @@ namespace DevDaysTasks
             get { return todoTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<TodoItem>; }
         }
 
-        public async Task<ObservableCollection<TodoItem>> GetTodoItemsAsync(bool syncItems = true)
+        public async Task<ObservableCollection<TodoItem>> GetTodoItemsAsync(bool syncItems = false)
         {
             try
             {
