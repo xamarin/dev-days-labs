@@ -10,12 +10,13 @@ using DevDaysSpeakers.Model;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using AppServiceHelpers.Abstractions;
 
 namespace DevDaysSpeakers.ViewModel
 {
     public class SpeakersViewModel : INotifyPropertyChanged
     {
-
+        public ITableDataStore<Speaker> Table { get; set;}
         public ObservableCollection<Speaker> Speakers { get; set; }
         public SpeakersViewModel()
         {
@@ -43,8 +44,13 @@ namespace DevDaysSpeakers.ViewModel
             {
                 IsBusy = true;
 
+                if (Table == null)
+                {
+                    var client = new AppServiceHelpers.EasyMobileServiceClient();
+                    Table = client.Table<Speaker>();
+                }
 
-                var items = await AzureStore.Current.GetSpeakers();
+                var items = await Table.GetItemsAsync();
 
                 Speakers.Clear();
                 foreach (var item in items)

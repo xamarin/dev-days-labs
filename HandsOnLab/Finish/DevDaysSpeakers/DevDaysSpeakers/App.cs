@@ -1,4 +1,5 @@
 ﻿using DevDaysSpeakers.View;
+using AppServiceHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,18 @@ namespace DevDaysSpeakers
     {
         public App()
         {
+            var client = EasyMobileServiceClient.Create();
+            client.Initialize("https://montemagnospeakers.azurewebsites.net");
+            client.RegisterTable<Model.Speaker>();
+            client.FinalizeSchema();
+
             // The root page of your application
             var content = new SpeakersPage();
 
             MainPage = new NavigationPage(content);
         }
+
+
 
         protected override void OnStart()
         {
