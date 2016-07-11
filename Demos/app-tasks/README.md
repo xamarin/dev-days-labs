@@ -15,7 +15,7 @@ Built with Xamarin.Forms with support for:
 There are a few steps to setup this application.
 
 ### Azure Account
-Please signup or sign into your azure account at http://www.azure.comp
+Please signup or sign into your azure account at http://www.azure.com
 
 ### Access Azure Portal
 Head to http://portal.azure.com
