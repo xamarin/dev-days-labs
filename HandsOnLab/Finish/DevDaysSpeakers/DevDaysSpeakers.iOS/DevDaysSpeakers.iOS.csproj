@@ -184,7 +184,7 @@
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.2.2.2\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Azure.Mobile">
-      <HintPath>..\..\packages\AppService.Helpers.1.0.1\lib\Azure.Mobile.dll</HintPath>
+      <HintPath>..\..\packages\AppService.Helpers.1.0.2\lib\Azure.Mobile.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
