@@ -51,8 +51,7 @@ namespace DevDaysSpeakers.ViewModel
 
                 Speakers.Clear();
                 foreach (var item in items)
-                    Speakers.Add(item); 
-                
+                    Speakers.Add(item);
             }
             catch(Exception ex)
             {
@@ -64,9 +63,6 @@ namespace DevDaysSpeakers.ViewModel
                 IsBusy = false;
             }
         }
-
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

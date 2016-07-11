@@ -178,7 +178,7 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Azure.Mobile">
-      <HintPath>..\..\packages\AppService.Helpers.1.0.2\lib\Azure.Mobile.dll</HintPath>
+      <HintPath>..\..\packages\AppService.Helpers.1.0.3\lib\Azure.Mobile.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
