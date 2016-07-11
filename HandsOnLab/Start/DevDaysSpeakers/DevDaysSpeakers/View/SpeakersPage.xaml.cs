@@ -19,49 +19,11 @@ namespace DevDaysSpeakers.View
         {
             InitializeComponent();
 
+            //Create the view model and set as binding context
             vm = new SpeakersViewModel();
-
             BindingContext = vm;
-
-            ButtonSpeakers.Clicked += ButtonSpeakers_Clicked;
-
-            ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
-
         }
 
-        private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var speaker = e.SelectedItem as Speaker;
-            if (speaker == null)
-                return;
-
-            await Navigation.PushAsync(new DetailsPage(speaker));
-
-            ListViewSpeakers.SelectedItem = null;
-
-        }
-
-        private async void ButtonSpeakers_Clicked(object sender, EventArgs e)
-        {
-            Exception ex = null;
-
-            try
-            {
-                ButtonSpeakers.IsEnabled = false;
-
-                await vm.GetSpeakers();
-            }
-            catch(Exception error)
-            {
-                ex = error;
-            }
-            finally
-            {
-                ButtonSpeakers.IsEnabled = true;
-            }
-
-            if (ex != null)
-                await DisplayAlert("Error!", ex.Message, "OK");
-        }
+       
     }
 }
