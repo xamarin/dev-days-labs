@@ -19,13 +19,11 @@ namespace DevDaysSpeakers
             client.FinalizeSchema();
 
             // The root page of your application
-            var content = new SpeakersPage();
+            var content = new SpeakersPage(client);
 
             MainPage = new NavigationPage(content);
         }
-
-
-
+      
         protected override void OnStart()
         {
             // Handle when your app starts

@@ -1,0 +1,4 @@
+﻿<Properties StartupItem="DevDaysSpeakers/DevDaysSpeakers.Droid/DevDaysSpeakers.Droid.csproj">
+  <MonoDevelop.Ide.ItemProperties.DevDaysSpeakers.Droid PreferredExecutionTarget="Android.Nexus 5 (Lollipop)" />
+  <MonoDevelop.Ide.ItemProperties.DevDaysSpeakers.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B93F0F51-E949-438A-BB04-D08F42619BF1" />
+</Properties>

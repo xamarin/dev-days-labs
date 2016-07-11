@@ -8,18 +8,19 @@ using Xamarin.Forms;
 
 using DevDaysSpeakers.Model;
 using DevDaysSpeakers.ViewModel;
-
+using AppServiceHelpers;
+using AppServiceHelpers.Abstractions;
 
 namespace DevDaysSpeakers.View
 {
     public partial class SpeakersPage : ContentPage
     {
         SpeakersViewModel vm;
-        public SpeakersPage()
+        public SpeakersPage(IEasyMobileServiceClient client)
         {
             InitializeComponent();
 
-            vm = new SpeakersViewModel();
+            vm = new SpeakersViewModel(client);
 
             BindingContext = vm;
 

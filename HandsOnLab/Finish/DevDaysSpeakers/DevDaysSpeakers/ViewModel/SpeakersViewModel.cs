@@ -11,16 +11,19 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using AppServiceHelpers.Abstractions;
+using AppServiceHelpers;
 
 namespace DevDaysSpeakers.ViewModel
 {
     public class SpeakersViewModel : INotifyPropertyChanged
     {
-        public ITableDataStore<Speaker> Table { get; set;}
         public ObservableCollection<Speaker> Speakers { get; set; }
-        public SpeakersViewModel()
+
+        ITableDataStore<Speaker> table;
+        public SpeakersViewModel(IEasyMobileServiceClient client)
         {
             Speakers = new ObservableCollection<Speaker>();
+            table = client.Table<Speaker>();
         }
 
         bool busy;
@@ -43,18 +46,12 @@ namespace DevDaysSpeakers.ViewModel
             try
             {
                 IsBusy = true;
-
-                if (Table == null)
-                {
-                    var client = new AppServiceHelpers.EasyMobileServiceClient();
-                    Table = client.Table<Speaker>();
-                }
-
-                var items = await Table.GetItemsAsync();
+             
+                var items = await table.GetItemsAsync();
 
                 Speakers.Clear();
                 foreach (var item in items)
-                    Speakers.Add(item);
+                    Speakers.Add(item); 
                 
             }
             catch(Exception ex)
