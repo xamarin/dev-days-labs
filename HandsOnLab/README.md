@@ -370,7 +370,16 @@ Simply set the DevDaysSpeakers.Droid as the startup project and select a simulat
 
 #### Windows 10
 
+Ensure that you have the SQLite extension installed for UWP apps:
+
+Go to **Tools->Extensions & Updates**
+
+Under Online search for *SQLite* and ensure that you have SQlite for Univeral Windows Platform installed (current version 3.13.0)
+
+![Sqlite](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/ace42b1e-edd8-4e65-92e7-f638b83ad533/2016-07-11_1605.png)
+
 Simply set the DevDaysSpeakers.UWP as the startup project and select debug to **Local Machine**.
+
 
 ## Details
 
@@ -473,7 +482,117 @@ Now, we should be all set to compile, and run just like before!
 
 ## Connect to Azure Mobile Apps
 
-//Coming soon
+Of course being able grab data from a RESTful end point is great, but what about a full backed, this is where Azure Mobile Apps comes in. Let's upgrade our application to use Azure Mobile Apps backend.
+
+Head to http://portal.azure.com and register for an account.
+
+Once you are in the portal select the **+ New** button and search for **mobile apps** and you will see the results as follows, and we want to select **Mobile Apps Quickstart**
+
+![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/c2894f06-c688-43ad-b812-6384b34c5cb0/2016-07-11_1546.png)
+
+The Quickstart blade will open, select **Create**
+
+![Create quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/344d6fc2-1771-4cb7-a49a-6bd9e9579ba6/2016-07-11_1548.png)
+
+This will open a settings blade with 4 settings:
+
+**App name**
+
+This is a unique name for the app that you will need when you configure the backend in your app. You may want to do somethign like *yourlastnamespeakers* or somethign like this.
+
+**Subscription**
+Select a subscription or creat a pay as you go (this service will not cost you anything)
+
+**Resource Group**
+Select *Create new* and call it **DevDaysSpeakers**
+
+A resource group is a group of related services that can be easily deleted later.
+
+**App Service plan/Location**
+Click this field and select **Create New**, give it a unique name, select a location (I am West US for intstance) and then select the F1 Free tier:
+
+![service plan](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/7559d3f1-7ee6-490f-ac5e-d1028feba88f/2016-07-11_1553.png)
+
+Finally check **Pin to dashboard** and click create:
+
+![](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a844c283-550c-4647-82d3-32d8bda4282f/2016-07-11_1554.png)
+
+This will take about 3-5 minutes to setup, so let's head back to the code!
+
+
+### Update App.cs
+We will be using the Azure Helpers Library that we saw earlier in the presentations to simplify the development with just a few lines of code.
+
+In the DevDaysSpeakers/App.cs file let's add a static property above the constructor for the Azure Client:
+
+```csharp
+public static IEasyMobileServiceClient AzureClient { get; set; }
+```
+
+In the constructor simply add the following lines of code to create the client and register the table:
+
+```csharp
+AzureClient = EasyMobileServiceClient.Create();
+AzureClient.Initialize("https://YOUR-APP-NAME-HERE.azurewebsites.net");
+AzureClient.RegisterTable<Model.Speaker>();
+AzureClient.FinalizeSchema();
+```
+
+Be sure to udpate YOUR-APP-NAME-HERE with the app name you just specified.
+
+
+### Update SpeakersViewModel.cs
+
+Back in the ViewModel, we can add another private property to get a reference for the table. Above the constructor add:
+
+```csharp
+ITableDataStore<Speaker> table;
+```
+
+Inside of the constructor use the statis AzureClient to get the table:
+
+```csharp
+table = App.AzureClient.Table<Speaker>();
+```
+
+#### Update async Task GetSpeakers()
+Now, instead of calling the HttpClient to get a string, let's query the Table:
+
+Change the *try* block of code to:
+
+```csharp
+ try
+{
+    IsBusy = true;
+    
+    var items = await table.GetItemsAsync();
+
+    Speakers.Clear();
+    foreach (var item in items)
+        Speakers.Add(item);
+}
+```
+
+Now, we have implemented all of the code we need in our app! Amazing isn't it! Just 7 lines of code!
+
+Let's head back to the azure portal and populate the database.
+
+When the Quickstart finished you should see the following screen, or can go to it from tapping the pin on the dashboard:
+
+![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/71ad3e06-dcc5-4c8b-8ebd-93b2df9ea2b2/2016-07-11_1601.png)
+
+Under **Features** select **Easy Tables**
+
+It will have created a todoitem, which you should see, but we can create a new table and upload a default set of data by selecting **Add from CSV** from the menu.
+
+Ensure that you have downloaded this repo and have the **Speaker.csv** file that is in this folder.
+
+Select the file and it will add a new table name and find the fields that we have listed. Then Hit Start Upload.
+
+![upload data](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
+
+Now you can re-run your application and get data from Azure!
+
 
 ## Bonus
 
