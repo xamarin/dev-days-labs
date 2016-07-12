@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevDaysSpeakers.Model
 {
-    public class Speaker
+    public class Speaker : AppServiceHelpers.Models.EntityData
     {
         
     }
