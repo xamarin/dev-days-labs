@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="TwitterSearch.Droid" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="21" />
-	<application android:label="TwitterSearch.Droid" android:icon="@drawable/Icon" android:theme="@style/MyTheme"></application>
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-</manifest>

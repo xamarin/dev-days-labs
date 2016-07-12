@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+    <string name="Navigation">Click to Navigate</string>
+    <string name="ApplicationName">ImageSearch.Droid</string>
+    <string name="Search">Search</string>
+</resources>

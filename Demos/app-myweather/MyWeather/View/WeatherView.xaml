@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWeather.View.WeatherView"
+             Title="Weather">
+    <StackLayout Padding="10" Spacing="10">
+      
+      <Entry Text="{Binding Location}"/>
+
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Use Imperial?" VerticalTextAlignment="Center"/>
+        <Switch IsToggled="{Binding IsImperial}"/>
+      </StackLayout>
+
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Use GPS?" VerticalTextAlignment="Center"/>
+        <Switch IsToggled="{Binding UseGPS}"/>
+      </StackLayout>
+
+      <Button Text="Get Weather" Command="{Binding GetWeatherCommand}"/>
+
+      <Label Text="{Binding Temp}" FontSize="30"/>
+      <Label Text="{Binding Condition}"/>
+
+      <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+      
+    </StackLayout>
+</ContentPage>
+
+
+
+
+
+
+
+
+
