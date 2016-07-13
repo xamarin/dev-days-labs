@@ -521,7 +521,7 @@ This will take about 3-5 minutes to setup, so let's head back to the code!
 
 
 ### Update App.cs
-We will be using the Azure Helpers Library that we saw earlier in the presentations to simplify the development with just a few lines of code.
+We will be using the [Azure App Service Helpers library](https://www.nuget.org/packages/AppService.Helpers/1.1.1-beta) that we saw earlier in the presentations to add an Azure backend to our mobile app in just four lines of code.
 
 In the DevDaysSpeakers/App.cs file let's add a static property above the constructor for the Azure Client:
 
@@ -756,4 +756,3 @@ await Navigation.PushAsync(new DetailsPage(speaker, vm));
 ```
 
 There you have it!
-
