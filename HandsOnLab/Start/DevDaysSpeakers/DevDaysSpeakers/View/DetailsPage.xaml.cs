@@ -9,6 +9,8 @@ using Xamarin.Forms;
 using DevDaysSpeakers.Model;
 using Plugin.TextToSpeech;
 
+using DevDaysSpeakers.ViewModel;
+
 namespace DevDaysSpeakers.View
 {
     public partial class DetailsPage : ContentPage
