@@ -20,7 +20,7 @@ The **DevDaysSpeakers (Portable)** also has blank code files and XAML pages that
 
 #### NuGet Restore
 
-All projects have the required NuGet packages already installed, so there will be no need to install additional packages during the Hands on Lab. The first thing that we must do is Restore all of the NuGet packages from the internet.
+All projects have the required NuGet packages already installed, so there will be no need to install additional packages during the Hands on Lab. The first thing that we must do is restore all of the NuGet packages from the internet.
 
 This can be done by **Right-clicking** on the **Solution** and clicking on **Restore NuGet packages...**
 
@@ -45,7 +45,7 @@ The **SpeakersViewModel.cs** will provide all of the functionality for how our m
 
 #### Implementing INotifyPropertyChanged
 
-*INotifyPropertyChanged* is the key data binding in MVVM Frameworks. It is an interface that provides a contract that the user interface can subscribe to for notifications when the code in the code behind changes.
+*INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, let's our view know about changes to the model.
 
 Update:
 
@@ -96,8 +96,7 @@ void OnPropertyChanged([CallerMemberName] string name = null)
 Now, we can call **OnPropertyChanged();** whenever a property updates. Let's create our first bindable property now.
 
 #### IsBusy
-
-In the class we will want to create a backing field and auto-properties for getting and setting a boolean.
+In the class, we will want to create a backing field and auto-properties for getting and setting a boolean. This will be useful for letting our view know that our view model is busy, and to make sure we aren't performing duplicate operations at the same time (like allowing the user to refresh the data multiple times).
 
 First, create the backing field:
 
@@ -131,7 +130,7 @@ In the class above the constructor simply create an autoproperty:
 public ObservableCollection<Speaker> Speakers { get; set; }
 ```
 
-Inside of the constructor create a new instance of the ObservableCollection so the constructor looks like:
+Inside of the constructor create a new instance of the `ObservableCollection` so the constructor looks like:
 
 ```csharp
 public SpeakersViewModel()
@@ -270,13 +269,13 @@ Our main method for gettering data is now complete!
 
 Intead of invoking this method directly, we will expose it with a **Command**. A Command has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
 
-Where we created our ObservableCollection<Speaker> Speakers {get;set;} create a new Command called **GetSpeakersCommand**:
+Where we created our `ObservableCollection<Speaker> Speakers {get;set;}` create a new Command called **GetSpeakersCommand**:
 
 ```csharp
 public Command GetSpeakersCommand { get; set; }
 ```
 
-Inside of the **SpeakersViewModel()** constructor we can create the GetSpeakersCommand and assign it a method to use. We can also pass in an enabled flag leveraging our IsBusy:
+Inside of the `SpeakersViewModel` constructor we can create the `GetSpeakersCommand` and assign it a method to use. We can also pass in an enabled flag leveraging our IsBusy:
 
 ```csharp
 GetSpeakersCommand = new Command(
@@ -301,7 +300,7 @@ It is now finally time to build out our first Xamarin.Forms user interface in th
 
 ### SpeakersPage.xaml
 
-For the first page of the app we will add a few controls onto the page that are stacked vertically. We can use a StackLayout to do this. Inbetween the ContentPage add the following:
+For the first page of the app we will add a few controls onto the page that are stacked vertically. We can use a StackLayout to do this. Inbetween the `ContentPage` add the following:
 
 ```xml
  <StackLayout Spacing="0">
@@ -360,7 +359,7 @@ Now, you can set the iOS, Android, or UWP (Windows/VS2015 only) as the start pro
 #### iOS
 If you are on a PC then you will need to be connected to a macOS device with Xamarin installed to run and debug the app.
 
-If connected, you will see a Green connection status. Select **iPhoneSimulator as your target, and then select the Simulator to debug on.
+If connected, you will see a Green connection status. Select `iPhoneSimulator` as your target, and then select the Simulator to debug on.
 
 ![iOS Setup](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a6b32d62-cd3d-41ea-bd16-1bcc1fbe1f9d/2016-07-11_1445.png)
 
@@ -461,7 +460,7 @@ private void ButtonSpeak_Clicked(object sender, EventArgs e)
 ### Open Website
 Xamarin.Forms itself has some nice APIs built write in for cross platform functionality, such as opening a URL in the default browser.
 
-Let's add another click handler, but this time for ButtonWebsite:
+Let's add another click handler, but this time for `ButtonWebsite`:
 
 ```csharp
 ButtonWebsite.Clicked += ButtonWebsite_Clicked;
@@ -484,7 +483,7 @@ Now, we should be all set to compile, and run just like before!
 
 Of course being able grab data from a RESTful end point is great, but what about a full backed, this is where Azure Mobile Apps comes in. Let's upgrade our application to use Azure Mobile Apps backend.
 
-Head to http://portal.azure.com and register for an account.
+Head to [http://portal.azure.com](http://portal.azure.com) and register for an account.
 
 Once you are in the portal select the **+ New** button and search for **mobile apps** and you will see the results as follows, and we want to select **Mobile Apps Quickstart**
 
@@ -540,7 +539,6 @@ AzureClient.FinalizeSchema();
 
 Be sure to udpate YOUR-APP-NAME-HERE with the app name you just specified.
 
-
 ### Update SpeakersViewModel.cs
 
 Back in the ViewModel, we can add another private property to get a reference for the table. Above the constructor add:
@@ -573,17 +571,17 @@ Change the *try* block of code to:
 }
 ```
 
-Now, we have implemented all of the code we need in our app! Amazing isn't it! Just 7 lines of code!
+Now, we have implemented all of the code we need in our app! Amazing isn't it! That's it! App Service Helpers will automatically handle all communication with your Azure backend for you, do online/offline synchronization so your app works even when it's not connected, and even automatic conflict resolution. Just 7 lines of code!
 
-Let's head back to the azure portal and populate the database.
+Let's head back to the Azure Portal and populate the database.
 
 When the Quickstart finished you should see the following screen, or can go to it from tapping the pin on the dashboard:
 
 ![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/71ad3e06-dcc5-4c8b-8ebd-93b2df9ea2b2/2016-07-11_1601.png)
 
-Under **Features** select **Easy Tables**
+Under **Features** select **Easy Tables**.
 
-It will have created a todoitem, which you should see, but we can create a new table and upload a default set of data by selecting **Add from CSV** from the menu.
+It will have created a `TodoItem`, which you should see, but we can create a new table and upload a default set of data by selecting **Add from CSV** from the menu.
 
 Ensure that you have downloaded this repo and have the **Speaker.csv** file that is in this folder.
 
