@@ -594,9 +594,9 @@ Select the file and it will add a new table name and find the fields that we hav
 Now you can re-run your application and get data from Azure!
 
 
-## Bonus
+## Bonus Take Home Challenges
 
-Take Dev Days father with the need challenges!
+Take Dev Days farther with these additional challenges that you can complete at home after Dev Days ends.
 
 ### Challenge 1: Cognitive Services
 For fun, you can add the [Cognitive Serivce Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) and add another Button to the detail page to analyze the speakers face for happiness level. 
@@ -671,4 +671,89 @@ await DisplayAlert("Happiness Level", level, "OK");
 
 ### Challenge 2: Edit Speaker Details
 
-//coming soon
+In this challenge we will make the speakers Title editable.
+
+Open DetailsPage.xaml and change the Label that is displaying the Title from:
+
+```xml
+<Label Text="{Binding Title}" TextColor="Purple"/>
+```
+
+to an Entry with a OneWay databinding (this means when we enter text it will not change the actual data), and a Name to expose it in the code behind.
+
+```xml
+<Entry Text="{Binding Title, Mode=OneWay}" 
+             TextColor="Purple" 
+             x:Name="EntryTitle"/>
+```
+
+Let's add a save Button under the Go To Website button.
+
+```xml
+<Button Text="Save" x:Name="ButtonSave"/>
+```
+
+#### Update SpeakersViewModel
+
+Open up SpeakersViewModel and add a new method called UpdateSpeaker(Speaker speaker), that will update the speaker , sync, and refresh the list:
+
+```csharp
+ public async Task UpdateSpeaker(Speaker speaker)
+{
+    await table.UpdateAsync(speaker);
+    await table.Sync();
+    await GetSpeakers();
+}
+```
+
+#### Update DetailsPage.xaml.cs
+Let's update the constructur to pass in the SpeakersViewModel for the DetailsPage:
+
+Before:
+```csharp
+Speaker speaker;
+public DetailsPage(Speaker item)
+{
+    InitializeComponent();
+    this.speaker = item;
+    ...
+}
+```
+After:
+```csharp
+Speaker speaker;
+SpeakersViewModel vm;
+public DetailsPage(Speaker item, SpeakersViewModel viewModel)
+{
+    InitializeComponent();
+    this.speaker = item;
+    this.vm = viewModel;
+    ...
+}
+```
+
+Under the other click handlers we will add another click handler for ButtonSave.
+
+```csharp
+ButtonSave.Clicked += ButtonSave_Clicked;
+```
+When the button is clicked, we will update the speaker, and call save and then navigate back:
+
+```csharp
+private async void ButtonSave_Clicked(object sender, EventArgs e)
+{
+    speaker.Title = EntryTitle.Text;
+    await vm.UpdateSpeaker(speaker);
+    await Navigation.PopAsync();
+}
+```
+
+Finally, we will need to pass in the ViewModel when we navigate in the SpeakersPage.xaml.cs in the ListViewSpeakers_ItemSelected method:
+
+```csharp
+//Pass in view model now.
+await Navigation.PushAsync(new DetailsPage(speaker, vm));
+```
+
+There you have it!
+
