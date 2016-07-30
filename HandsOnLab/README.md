@@ -1,4 +1,4 @@
-## Xamrin Dev Days Hands On Lab
+## Xamarin Dev Days Hands On Lab
 
 Today, we will be building a cloud connected [Xamarin.Forms](http://xamarin.com/forms) application that will display a list of speakers at Xamarin Dev Days and show their details. We will start by building some business logic backend that pulls down json from a RESTful endpoint and then we will connect it to an Azure Mobile App backend in just a few lines of code.
 
