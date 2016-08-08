@@ -605,7 +605,7 @@ Follow these steps:
 
 1.) Add **Microsoft.ProjectOxford.Emotion** nuget package to all projects
 
-2.) Add a new class called EmotionService and add the following code:
+2.) Add a new class called EmotionService and add the following code (ensure you update the API key in the GetHappinessAsync call):
 
 ```csharp
 public class EmotionService
@@ -614,7 +614,7 @@ public class EmotionService
     {
         var client = new HttpClient();
         var stream = await client.GetStreamAsync(url);
-        var emotionClient = new EmotionServiceClient(CognitiveServicesKeys.Emotion);
+        var emotionClient = new EmotionServiceClient("INSERT_EMOTION_SERVICE_KEY_HERE");
 
         var emotionResults = await emotionClient.RecognizeAsync(stream);
 
@@ -664,7 +664,7 @@ var level = await EmotionService.GetAverageHappinessScoreAsync(this.speaker.Avat
 
 6.) Then display a pop up alert:
 ```csharp
-await DisplayAlert("Happiness Level", level, "OK");
+await DisplayAlert("Happiness Level", EmotionService.GetHappinessMessage(level), "OK");
 ```
 
 ### Challenge 2: Edit Speaker Details
