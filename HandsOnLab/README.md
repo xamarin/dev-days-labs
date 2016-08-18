@@ -28,7 +28,7 @@ This can be done by **Right-clicking** on the **Solution** and clicking on **Res
 
 ### Model
 
-We will be pulling down information about spearks. Open the **DevDaysSpeakers/Model/Speaker.cs** file and add the following properties inside of the **Speaker** class:
+We will be pulling down information about speakers. Open the **DevDaysSpeakers/Model/Speaker.cs** file and add the following properties inside of the **Speaker** class:
 
 ```csharp
 public string Id { get; set; }
@@ -41,11 +41,11 @@ public string Avatar { get; set; }
 
 ### View Model
 
-The **SpeakersViewModel.cs** will provide all of the functionality for how our main Xamarin.Forms view will display data. It will consist of a list of speakers and a method that can be called to get the speakers from the server. It will also contain a boolean flag that will indicate if the we are getting data in a background task.
+The **SpeakersViewModel.cs** will provide all of the functionality for how our main Xamarin.Forms view will display data. It will consist of a list of speakers and a method that can be called to get the speakers from the server. It will also contain a boolean flag that will indicate if we are getting data in a background task.
 
 #### Implementing INotifyPropertyChanged
 
-*INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, let's our view know about changes to the model.
+*INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, lets our view know about changes to the model.
 
 Update:
 
@@ -71,7 +71,7 @@ Simply right click and tap **Implement Interface**, which will add the following
 public event PropertyChangedEventHandler PropertyChanged;
 ```
 
-This is the method that we will invoke whenever a property changes. This means we need a helper method to implement called **OnPropertyChanged**:
+We will code a helper method named **OnPropertyChanged** that will raise the **PropertyChanged** event (see below). We will invoke the helper method whenever a property changes.
 
 ##### C# 6 (Visual Studio 2015 or Xamarin Studio on Mac)
 ```csharp
@@ -93,10 +93,10 @@ void OnPropertyChanged([CallerMemberName] string name = null)
 }
 ```
 
-Now, we can call **OnPropertyChanged();** whenever a property updates. Let's create our first bindable property now.
+Now, we can call **OnPropertyChanged();** whenever a property updates. Let's create our first property now.
 
 #### IsBusy
-In the class, we will want to create a backing field and auto-properties for getting and setting a boolean. This will be useful for letting our view know that our view model is busy, and to make sure we aren't performing duplicate operations at the same time (like allowing the user to refresh the data multiple times).
+We will create a backing field and accessors for a boolean property. This will let our view know that our view model is busy so we don't perform duplicate operations (like allowing the user to refresh the data multiple times).
 
 First, create the backing field:
 
@@ -104,7 +104,7 @@ First, create the backing field:
 bool busy;
 ```
 
-Next, let's create the auto-property:
+Next, create the property:
 
 ```csharp
 public bool IsBusy
@@ -118,19 +118,19 @@ public bool IsBusy
 }
 ```
 
-Notice that we call **OnPropertyChanged();** so Xamarin.Forms can be notified automatically.
+Notice that we call **OnPropertyChanged();** whenever the value changes. The Xamarin.Forms binding infrastructure will subscribe to our **PropertyChanged** event so the UI will get notified of the change.
 
 #### ObservableCollection of Speaker
 
-We will use an ObservableCollection<Speaker> that will be cleared and then loaded with speakers. We will use an **ObservableCollection** because it has built in support for **CollectionChanged** events when we Add or Remove from it. This is very nice so we don't have to call **OnPropertyChanged** each time.
+We will use an **ObservableCollection<Speaker>** that will be cleared and then loaded with speakers. We will use an **ObservableCollection** because it has built-in support for **CollectionChanged** events when we Add or Remove from it. This is very nice so we don't have to call **OnPropertyChanged** each time.
 
-In the class above the constructor simply create an autoproperty:
+In the class above the constructor declare an auto-property:
 
 ```csharp
 public ObservableCollection<Speaker> Speakers { get; set; }
 ```
 
-Inside of the constructor create a new instance of the `ObservableCollection` so the constructor looks like:
+Inside of the constructor, create a new instance of the `ObservableCollection`:
 
 ```csharp
 public SpeakersViewModel()
@@ -141,7 +141,7 @@ public SpeakersViewModel()
 
 #### GetSpeakers Method
 
-We are now set to create our method called GetSpeakers, which will call to get all of the speaker data from the internet. We will first implement this with a simply HTTP request, but later on update it to grab and sync the data from Azure!
+We are now set to create a method named **GetSpeakers** which will retrieve the speaker data from the internet. We will first implement this with a simply HTTP request, but later update it to grab and sync the data from Azure!
 
 First, create a method called **GetSpeakers** which is of type *async Task* (it is a Task because it is using Async methods):
 
@@ -153,7 +153,7 @@ async Task GetSpeakers()
 ```
 The following code will be written INSIDE of this method:
 
-First is to check if we are already grabbind data:
+First is to check if we are already grabbing data:
 
 ```csharp
 async Task GetSpeakers()
@@ -189,9 +189,9 @@ async Task GetSpeakers()
 }
 ```
 
-Notice, that we set IsBusy to true and then false when we start to call to the server and when we finish.
+Notice, that we set *IsBusy* to true and then false when we start to call to the server and when we finish.
 
-Now, we will use *HttpClient* to grab a the json from the server inside of the **try** block.
+Now, we will use *HttpClient* to grab the json from the server inside of the **try** block.
 
  ```csharp
 using(var client = new HttpClient())
@@ -207,14 +207,14 @@ Still inside of the **using**, we will Deserialize the json and turn it into a l
 var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 ```
 
-Still inside of the **using**, we can will clear the speakers and then load them into the ObservableCollection:
+Still inside of the **using**, we will clear the speakers and then load them into the ObservableCollection:
 
 ```csharp
 Speakers.Clear();
 foreach (var item in items)
     Speakers.Add(item);
 ```
-If anything goes wrong the **catch** will save out the exception and AFTER the finally block we can pop up an alert:
+If anything goes wrong the **catch** will save the exception and AFTER the finally block we can pop up an alert:
 
 ```csharp
 if (error != null)
@@ -263,19 +263,19 @@ async Task GetSpeakers()
 }
 ```
 
-Our main method for gettering data is now complete!
+Our main method for getting data is now complete!
 
 #### GetSpeakers Command
 
-Intead of invoking this method directly, we will expose it with a **Command**. A Command has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
+Instead of invoking this method directly, we will expose it with a **Command**. A Command has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
 
-Where we created our `ObservableCollection<Speaker> Speakers {get;set;}` create a new Command called **GetSpeakersCommand**:
+Create a new Command called **GetSpeakersCommand**:
 
 ```csharp
 public Command GetSpeakersCommand { get; set; }
 ```
 
-Inside of the `SpeakersViewModel` constructor we can create the `GetSpeakersCommand` and assign it a method to use. We can also pass in an enabled flag leveraging our IsBusy:
+Inside of the `SpeakersViewModel` constructor, create the `GetSpeakersCommand` and pass it two methods: one to invoke when the command is executed and another that determines whether the command is enabled. Both methods can be implemented as lambda expressions as shown below:
 
 ```csharp
 GetSpeakersCommand = new Command(
@@ -283,7 +283,7 @@ GetSpeakersCommand = new Command(
                 () => !IsBusy);
 ```
 
-The only modification that we will have to make is when we set the IsBusy property, as we will want to re-evaluate the enabled function that we created. In the **set** of **IsBusy** simply invoke the **ChangeCanExecute** method on the **GetSpeakersCommand** such as:
+The only modification that we will have to make is when we set the IsBusy property, as we will want to re-evaluate the enabled function that we created. In the **set** of **IsBusy** simply invoke the **ChangeCanExecute** method on the **GetSpeakersCommand** as shown below:
 
 ```csharp
 set
@@ -296,11 +296,11 @@ set
 ```
 
 ## The User Interface!!!
-It is now finally time to build out our first Xamarin.Forms user interface in the *View/SpeakersPage.xaml**
+It is now finally time to build out our first Xamarin.Forms user interface in the **View/SpeakersPage.xaml**
 
 ### SpeakersPage.xaml
 
-For the first page of the app we will add a few controls onto the page that are stacked vertically. We can use a StackLayout to do this. Inbetween the `ContentPage` add the following:
+For the first page we will add a few vertically-stacked controls to the page. We can use a StackLayout to do this. Between the `ContentPage` tags add the following:
 
 ```xml
  <StackLayout Spacing="0">
@@ -308,15 +308,15 @@ For the first page of the app we will add a few controls onto the page that are 
   </StackLayout>
 ```
 
-This will be the base where all of the child controls will go and will have no space inbetween them.
+This will be the container where all of the child controls will go. Notice that we specified the children should have no space in between them.
 
-Next, let's add a Button that has a binding to the **GetSpeakersCommand** that we created:
+Next, let's add a Button that has a binding to the **GetSpeakersCommand** that we created (see below). The command takes the place of a clicked handler and will be executed whenever the user taps the button.
 
 ```xml
 <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
 ```
 
-Under the button we can display a loading bar when we are gathering data form the server. We can use an ActivityIndicator to do this and bind to the IsBusy property we created:
+Under the button we can display a loading bar when we are gathering data from the server. We can use an ActivityIndicator to do this and bind to the IsBusy property we created:
 
 ```xml
 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
@@ -331,7 +331,7 @@ We will use a ListView that binds to the Speakers collection to display all of t
 </ListView>
 ```
 
-We still need to describe what each item looks like, and to do so, we can use an ItemTemplate that has a DataTemplate with a specific View inside of it. Xamarin.Forms contains a few default Cells that we can use, and we will use the **ImageCell** that has an image and two rows of text
+We still need to describe what each item looks like, and to do so, we can use an ItemTemplate that has a DataTemplate with a specific View inside of it. Xamarin.Forms contains a few default Cells that we can use, and we will use the **ImageCell** that has an image and two rows of text.
 
 Replace <!--Add ItemTemplate Here--> with: 
 
@@ -348,11 +348,11 @@ Xamarin.Forms will automatically download, cache, and display the image from the
 
 ### Validate App.cs
 
-Open the App.cs file and you will see the entry point for the application, which is the constructor for App(). It simply creates the new SpeakersPage, and then wraps it in a navigation page to get a nice title bar.
+Open the App.cs file and you will see the entry point for the application, which is the constructor for App(). It simply creates the  SpeakersPage, and then wraps it in a navigation page to get a nice title bar.
 
 ### Run the App!
 
-Now, you can set the iOS, Android, or UWP (Windows/VS2015 only) as the start project and start debugging.
+Set the iOS, Android, or UWP (Windows/VS2015 only) as the startup project and start debugging.
 
 ![Startup project](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/020972ff-2a81-48f1-bbc7-1e4b89794369/2016-07-11_1442.png)
 
@@ -382,17 +382,17 @@ Simply set the DevDaysSpeakers.UWP as the startup project and select debug to **
 
 ## Details
 
-Now, let's do some navigation and display some Details. Let's upen up the code behind for **SpeakersPage.xaml** called **SpeakersPage.xaml.cs**.
+Now, let's do some navigation and display some Details. Let's open up the code-behind for **SpeakersPage.xaml** called **SpeakersPage.xaml.cs**.
 
 ### ItemSelected Event
 
-In the code behind you will find the setup for the SpeakersViewModel. Under **BindingContext = vm;**, let's add an event to the **ListViewSpeakers** to get notified when an item is selected
+In the code-behind you will find the setup for the SpeakersViewModel. Under **BindingContext = vm;**, let's add an event to the **ListViewSpeakers** to get notified when an item is selected:
 
 ```csharp
 ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
 ```
 
-Let's create and fill in this method and navigate to the DetailsPage.
+Implement this method so it navigates to the DetailsPage:
 
 ```csharp
 private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -411,7 +411,7 @@ In the above code we check to see if the selected item is not null and then use 
 
 ### DetailsPage.xaml
 
-Let's now fill in the Details page. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView, incase we have long text.
+Let's now fill in the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView in case we have long text.
 
 ```xml
   <ScrollView Padding="10">
@@ -431,7 +431,7 @@ Now, let's add controls and bindings for the properties in the Speaker object:
 <Label Text="{Binding Description}"/>
 ```
 
-Now, for fun, let's add two buttons that we will add click events to in the code behind:
+Add two buttons. Give them names so we can add clicked handlers to them in the code behind:
 
 ```xml
 <Button Text="Speak" x:Name="ButtonSpeak"/>
@@ -442,13 +442,13 @@ Now, for fun, let's add two buttons that we will add click events to in the code
 
 If we open up **DetailsPage.xaml.cs** we can now add a few more click handlers. Let's start with ButtonSpeak, where we will use the [Text To Speech Plugin](https://github.com/jamesmontemagno/TextToSpeechPlugin) to read back the speaker's description.
 
-In the constructor, add a click handler below the BindingContext:
+In the constructor, add a clicked handler below the BindingContext:
 
 ```csharp
 ButtonSpeak.Clicked += ButtonSpeak_Clicked;
 ```
 
-Then we can add the click handler and call the cross platform API for text to speech:
+Then we can add the clicked handler and call the cross-platform API for text to speech:
 
 ```csharp
 private void ButtonSpeak_Clicked(object sender, EventArgs e)
@@ -458,15 +458,15 @@ private void ButtonSpeak_Clicked(object sender, EventArgs e)
 ```
 
 ### Open Website
-Xamarin.Forms itself has some nice APIs built write in for cross platform functionality, such as opening a URL in the default browser.
+Xamarin.Forms itself has some nice APIs built right in for cross platform functionality, such as opening a URL in the default browser.
 
-Let's add another click handler, but this time for `ButtonWebsite`:
+Let's add another clicked handler, but this time for `ButtonWebsite`:
 
 ```csharp
 ButtonWebsite.Clicked += ButtonWebsite_Clicked;
 ```
 
-Then, we can use the Device keyword to call the OpenUri method:
+Then, we can use the Device class to call the OpenUri method:
 
 ```csharp
 private void ButtonWebsite_Clicked(object sender, EventArgs e)
@@ -477,15 +477,15 @@ private void ButtonWebsite_Clicked(object sender, EventArgs e)
 ```
 
 ### Compile & Run
-Now, we should be all set to compile, and run just like before!
+Now, we should be all set to compile and run just like before!
 
 ## Connect to Azure Mobile Apps
 
-Of course being able grab data from a RESTful end point is great, but what about a full backed, this is where Azure Mobile Apps comes in. Let's upgrade our application to use Azure Mobile Apps backend.
+Of course being able grab data from a RESTful end point is great, but what about a full back end? This is where Azure Mobile Apps comes in. Let's upgrade our application to use an Azure Mobile Apps back end.
 
 Head to [http://portal.azure.com](http://portal.azure.com) and register for an account.
 
-Once you are in the portal select the **+ New** button and search for **mobile apps** and you will see the results as follows, and we want to select **Mobile Apps Quickstart**
+Once you are in the portal select the **+ New** button and search for **mobile apps** and you will see the results as shown below. Select **Mobile Apps Quickstart**
 
 ![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/c2894f06-c688-43ad-b812-6384b34c5cb0/2016-07-11_1546.png)
 
@@ -497,10 +497,10 @@ This will open a settings blade with 4 settings:
 
 **App name**
 
-This is a unique name for the app that you will need when you configure the backend in your app. You may want to do somethign like *yourlastnamespeakers* or somethign like this.
+This is a unique name for the app that you will need when you configure the back end in your app. You will need to choose a globally-unique name; for example, you could try something like *yourlastnamespeakers*.
 
 **Subscription**
-Select a subscription or creat a pay as you go (this service will not cost you anything)
+Select a subscription or create a pay-as-you-go account (this service will not cost you anything)
 
 **Resource Group**
 Select *Create new* and call it **DevDaysSpeakers**
@@ -508,7 +508,7 @@ Select *Create new* and call it **DevDaysSpeakers**
 A resource group is a group of related services that can be easily deleted later.
 
 **App Service plan/Location**
-Click this field and select **Create New**, give it a unique name, select a location (I am West US for intstance) and then select the F1 Free tier:
+Click this field and select **Create New**, give it a unique name, select a location (typically you would choose a location close to your customers), and then select the F1 Free tier:
 
 ![service plan](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/7559d3f1-7ee6-490f-ac5e-d1028feba88f/2016-07-11_1553.png)
 
@@ -520,7 +520,7 @@ This will take about 3-5 minutes to setup, so let's head back to the code!
 
 
 ### Update App.cs
-We will be using the [Azure App Service Helpers library](https://www.nuget.org/packages/AppService.Helpers/1.1.1-beta) that we saw earlier in the presentations to add an Azure backend to our mobile app in just four lines of code.
+We will be using the [Azure App Service Helpers library](https://www.nuget.org/packages/AppService.Helpers/1.1.1-beta) that we saw earlier in the presentations to add an Azure back end to our mobile app in just four lines of code.
 
 In the DevDaysSpeakers/App.cs file let's add a static property above the constructor for the Azure Client:
 
@@ -528,7 +528,7 @@ In the DevDaysSpeakers/App.cs file let's add a static property above the constru
 public static IEasyMobileServiceClient AzureClient { get; set; }
 ```
 
-In the constructor simply add the following lines of code to create the client and register the table:
+In the constructor, simply add the following lines of code to create the client and register the table:
 
 ```csharp
 AzureClient = EasyMobileServiceClient.Create();
@@ -547,14 +547,14 @@ Back in the ViewModel, we can add another private property to get a reference fo
 ITableDataStore<Speaker> table;
 ```
 
-Inside of the constructor use the statis AzureClient to get the table:
+Inside of the constructor use the static AzureClient to get the table:
 
 ```csharp
 table = App.AzureClient.Table<Speaker>();
 ```
 
 #### Update async Task GetSpeakers()
-Now, instead of calling the HttpClient to get a string, let's query the Table:
+Now, instead of using the HttpClient to get a string, let's query the Table:
 
 Change the *try* block of code to:
 
@@ -571,11 +571,11 @@ Change the *try* block of code to:
 }
 ```
 
-Now, we have implemented all of the code we need in our app! Amazing isn't it! That's it! App Service Helpers will automatically handle all communication with your Azure backend for you, do online/offline synchronization so your app works even when it's not connected, and even automatic conflict resolution. Just 7 lines of code!
+Now, we have implemented all of the code we need in our app! Amazing isn't it! That's it! App Service Helpers will automatically handle all communication with your Azure back end for you, do online/offline synchronization so your app works even when it's not connected, and even perform automatic conflict resolution. Just 7 lines of code!
 
 Let's head back to the Azure Portal and populate the database.
 
-When the Quickstart finished you should see the following screen, or can go to it from tapping the pin on the dashboard:
+When the Quickstart finishes you should see the following screen, or can go to it by tapping the pin on the dashboard:
 
 ![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/71ad3e06-dcc5-4c8b-8ebd-93b2df9ea2b2/2016-07-11_1601.png)
 
@@ -585,7 +585,7 @@ It will have created a `TodoItem`, which you should see, but we can create a new
 
 Ensure that you have downloaded this repo and have the **Speaker.csv** file that is in this folder.
 
-Select the file and it will add a new table name and find the fields that we have listed. Then Hit Start Upload.
+Select the file and it will add a new table name and find the fields that we have listed. Then hit Start Upload.
 
 ![upload data](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
 
@@ -594,10 +594,10 @@ Now you can re-run your application and get data from Azure!
 
 ## Bonus Take Home Challenges
 
-Take Dev Days farther with these additional challenges that you can complete at home after Dev Days ends.
+Take Dev Days further with these additional challenges that you can complete at home after Dev Days ends.
 
 ### Challenge 1: Cognitive Services
-For fun, you can add the [Cognitive Serivce Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) and add another Button to the detail page to analyze the speakers face for happiness level. 
+For fun, you can add the [Cognitive Serivce Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) and add another Button to the detail page to analyze the speaker's face for happiness level. 
 
 Go to: http://microsoft.com/cognitive and create a new account and an API key for the Emotion service.
 
@@ -655,21 +655,21 @@ public class EmotionService
 
 3.) Now add a new button to the Details Page and expose it with **x:Name="ButtonAnalyze**
 
-4.) Add a new click handler and add the async keyword to it.
+4.) Add a new clicked handler and add the async keyword to it.
 
 5.) Call 
 ```csharp
 var level = await EmotionService.GetAverageHappinessScoreAsync(this.speaker.Avatar);
 ```
 
-6.) Then display a pop up alert:
+6.) Then display a pop-up alert:
 ```csharp
 await DisplayAlert("Happiness Level", EmotionService.GetHappinessMessage(level), "OK");
 ```
 
 ### Challenge 2: Edit Speaker Details
 
-In this challenge we will make the speakers Title editable.
+In this challenge we will make the speaker's Title editable.
 
 Open DetailsPage.xaml and change the Label that is displaying the Title from:
 
@@ -677,7 +677,7 @@ Open DetailsPage.xaml and change the Label that is displaying the Title from:
 <Label Text="{Binding Title}" TextColor="Purple"/>
 ```
 
-to an Entry with a OneWay databinding (this means when we enter text it will not change the actual data), and a Name to expose it in the code behind.
+to an Entry with a OneWay data binding (this means when we enter text it will not change the actual data), and a Name to expose it in the code behind.
 
 ```xml
 <Entry Text="{Binding Title, Mode=OneWay}" 
@@ -693,7 +693,7 @@ Let's add a save Button under the Go To Website button.
 
 #### Update SpeakersViewModel
 
-Open up SpeakersViewModel and add a new method called UpdateSpeaker(Speaker speaker), that will update the speaker , sync, and refresh the list:
+Open SpeakersViewModel and add a new method called UpdateSpeaker(Speaker speaker), that will update the speaker, sync, and refresh the list:
 
 ```csharp
  public async Task UpdateSpeaker(Speaker speaker)
@@ -705,7 +705,7 @@ Open up SpeakersViewModel and add a new method called UpdateSpeaker(Speaker spea
 ```
 
 #### Update DetailsPage.xaml.cs
-Let's update the constructur to pass in the SpeakersViewModel for the DetailsPage:
+Let's update the constructor to pass in the SpeakersViewModel for the DetailsPage:
 
 Before:
 ```csharp
@@ -730,7 +730,7 @@ public DetailsPage(Speaker item, SpeakersViewModel viewModel)
 }
 ```
 
-Under the other click handlers we will add another click handler for ButtonSave.
+Under the other clicked handlers we will add another clicked handler for ButtonSave.
 
 ```csharp
 ButtonSave.Clicked += ButtonSave_Clicked;
