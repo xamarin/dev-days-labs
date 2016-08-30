@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
-
+using Xamarin.Forms.Xaml;
 // Information about this assembly is defined by the following attributes.
 // Change them to the values specific to your project.
+
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
 [assembly: AssemblyTitle ("DevDaysTasks")]
 [assembly: AssemblyDescription ("")]

@@ -90,6 +90,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="packages.config" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +135,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.13.0">
+    <SDKReference Include="SQLite.UWP.2015, Version=3.14.1">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
   </ItemGroup>

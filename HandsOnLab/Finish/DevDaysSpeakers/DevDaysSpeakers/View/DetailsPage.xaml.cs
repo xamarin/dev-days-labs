@@ -25,6 +25,7 @@ namespace DevDaysSpeakers.View
             ButtonSpeak.Clicked += ButtonSpeak_Clicked;
 
             ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+            
         }
 
         private void ButtonWebsite_Clicked(object sender, EventArgs e)

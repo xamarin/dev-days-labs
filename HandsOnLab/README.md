@@ -365,7 +365,13 @@ If connected, you will see a Green connection status. Select `iPhoneSimulator` a
 
 #### Android
 
-Simply set the DevDaysSpeakers.Droid as the startup project and select a simulator to run on.
+Simply set the DevDaysSpeakers.Droid as the startup project and select a simulator to run on. The first compile may take some additional time as Support Packages are downloaded, so please be patient. 
+
+If you run into an issue building the project with an error such as:
+
+**aapt.exe exited with code** or **Unsupported major.minor version 52** then your Java JDK may not be setup correctly, or you have newer build tools installed then what is supported. See this technical bulletin for support: https://releases.xamarin.com/technical-bulletin-android-sdk-build-tools-24/
+
+Additionally, see James' blog for visual reference: http://motzcod.es/post/149717060272/fix-for-unsupported-majorminor-version-520
 
 #### Windows 10
 
@@ -373,7 +379,9 @@ Ensure that you have the SQLite extension installed for UWP apps:
 
 Go to **Tools->Extensions & Updates**
 
-Under Online search for *SQLite* and ensure that you have SQlite for Univeral Windows Platform installed (current version 3.13.0)
+Under Online search for *SQLite* and ensure that you have SQlite for Univeral Windows Platform installed (current version 3.14.1)
+
+If there is a new version then install it, remove the SQLite for Universal Windows Platform from the References in the UWP app. Then add a new Reference and under **Universal Windows -> Extensions** you will see SQlite for Universal Windows Platform. Add that in and you will be good to go.
 
 ![Sqlite](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/ace42b1e-edd8-4e65-92e7-f638b83ad533/2016-07-11_1605.png)
 
