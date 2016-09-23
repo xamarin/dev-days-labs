@@ -1,10 +1,6 @@
 Azure Tasks
 ===================
 
-**Important**
-Due to a bug in the node backend (https://github.com/Azure/azure-mobile-apps-node/issues/496) it is important that you configure an actual Data Connection to a SQL Database. Simply tap on "Easy Tables", then tap on the "You are using SQLite" orange banner and configure a new Azure SQL database and server.
-
-
 This is a small sample application showing how easily add backend using Azure Mobile Apps to a Xamarin Application.
 
 Built with C# 6 features, you must be running VS 2015 or Xamarin Studio to compile. 
