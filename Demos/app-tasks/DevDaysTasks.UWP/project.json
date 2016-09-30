@@ -7,7 +7,7 @@
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "9.0.1",
-    "SQLitePCL": "3.8.7.2",
+    "SQLitePCLRaw.core": "1.0.1",
     "Xamarin.Forms": "2.3.2.127"
   },
   "frameworks": {

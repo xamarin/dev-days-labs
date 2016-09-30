@@ -437,15 +437,6 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -460,7 +451,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -3085,15 +3076,6 @@
           "runtimes/win8-arm/native/clrcompression.dll": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -3108,7 +3090,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -5613,15 +5595,6 @@
           "runtimes/win8-arm-aot/native/_._": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -5636,7 +5609,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -8111,15 +8084,6 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -8134,7 +8098,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -10648,15 +10612,6 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -10671,7 +10626,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -13146,15 +13101,6 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -13169,7 +13115,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -15683,15 +15629,6 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCL/3.8.7.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        },
-        "runtime": {
-          "lib/netcore451/SQLitePCL.dll": {}
-        }
-      },
       "SQLitePCLRaw.bundle_green/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -15706,7 +15643,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.0": {
+      "SQLitePCLRaw.core/1.0.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -18929,82 +18866,6 @@
         "runtimes/win8-arm/native/clrcompression.dll"
       ]
     },
-    "SQLitePCL/3.8.7.2": {
-      "sha512": "Vi2/IJKPV4Web9GX+wn42foALVjFM68uTEoIOY6Ir8keF5OkniMB/iXCg3N2GWgj5ex7dCAsJmhv1sX84Fj9dQ==",
-      "type": "package",
-      "files": [
-        "SQLitePCL.3.8.7.2.nupkg.sha512",
-        "SQLitePCL.nuspec",
-        "build/MonoAndroid/_._",
-        "build/MonoTouch/_._",
-        "build/Xamarin.iOS10/_._",
-        "build/net45/SQLitePCL.Ext.dll",
-        "build/net45/SQLitePCL.props",
-        "build/net45/SQLitePCL.targets",
-        "build/netcore45/SQLitePCL.Ext.dll",
-        "build/netcore45/SQLitePCL.Ext.pri",
-        "build/netcore45/SQLitePCL.props",
-        "build/netcore45/SQLitePCL.targets",
-        "build/netcore451/SQLitePCL.Ext.dll",
-        "build/netcore451/SQLitePCL.Ext.pri",
-        "build/netcore451/SQLitePCL.props",
-        "build/netcore451/SQLitePCL.targets",
-        "build/portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10/_._",
-        "build/wp8/ARM/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.dll",
-        "build/wp8/ARM/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.winmd",
-        "build/wp8/ARM/SQLitePCL.Ext.dll",
-        "build/wp8/SQLitePCL.props",
-        "build/wp8/SQLitePCL.targets",
-        "build/wp8/x86/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.dll",
-        "build/wp8/x86/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.winmd",
-        "build/wp8/x86/SQLitePCL.Ext.dll",
-        "build/wp81/ARM/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.dll",
-        "build/wp81/ARM/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.winmd",
-        "build/wp81/ARM/SQLitePCL.Ext.dll",
-        "build/wp81/SQLitePCL.props",
-        "build/wp81/SQLitePCL.targets",
-        "build/wp81/x86/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.dll",
-        "build/wp81/x86/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.winmd",
-        "build/wp81/x86/SQLitePCL.Ext.dll",
-        "build/wpa81/SQLitePCL.Ext.dll",
-        "build/wpa81/SQLitePCL.Ext.pri",
-        "build/wpa81/SQLitePCL.props",
-        "build/wpa81/SQLitePCL.targets",
-        "lib/MonoAndroid/SQLitePCL.Ext.dll",
-        "lib/MonoAndroid/SQLitePCL.dll",
-        "lib/MonoTouch/SQLitePCL.Ext.dll",
-        "lib/MonoTouch/SQLitePCL.dll",
-        "lib/Xamarin.iOS10/SQLitePCL.Ext.dll",
-        "lib/Xamarin.iOS10/SQLitePCL.dll",
-        "lib/net45/SQLitePCL.dll",
-        "lib/netcore45/SQLitePCL.dll",
-        "lib/netcore451/SQLitePCL.dll",
-        "lib/portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10/SQLitePCL.dll",
-        "lib/wp8/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.dll",
-        "lib/wp8/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.winmd",
-        "lib/wp8/SQLitePCL.dll",
-        "lib/wp81/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.dll",
-        "lib/wp81/SQLitePCL.Ext.WindowsPhone8.RuntimeProxy.winmd",
-        "lib/wp81/SQLitePCL.dll",
-        "lib/wpa81/SQLitePCL.dll",
-        "readme.txt",
-        "tools/MonoAndroid/install.ps1",
-        "tools/MonoTouch/install.ps1",
-        "tools/Xamarin.iOS10/install.ps1",
-        "tools/net45/install.ps1",
-        "tools/netcore45/install.ps1",
-        "tools/netcore45/uninstall.ps1",
-        "tools/netcore451/install.ps1",
-        "tools/netcore451/uninstall.ps1",
-        "tools/portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10/install.ps1",
-        "tools/wp8/install.ps1",
-        "tools/wp8/uninstall.ps1",
-        "tools/wp81/install.ps1",
-        "tools/wp81/uninstall.ps1",
-        "tools/wpa81/install.ps1",
-        "tools/wpa81/uninstall.ps1"
-      ]
-    },
     "SQLitePCLRaw.bundle_green/1.0.0": {
       "sha512": "MS0nWvHYuSZvENiMXMfj/jr7dACqOFSBXE1fuUEwMsf/IDXPx/4a1IaZqb+A2IcouzLrA8JI1D4yGjxvV3QWDA==",
       "type": "package",
@@ -19031,11 +18892,11 @@
         "lib/wpa81/SQLitePCLRaw.batteries_green.dll"
       ]
     },
-    "SQLitePCLRaw.core/1.0.0": {
-      "sha512": "8tY6LQKKX6aEC/hbyNP4PkAnNrVygrzVr2W94mg8zQOwN0M51nDaFEGLYAp8kgEdreUmwCu+79vliq/WcefGZQ==",
+    "SQLitePCLRaw.core/1.0.1": {
+      "sha512": "ih45uNC9JVk3xxkxuy1vGl6Ukn6KJkOeEXQcMoxCaGg4OrcYZQFcm9/Sq5WTElGZJ/LynpV6/OrIaLqrmsC8eQ==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.core.1.0.0.nupkg.sha512",
+        "SQLitePCLRaw.core.1.0.1.nupkg.sha512",
         "SQLitePCLRaw.core.nuspec",
         "lib/MonoAndroid/SQLitePCLRaw.core.dll",
         "lib/MonoTouch/SQLitePCLRaw.core.dll",
@@ -24160,7 +24021,7 @@
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Microsoft.Net.Http >= 2.2.29",
       "Newtonsoft.Json >= 9.0.1",
-      "SQLitePCL >= 3.8.7.2",
+      "SQLitePCLRaw.core >= 1.0.1",
       "Xamarin.Forms >= 2.3.2.127"
     ],
     "UAP,Version=v10.0": []
