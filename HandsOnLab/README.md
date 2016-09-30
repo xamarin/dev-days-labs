@@ -9,14 +9,14 @@ Open **Start/DevDaysSpeakers.sln**
 
 This solution contains 4 projects
 
-* DevDaysSpeakers (Portable) - Portable Class Library that will have all shared code (model, views, and view models).
+* DevDaysSpeakers  - Shared Project that will have all shared code (model, views, and view models).
 * DevDaysSpeakers.Droid - Xamarin.Android application
 * DevDaysSpeakers.iOS - Xamarin.iOS application
 * DevDaysSpeakers.UWP - Windows 10 UWP application (can only be run from VS 2015 on Windows 10)
 
 ![Solution](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/44f4caa9-efb9-4405-95d4-7341608e1c0a/Portable.png)
 
-The **DevDaysSpeakers (Portable)** also has blank code files and XAML pages that we will use during the Hands on Lab.
+The **DevDaysSpeakers** project also has blank code files and XAML pages that we will use during the Hands on Lab.
 
 #### NuGet Restore
 
@@ -375,16 +375,6 @@ Additionally, see James' blog for visual reference: http://motzcod.es/post/14971
 
 #### Windows 10
 
-Ensure that you have the SQLite extension installed for UWP apps:
-
-Go to **Tools->Extensions & Updates**
-
-Under Online search for *SQLite* and ensure that you have SQlite for Univeral Windows Platform installed (current version 3.14.1)
-
-If there is a new version then install it, remove the SQLite for Universal Windows Platform from the References in the UWP app. Then add a new Reference and under **Universal Windows -> Extensions** you will see SQlite for Universal Windows Platform. Add that in and you will be good to go.
-
-![Sqlite](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/ace42b1e-edd8-4e65-92e7-f638b83ad533/2016-07-11_1605.png)
-
 Simply set the DevDaysSpeakers.UWP as the startup project and select debug to **Local Machine**.
 
 
@@ -527,51 +517,53 @@ Finally check **Pin to dashboard** and click create:
 This will take about 3-5 minutes to setup, so let's head back to the code!
 
 
-### Update App.cs
-We will be using the [Azure App Service Helpers library](https://www.nuget.org/packages/AppService.Helpers/1.1.1-beta) that we saw earlier in the presentations to add an Azure back end to our mobile app in just four lines of code.
+### Update AzureService.cs
+We will be using the [Azure Mobile Apps SDK](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-xamarin-forms-get-started/) to add an Azure back end to our mobile app in just a few lines of code.
 
-In the DevDaysSpeakers/App.cs file let's add a static property above the constructor for the Azure Client:
-
-```csharp
-public static IEasyMobileServiceClient AzureClient { get; set; }
-```
-
-In the constructor, simply add the following lines of code to create the client and register the table:
+In the DevDaysSpeakers/Services/AzureService.cs file let's add in our url to the Initialize method.
 
 ```csharp
-AzureClient = EasyMobileServiceClient.Create();
-AzureClient.Initialize("https://YOUR-APP-NAME-HERE.azurewebsites.net");
-AzureClient.RegisterTable<Model.Speaker>();
-AzureClient.FinalizeSchema();
+ var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
 ```
 
 Be sure to udpate YOUR-APP-NAME-HERE with the app name you just specified.
 
+The Initialize logic will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to get speaker data from Azure. There are just two methods that we need to fill in to get and sync data from the server.
+
+
+#### GetSpeakers
+In this method we will need to Initialize, Sync, and query the table for items. We can use complex linq queries to order the results:
+
+```csharp
+await Initialize();
+await SyncSpeakers();
+return await table.OrderBy(s => s.Name).ToEnumerableAsync();   
+```
+
+#### SyncSpeakers
+Our azure backend has the ability to push any local chagnes and then pull all of the latest data from the server using the following code that can be added to the try inside of the SyncSpeakers method:
+
+```csharp
+await Client.SyncContext.PushAsync();
+await table.PullAsync("allSpeakers", table.CreateQuery());
+```
+That is it for our Azure code! Just a few lines of code, and we are ready to grat the data from azure.
+
 ### Update SpeakersViewModel.cs
 
-Back in the ViewModel, we can add another private property to get a reference for the table. Above the constructor add:
+Update async Task GetSpeakers():
 
-```csharp
-ITableDataStore<Speaker> table;
-```
-
-Inside of the constructor use the static AzureClient to get the table:
-
-```csharp
-table = App.AzureClient.Table<Speaker>();
-```
-
-#### Update async Task GetSpeakers()
 Now, instead of using the HttpClient to get a string, let's query the Table:
 
 Change the *try* block of code to:
 
 ```csharp
- try
+try
 {
     IsBusy = true;
-    
-    var items = await table.GetItemsAsync();
+
+    var service = DependencyService.Get<AzureService>();
+    var items = await service.GetSpeakers();
 
     Speakers.Clear();
     foreach (var item in items)
@@ -579,7 +571,7 @@ Change the *try* block of code to:
 }
 ```
 
-Now, we have implemented all of the code we need in our app! Amazing isn't it! That's it! App Service Helpers will automatically handle all communication with your Azure back end for you, do online/offline synchronization so your app works even when it's not connected, and even perform automatic conflict resolution. Just 7 lines of code!
+Now, we have implemented all of the code we need in our app! Amazing isn't it! That's it! App Service will automatically handle all communication with your Azure back end for you, do online/offline synchronization so your app works even when it's not connected.
 
 Let's head back to the Azure Portal and populate the database.
 
@@ -701,14 +693,25 @@ Let's add a save Button under the Go To Website button.
 
 #### Update SpeakersViewModel
 
-Open SpeakersViewModel and add a new method called UpdateSpeaker(Speaker speaker), that will update the speaker, sync, and refresh the list:
+Open AzureService and add a new method called UpdateSpeaker(Speaker speaker), that will update the speaker, sync, and refresh the list:
 
 ```csharp
- public async Task UpdateSpeaker(Speaker speaker)
+public async Task UpdateSpeaker(Speaker speaker)
 {
+    await Initialize();
     await table.UpdateAsync(speaker);
-    await table.Sync();
-    await GetSpeakers();
+    await SyncSpeakers();
+}
+```
+
+Open the SpeakersViewModel.cs and add a similar method:
+
+```
+public async Task UpdateSpeaker(Speaker speaker)
+{
+    var service = DependencyService.Get<AzureService>();
+    service.UpdateSpeaker(speaker);
+    await GetSpeakers();         
 }
 ```
 

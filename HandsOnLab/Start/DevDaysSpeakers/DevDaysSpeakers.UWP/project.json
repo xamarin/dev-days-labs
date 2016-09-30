@@ -1,16 +1,15 @@
 ﻿{
   "dependencies": {
-    "AppService.Helpers": "1.1.1-beta",
-    "Microsoft.Azure.Mobile.Client": "2.1.0",
-    "Microsoft.Azure.Mobile.Client.SQLiteStore": "2.1.0",
+    "Microsoft.Azure.Mobile.Client": "3.0.1",
+    "Microsoft.Azure.Mobile.Client.SQLiteStore": "3.0.1",
     "Microsoft.Bcl": "1.1.10",
     "Microsoft.Bcl.Build": "1.0.21",
     "Microsoft.Net.Http": "2.2.29",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "9.0.1",
-    "SQLitePCL": "3.8.7.2",
+    "SQLitePCLRaw.bundle_green": "1.0.1",
     "Xam.Plugins.TextToSpeech": "2.0.0",
-    "Xamarin.Forms": "2.3.1.114"
+    "Xamarin.Forms": "2.3.2.127"
   },
   "frameworks": {
     "uap10.0": {}
