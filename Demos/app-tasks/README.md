@@ -50,13 +50,3 @@ Now give it about 3-5 minutes and you will be completely setup.
 * Open DevDaysTasks.sln.
 * You will find DevDaysTasks/Helpers/Constants.cs
 * Update with your app name and run!
-
-
-## Windows UWP SQLite
-Inside of Visual Studio go to **Tools->Extensions and Updates**
-
-Under **Online->Visual Studio Gallery** search for **SQlite** 
-
-Ensure you install SQLite for Universal Windows Platform (version 3.13.0).
-
-![](images/sqliteuwp.PNG)

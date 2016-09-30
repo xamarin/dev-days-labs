@@ -1,22 +1,13 @@
-// To add offline sync support: add the NuGet package Microsoft.Azure.Mobile.Client.SQLiteStore
-// to all projects in the solution and uncomment the symbol definition OFFLINE_SYNC_ENABLED
-// For Xamarin.iOS, also edit AppDelegate.cs and uncomment the call to SQLitePCL.CurrentPlatform.Init()
-// For more information, see: http://go.microsoft.com/fwlink/?LinkId=620342 
-#define OFFLINE_SYNC_ENABLED
 
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 
-#if OFFLINE_SYNC_ENABLED
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
-#endif
 
 namespace DevDaysTasks
 {
@@ -27,18 +18,45 @@ namespace DevDaysTasks
 
         IMobileServiceSyncTable<TodoItem> todoTable;
 
-        private TodoItemManager()
-        {
-            this.client = new MobileServiceClient(Constants.ApplicationURL);
 
-            var store = new MobileServiceSQLiteStore("localstore.db");
+        public async Task Initialize()
+        {
+            if (client?.SyncContext?.IsInitialized ?? false)
+                return;
+
+
+            client = new MobileServiceClient(Constants.ApplicationURL);
+
+            var path = InitializeDatabase();
+            var store = new MobileServiceSQLiteStore(path);
             store.DefineTable<TodoItem>();
 
             //Initializes the SyncContext using the default IMobileServiceSyncHandler.
-            this.client.SyncContext.InitializeAsync(store);
+            await client.SyncContext.InitializeAsync(store);
 
-            this.todoTable = client.GetSyncTable<TodoItem>();
+            todoTable = client.GetSyncTable<TodoItem>();
 
+        }
+
+        private string InitializeDatabase()
+        {
+#if __ANDROID__ || __IOS__
+            CurrentPlatform.Init();
+#endif
+            SQLitePCL.Batteries.Init();
+
+            var path = "localstore.db";
+
+#if __ANDROID__
+            path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), path);
+
+            if (!File.Exists(path))
+            {
+                File.Create(path).Dispose();
+            }
+#endif
+
+            return path;
         }
 
         public static TodoItemManager DefaultManager
@@ -58,23 +76,20 @@ namespace DevDaysTasks
             get { return client; }
         }
 
-        public bool IsOfflineEnabled
-        {
-            get { return todoTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<TodoItem>; }
-        }
-
         public async Task<ObservableCollection<TodoItem>> GetTodoItemsAsync(bool syncItems = false)
         {
             try
             {
+                await Initialize();
 
                 if (syncItems)
                 {
-                    await this.SyncAsync();
+                    await SyncAsync();
                 }
 
                 var items = await todoTable
                     .Where(todoItem => !todoItem.Done)
+                    .OrderBy(todoItem => todoItem.Name)
                     .ToEnumerableAsync();
 
                 return new ObservableCollection<TodoItem>(items);
@@ -82,16 +97,20 @@ namespace DevDaysTasks
             catch (MobileServiceInvalidOperationException msioe)
             {
                 Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+                throw;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(@"Sync error: {0}", e.Message);
+                throw;
             }
             return null;
         }
 
         public async Task SaveTaskAsync(TodoItem item)
         {
+            await Initialize();
+
             if (item.Id == null)
             {
                 await todoTable.InsertAsync(item);
@@ -106,17 +125,19 @@ namespace DevDaysTasks
 
         public async Task SyncAsync()
         {
+            await Initialize();
+
             ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
 
             try
             {
-                await this.client.SyncContext.PushAsync();
+                await client.SyncContext.PushAsync();
 
-                await this.todoTable.PullAsync(
+                await todoTable.PullAsync(
                     //The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
                     //Use a different query name for each unique query in your program
                     "allTodoItems",
-                    this.todoTable.CreateQuery());
+                    todoTable.CreateQuery());
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -137,7 +158,7 @@ namespace DevDaysTasks
                         //Update failed, reverting to server's copy.
                         await error.CancelAndUpdateItemAsync(error.Result);
                     }
-                    else
+                    else if(error.OperationKind != MobileServiceTableOperationKind.Update)
                     {
                         // Discard local change.
                         await error.CancelAndDiscardItemAsync();

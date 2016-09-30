@@ -9,34 +9,36 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <ActivityIndicator Grid.RowSpan="2"
-                       HorizontalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
                        VerticalOptions="Center"
-                       IsVisible="False"
-                       IsEnabled="True"
-                       x:Name="syncIndicator"/>
+                       IsVisible="{Binding IsBusy}"
+                       IsRunning="{Binding IsBusy}"/>
     <StackLayout Grid.Row="0" BackgroundColor="#5ABAFF" Padding="10,10,10,5">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Entry x:Name="newItemName"
-                  Placeholder="Item name" />
-        <StackLayout x:Name="buttonsPanel" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+        <Entry Text="{Binding Name}" 
+               Placeholder="Item name" />
+        <StackLayout Grid.Column="1" 
+                     Orientation="Horizontal" 
+                     HorizontalOptions="StartAndExpand">
           <Button Text="Add"
                   MinimumHeightRequest="30"
-                  Clicked="OnAdd" />
+                  Command="{Binding AddCommand}" />
           <Button Text="Sync"
                 MinimumHeightRequest="30"
-                Clicked="OnSyncItems" />
+                Command="{Binding SyncCommand}" />
         </StackLayout>
       </Grid>
     </StackLayout>
-    <ListView x:Name="todoList"
+    <ListView 
+        ItemsSource="{Binding Items}"
 				ItemSelected="OnSelected"
 				IsPullToRefreshEnabled="true" 
-        
-        Refreshing="OnRefresh"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshCommand="{Binding SyncCommand}"
         HasUnevenRows="true"
 				Grid.Row="1">
       <ListView.ItemTemplate>
