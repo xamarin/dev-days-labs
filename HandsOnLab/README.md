@@ -31,7 +31,6 @@ This can be done by **Right-clicking** on the **Solution** and clicking on **Res
 We will be pulling down information about speakers. Open the **DevDaysSpeakers/Model/Speaker.cs** file and add the following properties inside of the **Speaker** class:
 
 ```csharp
-public string Id { get; set; }
 public string Name { get; set; }
 public string Description { get; set; }
 public string Website { get; set; }
