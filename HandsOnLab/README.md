@@ -373,6 +373,8 @@ If you run into an issue building the project with an error such as:
 
 Additionally, see James' blog for visual reference: http://motzcod.es/post/149717060272/fix-for-unsupported-majorminor-version-520
 
+If you are running into issues with Android support packages that can't be unzipped because of corruption please check: https://xamarinhelp.com/debugging-xamarin-android-build-and-deployment-failures/
+
 #### Windows 10
 
 Simply set the DevDaysSpeakers.UWP as the startup project and select debug to **Local Machine**.
