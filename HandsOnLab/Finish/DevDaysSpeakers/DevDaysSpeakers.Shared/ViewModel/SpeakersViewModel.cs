@@ -11,8 +11,8 @@ using DevDaysSpeakers.Model;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using AppServiceHelpers.Abstractions;
 using System.Runtime.CompilerServices;
+using DevDaysSpeakers.Services;
 
 namespace DevDaysSpeakers.ViewModel
 {
@@ -20,12 +20,9 @@ namespace DevDaysSpeakers.ViewModel
     {
         public ObservableCollection<Speaker> Speakers { get; set; }
         public Command GetSpeakersCommand { get; set; }
-
-        ITableDataStore<Speaker> table;
         public SpeakersViewModel()
         {
-            table = App.AzureClient.Table<Speaker>();
-
+            
             Speakers = new ObservableCollection<Speaker>();
             GetSpeakersCommand = new Command(
                 async () => await GetSpeakers(),
@@ -58,8 +55,9 @@ namespace DevDaysSpeakers.ViewModel
             try
             {
                 IsBusy = true;
-             
-                var items = await table.GetItemsAsync();
+
+                var service = DependencyService.Get<AzureService>();
+                var items = await service.GetSpeakers();
 
                 Speakers.Clear();
                 foreach (var item in items)
