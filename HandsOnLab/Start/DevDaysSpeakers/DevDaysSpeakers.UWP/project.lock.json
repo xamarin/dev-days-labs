@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     "UAP,Version=v10.0": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -23,10 +23,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -437,21 +437,23 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -463,7 +465,7 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/win10-arm/native/e_sqlite3.dll": {
@@ -480,11 +482,11 @@
           }
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -2394,7 +2396,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -2414,10 +2416,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -3101,21 +3103,23 @@
           "runtimes/win8-arm/native/clrcompression.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -3127,17 +3131,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "native": {
           "runtimes/win10-arm/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -4888,7 +4892,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -4908,10 +4912,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -5634,21 +5638,23 @@
           "runtimes/win8-arm-aot/native/_._": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -5660,17 +5666,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "native": {
           "runtimes/win10-arm/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -7421,7 +7427,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -7441,10 +7447,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -8137,21 +8143,23 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -8163,17 +8171,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "native": {
           "runtimes/win10-x64/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -9924,7 +9932,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -9944,10 +9952,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -10679,21 +10687,23 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -10705,17 +10715,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "native": {
           "runtimes/win10-x64/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -12466,7 +12476,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -12486,10 +12496,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -13182,21 +13192,23 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -13208,17 +13220,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "native": {
           "runtimes/win10-x86/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -14969,7 +14981,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Microsoft.Azure.Mobile.Client/3.0.1": {
+      "Microsoft.Azure.Mobile.Client/3.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -14989,10 +15001,10 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "2.0.0",
+          "Microsoft.Azure.Mobile.Client": "3.0.2",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
@@ -15724,21 +15736,23 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.0.1": {
+      "SQLitePCLRaw.bundle_green/1.1.0": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.0.1",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.0.1",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
         },
         "compile": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {}
+          "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
+          "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.0.1": {
+      "SQLitePCLRaw.core/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -15750,17 +15764,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
         "type": "package",
         "native": {
           "runtimes/win10-x86/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.0.1"
+          "SQLitePCLRaw.core": "1.1.0"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -17512,11 +17526,11 @@
     }
   },
   "libraries": {
-    "Microsoft.Azure.Mobile.Client/3.0.1": {
-      "sha512": "RYeiyPttPN9emuFkHy4xnTaScmiVvPaVwXblMyYrkRiATifFhMjiKDXjwXPr0HxoAPXOTVnduclQKcJefIRQmA==",
+    "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "sha512": "QYCR/IJj+eywQf/9GHhdA4/neEN2TTDd4Hs+739825BMM8Do7bR9dQB2YjPKRKfaPNhmoHS3c1DH73uIl99Ndw==",
       "type": "package",
       "files": [
-        "Microsoft.Azure.Mobile.Client.3.0.1.nupkg.sha512",
+        "Microsoft.Azure.Mobile.Client.3.0.2.nupkg.sha512",
         "Microsoft.Azure.Mobile.Client.nuspec",
         "lib/Xamarin.iOS10/Microsoft.WindowsAzure.Mobile.Ext.dll",
         "lib/Xamarin.iOS10/Microsoft.WindowsAzure.Mobile.Ext.xml",
@@ -17553,11 +17567,11 @@
         "lib/wpa81/Microsoft.WindowsAzure.Mobile.xml"
       ]
     },
-    "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.1": {
-      "sha512": "kKgMyZCuY0lsPMdSy0TDTkN3imceQcCoWELXxpzr7NKkw0wnJw1mt9YyIrke5kCVDjxshN07cmzMZQfuRlbYYQ==",
+    "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "sha512": "MmmhVs/iCYox0LrEFfI8UCLGQ7XjhuLIOVvcLZtQHnLa87cwMncPnB9xviGEhpoAFHjkkiG1BuEKDTnZMoV7Wg==",
       "type": "package",
       "files": [
-        "Microsoft.Azure.Mobile.Client.SQLiteStore.3.0.1.nupkg.sha512",
+        "Microsoft.Azure.Mobile.Client.SQLiteStore.3.0.2.nupkg.sha512",
         "Microsoft.Azure.Mobile.Client.SQLiteStore.nuspec",
         "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll",
         "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.xml"
@@ -18975,41 +18989,55 @@
         "runtimes/win8-arm/native/clrcompression.dll"
       ]
     },
-    "SQLitePCLRaw.bundle_green/1.0.1": {
-      "sha512": "OzRbh0SBB1c+Kwfm/oHsWT2eAP2XouRVr6hWDg/ckhzmigCmQm/5MooNd8KotiiQtIc8ukYqKL8hfX6NOwX2UQ==",
+    "SQLitePCLRaw.bundle_green/1.1.0": {
+      "sha512": "dbpmShrY8HJxj02MWJ/lAYaNdK4DAaE8NrgxYPZXfrdIm5GD3QcyKzgdSZXy93t0VJNmvFHv49G8OiCj5npCyA==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.bundle_green.1.0.1.nupkg.sha512",
+        "SQLitePCLRaw.bundle_green.1.1.0.nupkg.sha512",
         "SQLitePCLRaw.bundle_green.nuspec",
         "build/wp8/SQLitePCLRaw.bundle_green.targets",
         "build/wp80/arm/SQLitePCLRaw.batteries_green.dll",
+        "build/wp80/arm/SQLitePCLRaw.batteries_v2.dll",
         "build/wp80/x86/SQLitePCLRaw.batteries_green.dll",
+        "build/wp80/x86/SQLitePCLRaw.batteries_v2.dll",
         "lib/MonoAndroid/SQLitePCLRaw.batteries_green.dll",
-        "lib/MonoTouch/SQLitePCLRaw.batteries_green.dll",
+        "lib/MonoAndroid/SQLitePCLRaw.batteries_v2.dll",
         "lib/Xamarin.iOS10/SQLitePCLRaw.batteries_green.dll",
+        "lib/Xamarin.iOS10/SQLitePCLRaw.batteries_v2.dll",
         "lib/net35/SQLitePCLRaw.batteries_green.dll",
+        "lib/net35/SQLitePCLRaw.batteries_v2.dll",
         "lib/net40/SQLitePCLRaw.batteries_green.dll",
+        "lib/net40/SQLitePCLRaw.batteries_v2.dll",
         "lib/net45/SQLitePCLRaw.batteries_green.dll",
+        "lib/net45/SQLitePCLRaw.batteries_v2.dll",
         "lib/netcoreapp/SQLitePCLRaw.batteries_green.dll",
+        "lib/netcoreapp/SQLitePCLRaw.batteries_v2.dll",
         "lib/netstandard1.1/SQLitePCLRaw.batteries_green.dll",
+        "lib/netstandard1.1/SQLitePCLRaw.batteries_v2.dll",
         "lib/portable-net40+sl5+netcore45+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLitePCLRaw.batteries_green.dll",
+        "lib/portable-net40+sl5+netcore45+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLitePCLRaw.batteries_v2.dll",
         "lib/portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLitePCLRaw.batteries_green.dll",
+        "lib/portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLitePCLRaw.batteries_v2.dll",
         "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLitePCLRaw.batteries_green.dll",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLitePCLRaw.batteries_v2.dll",
         "lib/uap10.0/SQLitePCLRaw.batteries_green.dll",
+        "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll",
         "lib/win8/SQLitePCLRaw.batteries_green.dll",
+        "lib/win8/SQLitePCLRaw.batteries_v2.dll",
         "lib/win81/SQLitePCLRaw.batteries_green.dll",
+        "lib/win81/SQLitePCLRaw.batteries_v2.dll",
         "lib/wp8/_._",
-        "lib/wpa81/SQLitePCLRaw.batteries_green.dll"
+        "lib/wpa81/SQLitePCLRaw.batteries_green.dll",
+        "lib/wpa81/SQLitePCLRaw.batteries_v2.dll"
       ]
     },
-    "SQLitePCLRaw.core/1.0.1": {
-      "sha512": "ih45uNC9JVk3xxkxuy1vGl6Ukn6KJkOeEXQcMoxCaGg4OrcYZQFcm9/Sq5WTElGZJ/LynpV6/OrIaLqrmsC8eQ==",
+    "SQLitePCLRaw.core/1.1.0": {
+      "sha512": "e5Bm2K2B2v9z8jHm1nyEN1M8pH6GG8emIboMhsqDzuLIf9uWvGPsdNm0WzWeG6oxSmTgSQsLajcuqA1gDAIMJw==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.core.1.0.1.nupkg.sha512",
+        "SQLitePCLRaw.core.1.1.0.nupkg.sha512",
         "SQLitePCLRaw.core.nuspec",
         "lib/MonoAndroid/SQLitePCLRaw.core.dll",
-        "lib/MonoTouch/SQLitePCLRaw.core.dll",
         "lib/Xamarin.iOS10/SQLitePCLRaw.core.dll",
         "lib/net35/SQLitePCLRaw.core.dll",
         "lib/net40/SQLitePCLRaw.core.dll",
@@ -19025,11 +19053,11 @@
         "lib/wpa81/SQLitePCLRaw.core.dll"
       ]
     },
-    "SQLitePCLRaw.lib.e_sqlite3.v140/1.0.1": {
-      "sha512": "CLefWn71MamflDwflpXGJetsBJHI7Vpm4/4slTRtBVeJ6YOqrmY0oJCWKulQsITKYdJXjJhYWM4wy8Yqe7eaUA==",
+    "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "sha512": "pFF30aD37wYKgPmOXEIXjTcPKKhC5gED5M+m+CiAMKJqzZxso7ucGYWw/8dJPmD04o9T5JNgi+pLRhHMd2IpFQ==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.lib.e_sqlite3.v140.1.0.1.nupkg.sha512",
+        "SQLitePCLRaw.lib.e_sqlite3.v140.1.1.0.nupkg.sha512",
         "SQLitePCLRaw.lib.e_sqlite3.v140.nuspec",
         "build/SQLitePCLRaw.lib.e_sqlite3.v140.targets",
         "runtimes/win10-arm/native/e_sqlite3.dll",
@@ -19037,11 +19065,11 @@
         "runtimes/win10-x86/native/e_sqlite3.dll"
       ]
     },
-    "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.0.1": {
-      "sha512": "nxh13kxShb1zfuyx+OfLCngIotMBu8YRFo+uCUPQeEz9hohQctnt/w6Zh5ZEjZjnT3dcQ5mgX94Cii1TE3NdlQ==",
+    "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "sha512": "ANA4xKfJqLD2FSdOn/sOm2AhGFvjQQA7smIuBD26ClcGvn3uTEktD6VgjbWaSjrQnFslm/2Jxbmx79oqdVKUeQ==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.provider.e_sqlite3.uwp10.1.0.1.nupkg.sha512",
+        "SQLitePCLRaw.provider.e_sqlite3.uwp10.1.1.0.nupkg.sha512",
         "SQLitePCLRaw.provider.e_sqlite3.uwp10.nuspec",
         "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll"
       ]
@@ -24176,14 +24204,14 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.Azure.Mobile.Client >= 3.0.1",
-      "Microsoft.Azure.Mobile.Client.SQLiteStore >= 3.0.1",
+      "Microsoft.Azure.Mobile.Client >= 3.0.2",
+      "Microsoft.Azure.Mobile.Client.SQLiteStore >= 3.0.2",
       "Microsoft.Bcl >= 1.1.10",
       "Microsoft.Bcl.Build >= 1.0.21",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Microsoft.Net.Http >= 2.2.29",
       "Newtonsoft.Json >= 9.0.1",
-      "SQLitePCLRaw.bundle_green >= 1.0.1",
+      "SQLitePCLRaw.bundle_green >= 1.1.0",
       "Xam.Plugins.TextToSpeech >= 2.0.0",
       "Xamarin.Forms >= 2.3.2.127"
     ],

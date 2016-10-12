@@ -30,7 +30,9 @@ namespace DevDaysSpeakers.Services
             Client = new MobileServiceClient(appUrl);
 
             //InitialzeDatabase for path
-            var path = InitializeDatabase();
+            var path = "syncstore.db";
+            path = Path.Combine(MobileServiceClient.DefaultDatabasePath, path);
+
 
             //setup our local sqlite store and intialize our table
             var store = new MobileServiceSQLiteStore(path);
@@ -44,28 +46,6 @@ namespace DevDaysSpeakers.Services
             //Get our sync table that will call out to azure
             table = Client.GetSyncTable<Speaker>();
         }
-
-        private string InitializeDatabase()
-        {
-#if __ANDROID__ || __IOS__
-            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
-#endif
-            SQLitePCL.Batteries.Init();
-
-            var path = "syncstore.db";
-
-#if __ANDROID__
-            path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), path);
-
-            if (!File.Exists(path))
-            {
-                File.Create(path).Dispose();
-            }
-#endif
-
-            return path;
-        }
-
 
 
         public async Task<IEnumerable<Speaker>> GetSpeakers()
