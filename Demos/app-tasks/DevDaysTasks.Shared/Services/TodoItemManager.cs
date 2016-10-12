@@ -27,7 +27,9 @@ namespace DevDaysTasks
 
             client = new MobileServiceClient(Constants.ApplicationURL);
 
-            var path = InitializeDatabase();
+            var path = "syncstore.db";
+            path = Path.Combine(MobileServiceClient.DefaultDatabasePath, path);
+
             var store = new MobileServiceSQLiteStore(path);
             store.DefineTable<TodoItem>();
 
@@ -36,27 +38,6 @@ namespace DevDaysTasks
 
             todoTable = client.GetSyncTable<TodoItem>();
 
-        }
-
-        private string InitializeDatabase()
-        {
-#if __ANDROID__ || __IOS__
-            CurrentPlatform.Init();
-#endif
-            SQLitePCL.Batteries.Init();
-
-            var path = "localstore.db";
-
-#if __ANDROID__
-            path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), path);
-
-            if (!File.Exists(path))
-            {
-                File.Create(path).Dispose();
-            }
-#endif
-
-            return path;
         }
 
         public static TodoItemManager DefaultManager

@@ -9,6 +9,7 @@ using Android.Widget;
 using Android.OS;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace DevDaysTasks.Droid
 {
@@ -25,7 +26,8 @@ namespace DevDaysTasks.Droid
 
             base.OnCreate (bundle);
 
-			Forms.Init (this, bundle);
+            CurrentPlatform.Init();
+            Forms.Init (this, bundle);
 			LoadApplication (new App ());
 		}
 	}
