@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MvvmHelpers;
@@ -26,7 +27,7 @@ namespace ImageSearch.ViewModel
         {
 			//Bing Image API
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
-				      $"search?q={query}" +
+				      $"search?q={WebUtility.UrlEncode(query)}" +
 					  $"&count=20&offset=0&mkt=en-us&safeSearch=Strict";
 
             var requestHeaderKey = "Ocp-Apim-Subscription-Key";
