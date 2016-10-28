@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using DevDaysSpeakers.Model;
+using DevDaysSpeakers.Services;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using AppServiceHelpers.Abstractions;
 using System.Runtime.CompilerServices;
 
 namespace DevDaysSpeakers.ViewModel

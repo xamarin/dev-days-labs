@@ -8,8 +8,6 @@ using Xamarin.Forms;
 
 using DevDaysSpeakers.Model;
 using DevDaysSpeakers.ViewModel;
-using AppServiceHelpers;
-using AppServiceHelpers.Abstractions;
 
 
 namespace DevDaysSpeakers.View

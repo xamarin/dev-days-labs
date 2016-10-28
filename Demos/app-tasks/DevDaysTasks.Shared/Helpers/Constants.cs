@@ -6,7 +6,7 @@ namespace DevDaysTasks
 	{
 		// Replace strings with your mobile services and gateway URLs.
 		public static string ApplicationURL =
-            @"https://YOUR-APP-URL.azurewebsites.net";
+            @"https://OUR-APP-NAME-HERE.azurewebsites.net";
 	}
 }
 
