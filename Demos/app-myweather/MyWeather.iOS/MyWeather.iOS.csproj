@@ -21,10 +21,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchProfiling>true</MtouchProfiling>
+<MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+<CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -128,6 +130,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyWeather\MyWeather.csproj">
       <Name>MyWeather</Name>
+      <Project>{5366CC83-65A3-4969-B883-3229108447E2}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
