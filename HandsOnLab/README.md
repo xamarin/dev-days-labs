@@ -591,6 +591,10 @@ Select the file and it will add a new table name and find the fields that we hav
 
 ![upload data](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
 
+> Note: If you get an error while uploading the Speaker.CSV file, it may be a bug that has been resolved. To workaround this, go to the "Application settings" under the "Settings" section and scoll down to "App Settings". Change the value for MobileAppsManagement_EXTENSION_VERSION to 1.0.367 and save the changes. Now retry the "Add from CSV" process again
+
+![application settings fix](appsettingsfix.png)
+
 Now you can re-run your application and get data from Azure!
 
 
