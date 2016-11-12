@@ -21,10 +21,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchSdkVersion>10.1</MtouchSdkVersion>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -58,9 +70,23 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchProfiling>False</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchDebug>true</MtouchDebug>
+    <MtouchDebug>True</MtouchDebug>
+    <PlatformTarget>x64</PlatformTarget>
+    <MtouchSdkVersion>10.1</MtouchSdkVersion>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
+    <DeviceSpecificBuild>False</DeviceSpecificBuild>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
