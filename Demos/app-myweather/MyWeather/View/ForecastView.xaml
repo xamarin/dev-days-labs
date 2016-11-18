@@ -9,8 +9,7 @@
               IsPullToRefreshEnabled="True"
               RowHeight="66"
               RefreshCommand="{Binding GetWeatherCommand}"
-              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-              x:Name="ListViewWeather">
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
         <ListView.SeparatorColor>
             <OnPlatform x:TypeArguments="Color" iOS="Transparent"/>
         </ListView.SeparatorColor>

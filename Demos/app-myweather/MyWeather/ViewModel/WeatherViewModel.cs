@@ -117,7 +117,7 @@ namespace MyWeather.ViewModels
                 
 
                 //Get forecast based on cityId
-                Forecast = await WeatherService.GetForecast(weatherRoot.CityId, units);
+                Forecast = await WeatherService.GetForecast(weatherRoot, units);
 
                 var unit = IsImperial ? "F" : "C";
                 Temp = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
