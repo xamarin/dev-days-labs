@@ -528,7 +528,7 @@ In the DevDaysSpeakers/Services/AzureService.cs file let's add in our url to the
  var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
 ```
 
-Be sure to udpate YOUR-APP-NAME-HERE with the app name you just specified.
+Be sure to update YOUR-APP-NAME-HERE with the app name you just specified.
 
 The Initialize logic will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to get speaker data from Azure. There are just two methods that we need to fill in to get and sync data from the server.
 
