@@ -348,6 +348,22 @@ Replace <!--Add ItemTemplate Here--> with:
 ```
 Xamarin.Forms will automatically download, cache, and display the image from the server.
 
+### Connect the View with the ViewModel
+As we have bound some elements of the View to ViewModel properties, we have to tell the View now, which ViewModel to bind against. For this, we have to set the `BindingContext` to the `SpeakersViewModel`, we created. Open the `SpeakersPage.xaml.cs` file and see, that we already did this binding for you.
+
+```csharp
+SpeakersViewModel vm;
+
+public SpeakersPage()
+{
+    InitializeComponent();
+
+    // Create the view model and set as binding context
+    vm = new SpeakersViewModel();
+    BindingContext = vm;
+}
+```
+
 ### Validate App.cs
 
 Open the App.cs file and you will see the entry point for the application, which is the constructor for `App()`. It simply creates the  SpeakersPage, and then wraps it in a navigation page to get a nice title bar.
