@@ -38,8 +38,7 @@ namespace DevDaysTasks
             client = new MobileServiceClient(Constants.ApplicationURL);
 
             // Initialize local database for syncing 
-            var path = "syncstore.db";
-            path = Path.Combine(MobileServiceClient.DefaultDatabasePath, path);
+            var path = Path.Combine(MobileServiceClient.DefaultDatabasePath, Constants.SyncStorePath);
             var store = new MobileServiceSQLiteStore(path);
             store.DefineTable<TodoItem>();
 
