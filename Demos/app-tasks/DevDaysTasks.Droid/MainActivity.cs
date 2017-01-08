@@ -26,7 +26,10 @@ namespace DevDaysTasks.Droid
 
             base.OnCreate (bundle);
 
+            // Initialize Azure Mobile App for the current platform
             CurrentPlatform.Init();
+
+            // Initialize and load the Xamarin.Forms application
             Forms.Init (this, bundle);
 			LoadApplication (new App ());
 		}

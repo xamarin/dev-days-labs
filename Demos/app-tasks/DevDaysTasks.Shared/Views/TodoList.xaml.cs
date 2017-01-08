@@ -5,8 +5,8 @@ namespace DevDaysTasks
 {
     public partial class TodoList : ContentPage
     {
-
         TodoListViewModel viewModel;
+
         public TodoList()
         {
             InitializeComponent();
@@ -17,6 +17,7 @@ namespace DevDaysTasks
         {
             base.OnAppearing();
 
+            // Refresh the list of items whenever the page appears without syncing data with the server
             viewModel.RefreshCommand.Execute(false);
         }
 
@@ -25,6 +26,7 @@ namespace DevDaysTasks
         {
             var list = (ListView)sender;
             var todo = e.SelectedItem as TodoItem;
+
             if (Device.OS != TargetPlatform.iOS && todo != null)
             {
                 // Not iOS - the swipe-to-delete is discoverable there
@@ -34,7 +36,7 @@ namespace DevDaysTasks
                 }
                 else
                 {
-                    // Windows, not all platforms support the Context Actions yet
+                    // Windows only, not all platforms support the Context Actions yet
                     if (await DisplayAlert("Mark completed?", "Do you wish to complete " + todo.Name + "?", "Complete", "Cancel"))
                     {
                         viewModel.CompleteCommand.Execute(todo);
@@ -49,9 +51,12 @@ namespace DevDaysTasks
         // http://developer.xamarin.com/guides/cross-platform/xamarin-forms/working-with/listview/#context
         public void OnComplete(object sender, EventArgs e)
         {
-            var mi = ((MenuItem)sender);
-            var todo = mi.CommandParameter as TodoItem;
-            viewModel.CompleteCommand.Execute(todo);
+            // Get selected item
+            var menuItem = ((MenuItem)sender);
+            var todoItem = menuItem.CommandParameter as TodoItem;
+
+            // Mark as completed by executing the according command
+            viewModel.CompleteCommand.Execute(todoItem);
         }
     }
 }
