@@ -85,11 +85,11 @@ private void OnPropertyChanged([CallerMemberName] string name = null) =>
 private void OnPropertyChanged([CallerMemberName] string name = null)
 {
     var changed = PropertyChanged;
+    
+    if (changed == null)
+       return;
 
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(name));
+    changed.Invoke(this, new PropertyChangedEventArgs(name));
 }
 ```
 
