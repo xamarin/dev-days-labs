@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using ImageSearch.Model;
 using Acr.UserDialogs;
 using ImageSearch.Model.BingSearch;
+using Plugin.Connectivity;
 
 namespace ImageSearch.ViewModel
 {
@@ -25,6 +26,13 @@ namespace ImageSearch.ViewModel
         
         public async Task<bool> SearchForImagesAsync(string query)
         {
+
+            if(!CrossConnectivity.Current.IsConnected)
+            {
+                await UserDialogs.Instance.AlertAsync("Not connected to the internet, please check connection.");
+                return false;
+            }
+
 			//Bing Image API
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
 				      $"search?q={WebUtility.UrlEncode(query)}" +

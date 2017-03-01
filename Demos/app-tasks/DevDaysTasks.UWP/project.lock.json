@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     "UAP,Version=v10.0": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -23,16 +23,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -437,12 +437,12 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -453,7 +453,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -465,7 +465,7 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/win10-arm/native/e_sqlite3.dll": {
@@ -482,11 +482,11 @@
           }
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -2368,7 +2368,7 @@
           }
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -2385,7 +2385,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -2405,16 +2405,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -3092,12 +3092,12 @@
           "runtimes/win8-arm/native/clrcompression.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -3108,7 +3108,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -3120,17 +3120,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "native": {
           "runtimes/win10-arm/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -4853,7 +4853,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -4870,7 +4870,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -4890,16 +4890,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -5616,12 +5616,12 @@
           "runtimes/win8-arm-aot/native/_._": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -5632,7 +5632,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -5644,17 +5644,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "native": {
           "runtimes/win10-arm/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -7377,7 +7377,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -7394,7 +7394,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -7414,16 +7414,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -8110,12 +8110,12 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -8126,7 +8126,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -8138,17 +8138,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "native": {
           "runtimes/win10-x64/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -9871,7 +9871,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -9888,7 +9888,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -9908,16 +9908,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -10643,12 +10643,12 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -10659,7 +10659,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -10671,17 +10671,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "native": {
           "runtimes/win10-x64/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -12404,7 +12404,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -12421,7 +12421,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -12441,16 +12441,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -13137,12 +13137,12 @@
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -13153,7 +13153,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -13165,17 +13165,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "native": {
           "runtimes/win10-x86/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -14898,7 +14898,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -14915,7 +14915,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Microsoft.Azure.Mobile.Client/3.0.2": {
+      "Microsoft.Azure.Mobile.Client/3.1.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -14935,16 +14935,16 @@
           "lib/netcore45/Microsoft.WindowsAzure.Mobile.dll": {}
         }
       },
-      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
+      "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Azure.Mobile.Client": "3.0.2",
+          "Microsoft.Azure.Mobile.Client": "3.1.0",
           "Microsoft.Bcl": "1.1.10",
           "Microsoft.Bcl.Build": "1.0.21",
           "Microsoft.Net.Http": "2.2.29",
           "Newtonsoft.Json": "6.0.4",
-          "SQLitePCLRaw.bundle_green": "1.0.0",
-          "SQLitePCLRaw.core": "1.0.0"
+          "SQLitePCLRaw.bundle_green": "1.1.2",
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll": {}
@@ -15670,12 +15670,12 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.0": {
+      "SQLitePCLRaw.bundle_green/1.1.2": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.0",
-          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.0",
-          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2",
+          "SQLitePCLRaw.lib.e_sqlite3.v140": "1.1.2",
+          "SQLitePCLRaw.provider.e_sqlite3.uwp10": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.batteries_green.dll": {},
@@ -15686,7 +15686,7 @@
           "lib/uap10.0/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.0": {
+      "SQLitePCLRaw.core/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -15698,17 +15698,17 @@
           "lib/uap10.0/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
+      "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
         "type": "package",
         "native": {
           "runtimes/win10-x86/native/e_sqlite3.dll": {}
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
+      "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.0"
+          "SQLitePCLRaw.core": "1.1.2"
         },
         "compile": {
           "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -17431,7 +17431,7 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.3.2.127": {
+      "Xamarin.Forms/2.3.3.193": {
         "type": "package",
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
@@ -17449,11 +17449,11 @@
     }
   },
   "libraries": {
-    "Microsoft.Azure.Mobile.Client/3.0.2": {
-      "sha512": "QYCR/IJj+eywQf/9GHhdA4/neEN2TTDd4Hs+739825BMM8Do7bR9dQB2YjPKRKfaPNhmoHS3c1DH73uIl99Ndw==",
+    "Microsoft.Azure.Mobile.Client/3.1.0": {
+      "sha512": "L/RF/9A/mMFifQsTBRmSPV3UpvG11LR+0vsm7KKkOW7pLeRmsAWFtfKRUKoEfgdi2XoOFSLkXk88w8jVXV5uJA==",
       "type": "package",
       "files": [
-        "Microsoft.Azure.Mobile.Client.3.0.2.nupkg.sha512",
+        "Microsoft.Azure.Mobile.Client.3.1.0.nupkg.sha512",
         "Microsoft.Azure.Mobile.Client.nuspec",
         "lib/Xamarin.iOS10/Microsoft.WindowsAzure.Mobile.Ext.dll",
         "lib/Xamarin.iOS10/Microsoft.WindowsAzure.Mobile.Ext.xml",
@@ -17490,11 +17490,11 @@
         "lib/wpa81/Microsoft.WindowsAzure.Mobile.xml"
       ]
     },
-    "Microsoft.Azure.Mobile.Client.SQLiteStore/3.0.2": {
-      "sha512": "MmmhVs/iCYox0LrEFfI8UCLGQ7XjhuLIOVvcLZtQHnLa87cwMncPnB9xviGEhpoAFHjkkiG1BuEKDTnZMoV7Wg==",
+    "Microsoft.Azure.Mobile.Client.SQLiteStore/3.1.0": {
+      "sha512": "UHBdSCsofsd45Pk8OBD4Wja9d+doYL3/4BindcRMYngX5jTDZPn872Z+42rt4RV1JOUirWRQ7QqmK4ampTeOgg==",
       "type": "package",
       "files": [
-        "Microsoft.Azure.Mobile.Client.SQLiteStore.3.0.2.nupkg.sha512",
+        "Microsoft.Azure.Mobile.Client.SQLiteStore.3.1.0.nupkg.sha512",
         "Microsoft.Azure.Mobile.Client.SQLiteStore.nuspec",
         "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.dll",
         "lib/portable-win+net45+wp8+wpa81+monotouch10+monoandroid10+xamarinios10/Microsoft.WindowsAzure.Mobile.SQLiteStore.xml"
@@ -17968,7 +17968,7 @@
       ]
     },
     "Newtonsoft.Json/9.0.1": {
-      "sha512": "U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
+      "sha512": "RNOedaGHIIek9JJqwIJpETqA3q2Uy447krWOYRR6gvqjKN5IZXu9Jcg2IVW8wj11X3bfSUqghty5H7oRy1rTMQ==",
       "type": "package",
       "files": [
         "Newtonsoft.Json.9.0.1.nupkg.sha512",
@@ -18912,11 +18912,11 @@
         "runtimes/win8-arm/native/clrcompression.dll"
       ]
     },
-    "SQLitePCLRaw.bundle_green/1.1.0": {
-      "sha512": "dbpmShrY8HJxj02MWJ/lAYaNdK4DAaE8NrgxYPZXfrdIm5GD3QcyKzgdSZXy93t0VJNmvFHv49G8OiCj5npCyA==",
+    "SQLitePCLRaw.bundle_green/1.1.2": {
+      "sha512": "i7ZcVmz1CY9/Un9GrnZWtbou9va7ho54Bx9V7H59CxERCq9IJ10164rY8sg2uLGtiJY3AhWdtrA045QTlETmhA==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.bundle_green.1.1.0.nupkg.sha512",
+        "SQLitePCLRaw.bundle_green.1.1.2.nupkg.sha512",
         "SQLitePCLRaw.bundle_green.nuspec",
         "build/wp8/SQLitePCLRaw.bundle_green.targets",
         "build/wp80/arm/SQLitePCLRaw.batteries_green.dll",
@@ -18925,6 +18925,8 @@
         "build/wp80/x86/SQLitePCLRaw.batteries_v2.dll",
         "lib/MonoAndroid/SQLitePCLRaw.batteries_green.dll",
         "lib/MonoAndroid/SQLitePCLRaw.batteries_v2.dll",
+        "lib/Xamarin.Mac20/SQLitePCLRaw.batteries_green.dll",
+        "lib/Xamarin.Mac20/SQLitePCLRaw.batteries_v2.dll",
         "lib/Xamarin.iOS10/SQLitePCLRaw.batteries_green.dll",
         "lib/Xamarin.iOS10/SQLitePCLRaw.batteries_v2.dll",
         "lib/net35/SQLitePCLRaw.batteries_green.dll",
@@ -18954,13 +18956,14 @@
         "lib/wpa81/SQLitePCLRaw.batteries_v2.dll"
       ]
     },
-    "SQLitePCLRaw.core/1.1.0": {
-      "sha512": "e5Bm2K2B2v9z8jHm1nyEN1M8pH6GG8emIboMhsqDzuLIf9uWvGPsdNm0WzWeG6oxSmTgSQsLajcuqA1gDAIMJw==",
+    "SQLitePCLRaw.core/1.1.2": {
+      "sha512": "Hll9I6i6c9h+8gW250qGssQh/4l7AQEhSzK0TXSVju5utgXV6ruupaiGr/3MFdwGIDH8QyVxXz22/esZ8A6CMw==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.core.1.1.0.nupkg.sha512",
+        "SQLitePCLRaw.core.1.1.2.nupkg.sha512",
         "SQLitePCLRaw.core.nuspec",
         "lib/MonoAndroid/SQLitePCLRaw.core.dll",
+        "lib/Xamarin.Mac20/SQLitePCLRaw.core.dll",
         "lib/Xamarin.iOS10/SQLitePCLRaw.core.dll",
         "lib/net35/SQLitePCLRaw.core.dll",
         "lib/net40/SQLitePCLRaw.core.dll",
@@ -18976,11 +18979,11 @@
         "lib/wpa81/SQLitePCLRaw.core.dll"
       ]
     },
-    "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.0": {
-      "sha512": "pFF30aD37wYKgPmOXEIXjTcPKKhC5gED5M+m+CiAMKJqzZxso7ucGYWw/8dJPmD04o9T5JNgi+pLRhHMd2IpFQ==",
+    "SQLitePCLRaw.lib.e_sqlite3.v140/1.1.2": {
+      "sha512": "GTgZvXEE3hY0YVJNskdz6oUwN1k1kcaItobjPrUO2DVnRHolOMPuoR6F43VCeR3S7zioSOI5sqaSqwX6kkL0mQ==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.lib.e_sqlite3.v140.1.1.0.nupkg.sha512",
+        "SQLitePCLRaw.lib.e_sqlite3.v140.1.1.2.nupkg.sha512",
         "SQLitePCLRaw.lib.e_sqlite3.v140.nuspec",
         "build/SQLitePCLRaw.lib.e_sqlite3.v140.targets",
         "runtimes/win10-arm/native/e_sqlite3.dll",
@@ -18988,11 +18991,11 @@
         "runtimes/win10-x86/native/e_sqlite3.dll"
       ]
     },
-    "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.0": {
-      "sha512": "ANA4xKfJqLD2FSdOn/sOm2AhGFvjQQA7smIuBD26ClcGvn3uTEktD6VgjbWaSjrQnFslm/2Jxbmx79oqdVKUeQ==",
+    "SQLitePCLRaw.provider.e_sqlite3.uwp10/1.1.2": {
+      "sha512": "OGlBhALVrK1CQjUpzisIkSy243a/zCWyfV//b31/OYEK6Z3IjTp6yUuGfifMUzAI8EbiLAI4fPUa2YYthaIU1A==",
       "type": "package",
       "files": [
-        "SQLitePCLRaw.provider.e_sqlite3.uwp10.1.1.0.nupkg.sha512",
+        "SQLitePCLRaw.provider.e_sqlite3.uwp10.1.1.2.nupkg.sha512",
         "SQLitePCLRaw.provider.e_sqlite3.uwp10.nuspec",
         "lib/uap10.0/SQLitePCLRaw.provider.e_sqlite3.dll"
       ]
@@ -23868,25 +23871,25 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "Xamarin.Forms/2.3.2.127": {
-      "sha512": "5f//6Ot/zh9Rg9QksTKTA8iH5h+9GMLfA0M6aS9dVRq26ChIwmZlBCk6EETGQVSDx+yHZ5h/WHYfnwU08IriMg==",
+    "Xamarin.Forms/2.3.3.193": {
+      "sha512": "9EvzSO+JgU7zwzzTL+Muv4Zh1VwBN5JAR+WzdeBIeu8nYDRE+cjIcnm24rx2Ro47VBUSXGg1rpNPPQnqRNqEvA==",
       "type": "package",
       "files": [
-        "Xamarin.Forms.2.3.2.127.nupkg.sha512",
+        "Xamarin.Forms.2.3.3.193.nupkg.sha512",
         "Xamarin.Forms.nuspec",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/ICSharpCode.Decompiler.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/ICSharpCode.NRefactory.CSharp.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/ICSharpCode.NRefactory.Cecil.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/ICSharpCode.NRefactory.Xml.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/ICSharpCode.NRefactory.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Mono.Cecil.Mdb.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Mono.Cecil.Pdb.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Mono.Cecil.Rocks.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Mono.Cecil.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Build.Tasks.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Core.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Xaml.dll",
-        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/ICSharpCode.Decompiler.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/ICSharpCode.NRefactory.CSharp.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/ICSharpCode.NRefactory.Cecil.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/ICSharpCode.NRefactory.Xml.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/ICSharpCode.NRefactory.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Mono.Cecil.Mdb.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Mono.Cecil.Pdb.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Mono.Cecil.Rocks.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Mono.Cecil.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Build.Tasks.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Core.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Xaml.dll",
+        "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.targets",
         "lib/MonoAndroid10/Design/Xamarin.Forms.Core.Design.dll",
         "lib/MonoAndroid10/Design/Xamarin.Forms.Xaml.Design.dll",
         "lib/MonoAndroid10/FormsViewGroup.dll",
@@ -23900,52 +23903,6 @@
         "lib/MonoAndroid10/Xamarin.Forms.Xaml.dll",
         "lib/MonoAndroid10/Xamarin.Forms.Xaml.pdb",
         "lib/MonoAndroid10/Xamarin.Forms.Xaml.xml",
-        "lib/MonoTouch10/Design/Xamarin.Forms.Core.Design.dll",
-        "lib/MonoTouch10/Design/Xamarin.Forms.Xaml.Design.dll",
-        "lib/MonoTouch10/Xamarin.Forms.Core.dll",
-        "lib/MonoTouch10/Xamarin.Forms.Core.dll.mdb",
-        "lib/MonoTouch10/Xamarin.Forms.Core.pdb",
-        "lib/MonoTouch10/Xamarin.Forms.Core.xml",
-        "lib/MonoTouch10/Xamarin.Forms.Platform.dll",
-        "lib/MonoTouch10/Xamarin.Forms.Platform.iOS.Classic.dll",
-        "lib/MonoTouch10/Xamarin.Forms.Xaml.dll",
-        "lib/MonoTouch10/Xamarin.Forms.Xaml.dll.mdb",
-        "lib/MonoTouch10/Xamarin.Forms.Xaml.pdb",
-        "lib/MonoTouch10/Xamarin.Forms.Xaml.xml",
-        "lib/MonoTouch10/ar/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/ca/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/cs/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/da/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/de/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/el/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/es/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/fi/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/fr/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/he/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/hi/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/hr/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/hu/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/id/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/it/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/ja/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/ko/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/ms/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/nb/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/nl/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/pl/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/pt-BR/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/pt/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/ro/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/ru/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/sk/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/sv/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/th/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/tr/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/uk/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/vi/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/zh-HK/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/zh-Hans/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
-        "lib/MonoTouch10/zh-Hant/Xamarin.Forms.Platform.iOS.Classic.resources.dll",
         "lib/WP80/Design/Xamarin.Forms.Core.Design.dll",
         "lib/WP80/Design/Xamarin.Forms.Xaml.Design.dll",
         "lib/WP80/Xamarin.Forms.Core.dll",
@@ -24005,19 +23962,19 @@
         "lib/Xamarin.iOS10/zh-HK/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/zh-Hans/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/zh-Hant/Xamarin.Forms.Platform.iOS.resources.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Design/Xamarin.Forms.Core.Design.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Design/Xamarin.Forms.Xaml.Design.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Core.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Core.dll.mdb",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Core.pdb",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Core.xml",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Platform.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Platform.dll.mdb",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Platform.pdb",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Xaml.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Xaml.dll.mdb",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Xaml.pdb",
-        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.Xaml.xml",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Design/Xamarin.Forms.Core.Design.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Design/Xamarin.Forms.Xaml.Design.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Core.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Core.dll.mdb",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Core.pdb",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Core.xml",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Platform.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Platform.dll.mdb",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Platform.pdb",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Xaml.dll",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Xaml.dll.mdb",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Xaml.pdb",
+        "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Xaml.xml",
         "lib/uap10.0/Design/Xamarin.Forms.Core.Design.dll",
         "lib/uap10.0/Design/Xamarin.Forms.Xaml.Design.dll",
         "lib/uap10.0/Xamarin.Forms.Core.dll",
@@ -24025,10 +23982,14 @@
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.pri",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/AutoSuggestStyle.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsCommandBarStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsTextBoxStyle.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/MasterDetailControlStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/PageControl.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/PageControlStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Properties/Xamarin.Forms.Platform.UAP.rd.xml",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Resources.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/TabbedPageStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Xamarin.Forms.Platform.UAP.xr.xml",
         "lib/uap10.0/Xamarin.Forms.Platform.dll",
         "lib/uap10.0/Xamarin.Forms.Xaml.dll",
@@ -24075,16 +24036,16 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.Azure.Mobile.Client >= 3.0.2",
-      "Microsoft.Azure.Mobile.Client.SQLiteStore >= 3.0.2",
+      "Microsoft.Azure.Mobile.Client >= 3.1.0",
+      "Microsoft.Azure.Mobile.Client.SQLiteStore >= 3.1.0",
       "Microsoft.Bcl >= 1.1.10",
       "Microsoft.Bcl.Build >= 1.0.21",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Microsoft.Net.Http >= 2.2.29",
       "Newtonsoft.Json >= 9.0.1",
-      "SQLitePCLRaw.bundle_green >= 1.1.0",
-      "SQLitePCLRaw.core >= 1.1.0",
-      "Xamarin.Forms >= 2.3.2.127"
+      "SQLitePCLRaw.bundle_green >= 1.1.2",
+      "SQLitePCLRaw.core >= 1.1.2",
+      "Xamarin.Forms >= 2.3.3.193"
     ],
     "UAP,Version=v10.0": []
   }
