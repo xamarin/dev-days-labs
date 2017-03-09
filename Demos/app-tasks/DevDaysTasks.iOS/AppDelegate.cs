@@ -13,9 +13,12 @@ namespace DevDaysTasks.iOS
 	{
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			global::Xamarin.Forms.Forms.Init ();
+            // Initialize Azure Mobile App for the current platform
             CurrentPlatform.Init();
-            LoadApplication (new App ());
+
+            // Initialize and load the Xamarin.Forms application
+            global::Xamarin.Forms.Forms.Init();            
+            LoadApplication (new App());
 
 			return base.FinishedLaunching (app, options);
 		}

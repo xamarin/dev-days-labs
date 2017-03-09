@@ -10,8 +10,28 @@ namespace DevDaysTasks
 {
     public class TodoListViewModel : INotifyPropertyChanged
     {
-        TodoItemManager manager;
-        
+        private TodoItemManager manager;
+
+        private ObservableCollection<TodoItem> items;
+        public ObservableCollection<TodoItem> Items
+        {
+            get { return items; }
+            set { items = value; OnPropertyChanged(); }
+        }
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; OnPropertyChanged(); }
+        }
+
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { isBusy = value; OnPropertyChanged(); }
+        }
 
         public TodoListViewModel()
         {
@@ -22,35 +42,10 @@ namespace DevDaysTasks
             CompleteCommand = new Command<TodoItem>(async (item) => await CompleteAsync(item));
             SyncCommand = new Command(async () => await RefreshAsync(true));
             RefreshCommand = new Command(async () => await RefreshAsync(false));
-        }
-
-        ObservableCollection<TodoItem> items;
-        public ObservableCollection<TodoItem> Items
-        {
-            get { return items; }
-            set { items = value;  OnPropertyChanged(); }
-        }
-
-        string name;
-        public string Name
-        {
-            get { return name; }
-            set { name = value;  OnPropertyChanged(); }
-        }
-        
-
-        bool busy;
-        public bool IsBusy
-        {
-            get { return busy; }
-            set { busy = value; OnPropertyChanged(); }
-        }
-
-
+        }       
 
         public Command AddCommand { get; }
-
-        async Task AddAsync()
+        public async Task AddAsync()
         {
             IsBusy = true;
             var item = new TodoItem { Name = Name };
@@ -61,7 +56,6 @@ namespace DevDaysTasks
         }
 
         public Command<TodoItem> CompleteCommand { get; }
-
         public async Task CompleteAsync(TodoItem item)
         {
             IsBusy = true;
@@ -73,9 +67,7 @@ namespace DevDaysTasks
 
 
         public Command SyncCommand { get; } 
-
         public Command RefreshCommand { get; }
-
         async Task RefreshAsync(bool? sync)
         {
             IsBusy = true;
@@ -93,8 +85,8 @@ namespace DevDaysTasks
             }
         }
 
+        // Implement INotifyPropteryChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName]string name = "")
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        void OnPropertyChanged([CallerMemberName]string name = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
