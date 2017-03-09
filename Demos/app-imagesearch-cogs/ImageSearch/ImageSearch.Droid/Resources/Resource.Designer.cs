@@ -3228,15 +3228,6 @@ namespace ImageSearch.Droid
 			// aapt resource value: 0x7f070003
 			public const int CardView_Light = 2131165187;
 			
-			// aapt resource value: 0x7f07015b
-			public const int MyTheme = 2131165531;
-			
-			// aapt resource value: 0x7f07015d
-			public const int MyTheme_ActionBar = 2131165533;
-			
-			// aapt resource value: 0x7f07015c
-			public const int MyTheme_Base = 2131165532;
-			
 			// aapt resource value: 0x7f07001b
 			public const int Platform_AppCompat = 2131165211;
 			
@@ -3566,6 +3557,15 @@ namespace ImageSearch.Droid
 			
 			// aapt resource value: 0x7f070151
 			public const int Theme_Design_NoActionBar = 2131165521;
+			
+			// aapt resource value: 0x7f07015b
+			public const int Theme_MyTheme = 2131165531;
+			
+			// aapt resource value: 0x7f07015d
+			public const int Theme_MyTheme_ActionBar = 2131165533;
+			
+			// aapt resource value: 0x7f07015c
+			public const int Theme_MyTheme_Base = 2131165532;
 			
 			// aapt resource value: 0x7f0700f7
 			public const int ThemeOverlay_AppCompat = 2131165431;
