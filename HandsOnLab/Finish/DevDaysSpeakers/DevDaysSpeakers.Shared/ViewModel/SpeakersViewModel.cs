@@ -30,14 +30,14 @@ namespace DevDaysSpeakers.ViewModel
 
         }
 
-        bool busy;
+        bool isBusy;
 
         public bool IsBusy
         {
-            get { return busy; }
+            get { return isBusy; }
             set
             {
-                busy = value;
+                isBusy = value;
                 OnPropertyChanged();
 
                 GetSpeakersCommand.ChangeCanExecute();

@@ -85,11 +85,11 @@ private void OnPropertyChanged([CallerMemberName] string name = null) =>
 private void OnPropertyChanged([CallerMemberName] string name = null)
 {
     var changed = PropertyChanged;
+    
+    if (changed == null)
+       return;
 
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(name));
+    changed.Invoke(this, new PropertyChangedEventArgs(name));
 }
 ```
 
@@ -101,7 +101,7 @@ We will create a backing field and accessors for a boolean property. This will l
 First, create the backing field:
 
 ```csharp
-private bool busy;
+private bool isBusy;
 ```
 
 Next, create the property:
@@ -158,7 +158,7 @@ First is to check if we are already grabbing data:
 ```csharp
 private async Task GetSpeakers()
 {
-    if(IsBusy)
+    if (IsBusy)
         return;
 }
 ```
@@ -196,7 +196,7 @@ Now, we will use *HttpClient* to grab the json from the server inside of the **t
  ```csharp
 using(var client = new HttpClient())
 {
-    //grab json from server
+    // Grab json from the server
     var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
 } 
 ```
@@ -295,7 +295,7 @@ set
 }
 ```
 
-## The User Interface!!!
+## The User Interface
 It is now finally time to build out our first Xamarin.Forms user interface in the **View/SpeakersPage.xaml**
 
 ### SpeakersPage.xaml
@@ -325,8 +325,9 @@ Under the button we can display a loading bar when we are gathering data from th
 We will use a ListView that binds to the Speakers collection to display all of the items. We can use a special property called *x:Name=""* to name any control:
 
 ```xml
-<ListView x:Name="ListViewSpeakers"
-              ItemsSource="{Binding Speakers}">
+<ListView
+    x:Name="ListViewSpeakers"
+    ItemsSource="{Binding Speakers}">
         <!--Add ItemTemplate Here-->
 </ListView>
 ```
@@ -338,17 +339,34 @@ Replace <!--Add ItemTemplate Here--> with:
 ```xml
 <ListView.ItemTemplate>
     <DataTemplate>
-        <ImageCell Text="{Binding Name}"
-                    Detail="{Binding Title}"
-                    ImageSource="{Binding Avatar}"/>
+        <ImageCell
+            Text="{Binding Name}"
+            Detail="{Binding Title}"
+            ImageSource="{Binding Avatar}"/>
     </DataTemplate>
 </ListView.ItemTemplate>
 ```
 Xamarin.Forms will automatically download, cache, and display the image from the server.
 
+### Connect the View with the ViewModel
+As we have bound some elements of the View to ViewModel properties, we have to tell the View now, which ViewModel to bind against. For this, we have to set the `BindingContext` to the `SpeakersViewModel`, we created. Open the `SpeakersPage.xaml.cs` file and see, that we already did this binding for you.
+
+```csharp
+SpeakersViewModel vm;
+
+public SpeakersPage()
+{
+    InitializeComponent();
+
+    // Create the view model and set as binding context
+    vm = new SpeakersViewModel();
+    BindingContext = vm;
+}
+```
+
 ### Validate App.cs
 
-Open the App.cs file and you will see the entry point for the application, which is the constructor for App(). It simply creates the  SpeakersPage, and then wraps it in a navigation page to get a nice title bar.
+Open the App.cs file and you will see the entry point for the application, which is the constructor for `App()`. It simply creates the  SpeakersPage, and then wraps it in a navigation page to get a nice title bar.
 
 ### Run the App!
 
@@ -414,11 +432,11 @@ In the above code we check to see if the selected item is not null and then use 
 Let's now fill in the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView in case we have long text.
 
 ```xml
-  <ScrollView Padding="10">
+<ScrollView Padding="10">
     <StackLayout Spacing="10">
-     <!-- Detail controls here -->
+        <!-- Detail controls here -->
     </StackLayout>    
-  </ScrollView>
+</ScrollView>
 ```
 
 Now, let's add controls and bindings for the properties in the Speaker object:
@@ -525,7 +543,7 @@ We will be using the [Azure Mobile Apps SDK](https://azure.microsoft.com/en-us/d
 In the DevDaysSpeakers/Services/AzureService.cs file let's add in our url to the Initialize method.
 
 ```csharp
- var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
+var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
 ```
 
 Be sure to update YOUR-APP-NAME-HERE with the app name you just specified.
@@ -686,9 +704,10 @@ Open DetailsPage.xaml and change the Label that is displaying the Title from:
 to an Entry with a OneWay data binding (this means when we enter text it will not change the actual data), and a Name to expose it in the code behind.
 
 ```xml
-<Entry Text="{Binding Title, Mode=OneWay}" 
-             TextColor="Purple" 
-             x:Name="EntryTitle"/>
+<Entry
+    Text="{Binding Title, Mode=OneWay}" 
+    TextColor="Purple" 
+    x:Name="EntryTitle"/>
 ```
 
 Let's add a save Button under the Go To Website button.
@@ -731,7 +750,8 @@ public DetailsPage(Speaker item)
 {
     InitializeComponent();
     this.speaker = item;
-    ...
+    
+    // ...
 }
 ```
 After:
@@ -743,7 +763,8 @@ public DetailsPage(Speaker item, SpeakersViewModel viewModel)
     InitializeComponent();
     this.speaker = item;
     this.vm = viewModel;
-    ...
+    
+    // ...
 }
 ```
 
