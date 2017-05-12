@@ -1,3 +1,3 @@
-## Xamrin Dev Days Slide Decks
+## Xamarin Dev Days Slide Decks
 
 Coming soon.
