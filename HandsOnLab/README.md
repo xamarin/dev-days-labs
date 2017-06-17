@@ -109,10 +109,10 @@ Next, create the property:
 ```csharp
 public bool IsBusy
 {
-    get { return busy; }
+    get { return isBusy; }
     set
     {
-        busy = value;
+        isBusy = value;
         OnPropertyChanged();
     }
 }
