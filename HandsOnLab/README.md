@@ -635,12 +635,10 @@ Follow these steps:
 public class EmotionService
 {
     private static async Task<Emotion[]> GetHappinessAsync(string url)
-    {
-        var client = new HttpClient();
-        var stream = await client.GetStreamAsync(url);
+    {        
         var emotionClient = new EmotionServiceClient("INSERT_EMOTION_SERVICE_KEY_HERE");
 
-        var emotionResults = await emotionClient.RecognizeAsync(stream);
+        var emotionResults = await emotionClient.RecognizeAsync(url);
 
         if (emotionResults == null || emotionResults.Count() == 0)
         {
