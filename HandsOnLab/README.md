@@ -288,7 +288,7 @@ The only modification that we will have to make is when we set the IsBusy proper
 ```csharp
 set
 {
-    busy = value;
+    isBusy = value;
     OnPropertyChanged();
     //Update the can execute
     GetSpeakersCommand.ChangeCanExecute();
