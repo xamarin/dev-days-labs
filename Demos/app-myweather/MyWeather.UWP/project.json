@@ -5,10 +5,10 @@
     "Xam.Plugin.Geolocator": "3.0.4",
     "Xam.Plugins.Settings": "2.5.4",
     "Xam.Plugins.TextToSpeech": "2.0.0",
-    "Xamarin.Forms": "2.3.3.193"
+    "Xamarin.Forms": "2.3.4.270"
   },
   "frameworks": {
-    "uap10.0": {}
+    "uap10.0.10240": {}
   },
   "runtimes": {
     "win10-arm": {},

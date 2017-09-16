@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{367B4F1E-C7D4-432C-B767-59121E12C2BF}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DevDaysSpeakers/DevDaysSpeakers.Shared/Services/AzureService.cs">
+    <Files>
+      <File FileName="../../../../../../Library/Frameworks/Mono.framework/Versions/5.2.0/lib/mono/msbuild/15.0/bin/Microsoft.Common.CurrentVersion.targets" Line="2113" Column="5" />
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/Services/AzureService.cs" Line="51" Column="49" />
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/ViewModel/SpeakersViewModel.cs" Line="1" Column="1" />
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/App.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.DevDaysSpeakers.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.C2C28131-A84F-4F7A-A795-BDD9389781C8" />
+  <MultiItemStartupConfigurations />
+</Properties>
