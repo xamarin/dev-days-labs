@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{367B4F1E-C7D4-432C-B767-59121E12C2BF}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DevDaysSpeakers/DevDaysSpeakers.Shared/Model/Speaker.cs">
+    <Files>
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/Model/Speaker.cs" Line="18" Column="44" />
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/ViewModel/SpeakersViewModel.cs" Line="48" Column="41" />
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/View/SpeakersPage.xaml" Line="26" Column="15" />
+      <File FileName="DevDaysSpeakers/DevDaysSpeakers.Shared/View/DetailsPage.xaml" Line="7" Column="15" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.DevDaysSpeakers.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.C2C28131-A84F-4F7A-A795-BDD9389781C8" />
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -106,7 +106,7 @@ namespace MyWeather.ViewModels
 
                 if (UseGPS)
                 {
-                    var gps = await CrossGeolocator.Current.GetPositionAsync(10000);
+                    var gps = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10000));
                     weatherRoot = await WeatherService.GetWeather(gps.Latitude, gps.Longitude, units);
                 }
                 else
@@ -123,9 +123,9 @@ namespace MyWeather.ViewModels
                 Temp = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
                 Condition = $"{weatherRoot.Name}: {weatherRoot?.Weather?[0]?.Description ?? string.Empty}";
 
-                CrossTextToSpeech.Current.Speak(Temp + " " + Condition);
+                await CrossTextToSpeech.Current.Speak(Temp + " " + Condition);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Temp = "Unable to get Weather";
             }
