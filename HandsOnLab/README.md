@@ -1,11 +1,13 @@
-## Xamarin Dev Days Hands On Lab
+# Xamarin Dev Days Hands On Lab
 
 Today we will build a cloud connected [Xamarin.Forms](https://xamarin.com/forms) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
 
 
-### Get Started
+## Walkthrough
 
-Open **Start/DevDaysSpeakers.sln**
+### 1. Open Solution in Visual Studio
+
+1. Open **Start/DevDaysSpeakers.sln**
 
 This solution contains 4 projects
 
@@ -18,17 +20,20 @@ This solution contains 4 projects
 
 The **DevDaysSpeakers** project also has blank code files and XAML pages that we will use during the Hands on Lab.
 
-#### NuGet Restore
+### 2. NuGet Restore
 
 All projects have the required NuGet packages already installed, so there will be no need to install additional packages during the Hands on Lab. The first thing that we must do is restore all of the NuGet packages from the internet.
 
-This can be done by **Right-clicking** on the **Solution** and selecting **Restore NuGet packages...**
+1. **Right-click** on the **Solution** and selecting **Restore NuGet packages...**
 
 ![Restore NuGets](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a31a6bff-b45d-4c60-a602-1359f984e80b/2016-07-11_1328.png)
 
-### Model
+### 3. Model
 
-We will download details about the speakers. Open the **DevDaysSpeakers/Model/Speaker.cs** file and add the following properties to the **Speaker** class:
+We will download details about the speakers.
+
+1. Open the **DevDaysSpeakers/Model/Speaker.cs** file
+2. Copy/paste the following properties to the **Speaker** class:
 
 ```csharp
 public string Id { get; set; }
@@ -39,15 +44,12 @@ public string Title { get; set; }
 public string Avatar { get; set; }
 ```
 
-### View Model
-
-The **SpeakersViewModel.cs** will provide all of the functionality to display data in our our main Xamarin.Forms view. It will consist of a list of speakers and a method that can be called to get the speakers from the server. It will also contain a boolean flag that indicates if we are getting data in a background task.
-
-#### Implementing INotifyPropertyChanged
+### 4. Implementing INotifyPropertyChanged
 
 *INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, lets our view know about changes to the model.
 
-Update:
+1. In Visual Studio, open **SpeakersViewModel.cs**
+2. In **SpeakersViewModel.cs**, implement INotifyPropertyChanged by changing this
 
 ```csharp
 public class SpeakersViewModel
@@ -56,7 +58,7 @@ public class SpeakersViewModel
 }
 ```
 
-to
+to this
 
 ```csharp
 public class SpeakersViewModel : INotifyPropertyChanged
@@ -64,27 +66,46 @@ public class SpeakersViewModel : INotifyPropertyChanged
 
 }
 ```
-Right click and tap **Implement Interface**, which will add the following line of code:
+
+3. In **SpeakersViewModel.cs**, right click on `INotifyPropertyChanged`
+4. Implement the `INotifyPropertyChanged` Interface
+   - (Visual Studio Mac) In the right-click menu, select Quick Fix -> Implement Interface
+   - (Visual Studio PC) In the right-click menu, select Quick Actions and Refactorings -> Implement Interface
+5. In **SpeakersViewModel.cs**, ensure this line of code now appears:
 
 ```csharp
 public event PropertyChangedEventHandler PropertyChanged;
 ```
 
-We will code a helper method named **OnPropertyChanged** that will raise the **PropertyChanged** event (see below). We will invoke the helper method whenever a property changes.
+6. In **SpeakersViewModel.cs**, create a new method called `OnPropertyChanged`
+    - Note: We will call `OnPropertyChanged` whenever a property updates
 
-##### C# 6 (Visual Studio 2015/2017 or Visual Studio for Mac)
+```csharp
+private void OnPropertyChanged([CallerMemberName] string name = null)
+{
+
+}
+```
+
+7. Add code to `OnPropertyChanged`:
+    - Visual Studio Mac and Visual Studio PC 2017 or newer
+
 ```csharp
 private void OnPropertyChanged([CallerMemberName] string name = null) =>
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 ```
 
+<ul>
+    <ul>
+        <li>Visual Studio PC 2015 or earlier</li>
+    </ul>
+</ul>
 
-##### C# 5 (Visual Studio 2012 or 2013)
 ```csharp
 private void OnPropertyChanged([CallerMemberName] string name = null)
 {
     var changed = PropertyChanged;
-    
+
     if (changed == null)
        return;
 
@@ -92,10 +113,9 @@ private void OnPropertyChanged([CallerMemberName] string name = null)
 }
 ```
 
-Now, we can call **OnPropertyChanged();** whenever a property updates. Let's create our first property now.
 
-#### IsBusy
-We will create a backing field and accessors for a boolean property. This will let our view know that our view model is busy so we don't perform duplicate operations (like allowing the user to refresh the data multiple times).
+### 5. Implementing IsBusy
+We will create a backing field and accessors for a boolean property. This property will let our view know that our view model is busy so we don't perform duplicate operations (like allowing the user to refresh the data multiple times).
 
 First, create the backing field:
 
