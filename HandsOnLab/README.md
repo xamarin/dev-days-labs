@@ -1,6 +1,6 @@
 ## Xamarin Dev Days Hands On Lab
 
-Today we will build a cloud connected [Xamarin.Forms](http://xamarin.com/forms) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
+Today we will build a cloud connected [Xamarin.Forms](https://xamarin.com/forms) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
 
 
 ### Get Started
@@ -14,7 +14,7 @@ This solution contains 4 projects
 * DevDaysSpeakers.iOS - Xamarin.iOS application (requires a macOS build host)
 * DevDaysSpeakers.UWP - Windows 10 UWP application (requires Visual Studio 2015/2017 on Windows 10)
 
-![Solution](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/44f4caa9-efb9-4405-95d4-7341608e1c0a/Portable.png)
+![Solution](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/44f4caa9-efb9-4405-95d4-7341608e1c0a/Portable.png)
 
 The **DevDaysSpeakers** project also has blank code files and XAML pages that we will use during the Hands on Lab.
 
@@ -24,7 +24,7 @@ All projects have the required NuGet packages already installed, so there will b
 
 This can be done by **Right-clicking** on the **Solution** and selecting **Restore NuGet packages...**
 
-![Restore NuGets](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a31a6bff-b45d-4c60-a602-1359f984e80b/2016-07-11_1328.png)
+![Restore NuGets](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a31a6bff-b45d-4c60-a602-1359f984e80b/2016-07-11_1328.png)
 
 ### Model
 
@@ -195,7 +195,7 @@ Now, we will use *HttpClient* to get the json-ecoded data from the server inside
  ```csharp
 using(var client = new HttpClient())
 {
-    var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
+    var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
 } 
 ```
 
@@ -235,7 +235,7 @@ private async Task GetSpeakers()
         using(var client = new HttpClient())
         {
             //grab json from server
-            var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
+            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
             
             //Deserialize json
             var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
@@ -370,14 +370,14 @@ Open the App.cs file and you will see the entry point for the application, which
 
 Set the iOS, Android, or UWP project as the startup project and start debugging.
 
-![Startup project](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/020972ff-2a81-48f1-bbc7-1e4b89794369/2016-07-11_1442.png)
+![Startup project](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/020972ff-2a81-48f1-bbc7-1e4b89794369/2016-07-11_1442.png)
 
 #### iOS
 If you are on a Windows PC then you will need to be connected to a macOS build host with the Xamarin tools installed to run and debug the app.
 
 If connected, you will see a Green connection status. Select `iPhoneSimulator` as your target, and then select a Simulator to debug on.
 
-![iOS Setup](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a6b32d62-cd3d-41ea-bd16-1bcc1fbe1f9d/2016-07-11_1445.png)
+![iOS Setup](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a6b32d62-cd3d-41ea-bd16-1bcc1fbe1f9d/2016-07-11_1445.png)
 
 #### Android
 
@@ -387,7 +387,7 @@ If you run into an issue building the project with an error such as:
 
 **aapt.exe exited with code** or **Unsupported major.minor version 52** then your Java JDK may not be setup correctly, or you have newer build tools installed then what is supported. See this technical bulletin for support: https://releases.xamarin.com/technical-bulletin-android-sdk-build-tools-24/
 
-Additionally, see James' blog for visual reference: http://motzcod.es/post/149717060272/fix-for-unsupported-majorminor-version-520
+Additionally, see James' blog for visual reference: https://motzcod.es/post/149717060272/fix-for-unsupported-majorminor-version-520
 
 If you are running into issues with Android support packages that can't be unzipped because of corruption please check: https://xamarinhelp.com/debugging-xamarin-android-build-and-deployment-failures/
 
@@ -499,15 +499,15 @@ Now, we should be all set to compile and run our application!
 
 Being able to grab data from a RESTful end point is great, but what about creating the back-end service? This is where Azure Mobile Apps comes in. Let's update our application to use an Azure Mobile Apps back-end.
 
-If you don't already have an Azure account, go to [http://portal.azure.com](http://portal.azure.com) and register.
+If you don't already have an Azure account, go to [https://portal.azure.com](https://portal.azure.com) and register.
 
 Once you're registered, open the Azure portal, select the **+ New** button and search for **mobile apps**. You will see the results as shown below. Select **Mobile Apps Quickstart**
 
-![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/c2894f06-c688-43ad-b812-6384b34c5cb0/2016-07-11_1546.png)
+![Quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/c2894f06-c688-43ad-b812-6384b34c5cb0/2016-07-11_1546.png)
 
 The Quickstart blade will open, select **Create**
 
-![Create quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/344d6fc2-1771-4cb7-a49a-6bd9e9579ba6/2016-07-11_1548.png)
+![Create quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/344d6fc2-1771-4cb7-a49a-6bd9e9579ba6/2016-07-11_1548.png)
 
 This will open a settings blade with 4 settings:
 
@@ -526,11 +526,11 @@ A resource group is logical container the can hold multiple Azure services. Usin
 **App Service plan/Location**
 Click this field and select **Create New**, give it a unique name, select a location (typically you would choose a location close to your customers), and then select the F1 Free tier:
 
-![service plan](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/7559d3f1-7ee6-490f-ac5e-d1028feba88f/2016-07-11_1553.png)
+![service plan](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/7559d3f1-7ee6-490f-ac5e-d1028feba88f/2016-07-11_1553.png)
 
 Finally check **Pin to dashboard** and click create:
 
-![](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a844c283-550c-4647-82d3-32d8bda4282f/2016-07-11_1554.png)
+![](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a844c283-550c-4647-82d3-32d8bda4282f/2016-07-11_1554.png)
 
 This will take about 3-5 minutes to setup, so let's head back to the code!
 
@@ -595,7 +595,7 @@ Let's head back to the Azure Portal and populate the database.
 
 When the Quickstart finishes you should see the following screen, or can go to it by tapping the pin on the dashboard:
 
-![Quickstart](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/71ad3e06-dcc5-4c8b-8ebd-93b2df9ea2b2/2016-07-11_1601.png)
+![Quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/71ad3e06-dcc5-4c8b-8ebd-93b2df9ea2b2/2016-07-11_1601.png)
 
 Under **Features** select **Easy Tables**.
 
@@ -605,7 +605,7 @@ Ensure that you have downloaded this repo and have the **Speaker.csv** file that
 
 Select the file and it will add a new table name and find the fields that we have listed. Then hit Start Upload.
 
-![upload data](http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
+![upload data](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
 
 > Note: If you get an error while uploading the Speaker.CSV file, it may be a bug that has been resolved. To workaround this, go to the "Application settings" under the "Settings" section and scroll to "App Settings". Change the value for MobileAppsManagement_EXTENSION_VERSION to 1.0.367 and save the changes. Now retry the "Add from CSV" process again
 
@@ -621,7 +621,7 @@ Take Dev Days further with these additional challenges that you can complete at 
 ### Challenge 1: Cognitive Services
 For fun, you can add the [Cognitive Service Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) and add another Button to the detail page to analyze the speaker's face for happiness level. 
 
-Go to: http://microsoft.com/cognitive and create a new account and an API key for the Emotion service.
+Go to: https://microsoft.com/cognitive and create a new account and an API key for the Emotion service.
 
 Follow these steps:
 
