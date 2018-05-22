@@ -2,8 +2,7 @@
 
 Today we will build a cloud connected [Xamarin.Forms](https://xamarin.com/forms) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
 
-
-## Walkthrough
+## Mobile App Walkthrough
 
 ### 1. Open Solution in Visual Studio
 
@@ -640,7 +639,7 @@ public DetailsPage(Speaker speaker)
 }
 ```
 
-Then, we can use the static Device class to call the OpenUri method:
+2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will use the static class `Device` to call the `OpenUri` method
 
 ```csharp
 private void ButtonWebsite_Clicked(object sender, EventArgs e)
@@ -650,51 +649,58 @@ private void ButtonWebsite_Clicked(object sender, EventArgs e)
 }
 ```
 
-### Compile & Run
+### 16. Compile & Run
 Now, we should be all set to compile and run our application!
 
-## Connect to Azure Mobile Apps
+## Azure Backend Walkthrough
 
 Being able to grab data from a RESTful end point is great, but what about creating the back-end service? This is where Azure Mobile Apps comes in. Let's update our application to use an Azure Mobile Apps back-end.
 
-If you don't already have an Azure account, go to [https://portal.azure.com](https://portal.azure.com) and register.
+### 1. Create Azure Mobile App
 
-Once you're registered, open the Azure portal, select the **+ New** button and search for **mobile apps**. You will see the results as shown below. Select **Mobile Apps Quickstart**
+1. Create a Free Azure account including a free $200 credit by navigating to [The Azure Portal](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin) and register.
+
+2. In the Azure Portal, select the **+ New** button 
+3. In the Azure Portal, search for **mobile apps**. You will see the results as shown below. Select **Mobile Apps Quickstart**
 
 ![Quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/c2894f06-c688-43ad-b812-6384b34c5cb0/2016-07-11_1546.png)
 
-The Quickstart blade will open, select **Create**
+4. In the Quickstart blade, select **Create**
 
 ![Create quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/344d6fc2-1771-4cb7-a49a-6bd9e9579ba6/2016-07-11_1548.png)
 
 This will open a settings blade with 4 settings:
 
-**App name**
+5. Enter your **App name**
+    - This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App
+    - You will need to choose a globally-unique name; for example, you could try something like *yourlastnamespeakers*
 
-This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App. You will need to choose a globally-unique name; for example, you could try something like *yourlastnamespeakers*.
+6. Select your **Subscription**
+    - Select a subscription or create a pay-as-you-go account (this service will not cost you anything).
 
-**Subscription**
-Select a subscription or create a pay-as-you-go account (this service will not cost you anything).
+7. Create a new **Resource Group**
+    - Select *Create new* and call it **DevDaysSpeakers**
+    - A resource group is just a folder that holds multiple Azure services
 
-**Resource Group**
-Select *Create new* and call it **DevDaysSpeakers**.
-
-A resource group is logical container the can hold multiple Azure services. Using a resource group allows you to delete a collection of related services in one step.
-
-**App Service plan/Location**
-Click this field and select **Create New**, give it a unique name, select a location (typically you would choose a location close to your customers), and then select the F1 Free tier:
+8. Create new **App Service plan/Location**
+    - Click this field and select **Create New**
+    - Give it a unique name
+    - Select a location (typically you would choose a location close to your customers)
+    - Select the F1 Free tier
 
 ![service plan](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/7559d3f1-7ee6-490f-ac5e-d1028feba88f/2016-07-11_1553.png)
 
-Finally check **Pin to dashboard** and click create:
+9. Check **Pin to dashboard** 
+10. Click Create
 
 ![](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a844c283-550c-4647-82d3-32d8bda4282f/2016-07-11_1554.png)
 
-This will take about 3-5 minutes to setup, so let's head back to the code!
+It will take about 3-5 minutes for Azure to create the new service, so let's head back to the code!
 
 
-### Update AzureService.cs
-We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/en-us/documentation/articles/app-service-mobile-xamarin-forms-get-started/) to connect our mobile app to our Azure back-end with just a few lines of code.
+### 2. Update AzureService.cs
+
+We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?MontrealMobile-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
 
 Open the DevDaysSpeakers/Services/AzureService.cs and add our url to the Initialize method:
 
