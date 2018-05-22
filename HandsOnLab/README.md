@@ -315,100 +315,158 @@ private async Task GetSpeakers()
     finally
     {
         IsBusy = false;
-    }        
+    }
 }
 ```
 
 Our main method for getting data is now complete!
 
-#### GetSpeakers Command
+#### 8. Create GetSpeakers Command
 
-Instead of invoking this method directly, we will expose it with a **Command**. A Command has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
+Instead of invoking this method directly, we will expose it with a `Command`. A `Command` has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
 
-Create a new Command called **GetSpeakersCommand**:
+1. In `SpeakersViewModel.cs`, create a new Command called `GetSpeakersCommand`:
 
 ```csharp
 public Command GetSpeakersCommand { get; set; }
 ```
 
-Inside of the `SpeakersViewModel` constructor, create the `GetSpeakersCommand` and pass it two methods: one to invoke when the command is executed, and another that determines if the command is enabled. Both methods can be implemented as lambda expressions as shown below:
+2. Inside of the `SpeakersViewModel` constructor, create the `GetSpeakersCommand` and pass it two methods
+    - One to invoke when the command is executed
+    - Another that determines if the command is enabled. Both methods can be implemented as lambda expressions as shown below:
 
 ```csharp
-GetSpeakersCommand = new Command(
-                async () => await GetSpeakers(),
-                () => !IsBusy);
-```
-
-The only modification that we will have to make is when we set the IsBusy property, as we will want to re-evaluate the enabled function that we created. In the **set** of **IsBusy** invoke the **ChangeCanExecute** method on the **GetSpeakersCommand** as shown below:
-
-```csharp
-set
+public SpeakersViewModel()
 {
-    isBusy = value;
-    OnPropertyChanged();
-    //Update the can execute
-    GetSpeakersCommand.ChangeCanExecute();
+    GetSpeakersCommand = new Command(async () => await GetSpeakers(),() => !IsBusy);
 }
 ```
 
-## The User Interface
-It is now time to build the Xamarin.Forms user interface in **View/SpeakersPage.xaml**.
+## 9. Build The SpeakersPage User Interface
+It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.xaml`.
 
-### SpeakersPage.xaml
-
-In the first page we will add several vertically-stacked controls using a StackLayout. Between the `ContentPage` tags add the following:
+1. In `SpeakersPage.xaml`, add a `StackLayout` between the `ContentPage` tags
+    - By setting `Spacing="0"`, we're requesting that no space is added between the contents of the `StackLayout`
 
 ```xml
- <StackLayout Spacing="0">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.SpeakersPage"
+             Title="Speakers">
 
-  </StackLayout>
+    <StackLayout Spacing="0">
+
+    </StackLayout>
+
+</ContentPage>
 ```
 
-This is the layout container that will host the child controls. By setting the Spacing to zero, we're requesting that no space is added between the childern.
-
-Next, add a Button that has a binding to the **GetSpeakersCommand** that we created (see below). The command takes the place of a clicked handler and will be executed whenever the user taps the button.
+2. In `SpeakersPage.xaml`, add a `Button` that has a binding to `GetSpeakersCommand`
+    - The command will be executed whenever the user taps the button.
 
 ```xml
-<Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.SpeakersPage"
+             Title="Speakers">
+
+    <StackLayout Spacing="0">
+
+        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
+
+    </StackLayout>
+
+</ContentPage>
 ```
 
-Under the button we can display a loading bar when we are gathering data from the server. We can use an ActivityIndicator to do this and bind to the IsBusy property we created:
+3. In `SpeakersPage.xaml`, under the button, add an `ActivityIndicator`
+    - The `ActivityIndicator` is a spinning indicator we'll use to let the user know we are retrieving the files in the background
+    - The `ActivityIndicator` will be bound to `IsBusy`
 
 ```xml
-<ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.SpeakersPage"
+             Title="Speakers">
+
+    <StackLayout Spacing="0">
+
+        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+
+    </StackLayout>
+
+</ContentPage>
 ```
 
-We will use a ListView that binds to the Speakers collection to display all of the items. We can use a special property called *x:Name=""* to name any control:
+4. In `SpeakersPage.xaml`, add a ListView that binds to the `Speakers` collection to display all of the items. 
+    - We will use `x:Name="ListViewSpeakers"` so that we can access this XAML control from the C# code-behind
 
 ```xml
-<ListView
-    x:Name="ListViewSpeakers"
-    ItemsSource="{Binding Speakers}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.SpeakersPage"
+             Title="Speakers">
+
+    <StackLayout Spacing="0">
+
+        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+
+        <ListView
+            x:Name="ListViewSpeakers"
+            ItemsSource="{Binding Speakers}">
         <!--Add ItemTemplate Here-->
-</ListView>
+        </ListView>
+
+    </StackLayout>
+
+</ContentPage>
 ```
 
-We still need to describe what each item looks like, and to do so, we can use an ItemTemplate that has a DataTemplate with a specific View inside of it. Xamarin.Forms contains a few default Cells that we can use, and we will use the **ImageCell** that has an image and two rows of text.
-
-Replace <!--Add ItemTemplate Here--> with: 
+5. In `SpeakersPage.xaml`, add a `ItemTemplate` to describe what each item looks like
+    - Xamarin.Forms contains a few default Templates that we can use, and we will use the `ImageCell` that displays an image and two rows of text
 
 ```xml
-<ListView.ItemTemplate>
-    <DataTemplate>
-        <ImageCell
-            Text="{Binding Name}"
-            Detail="{Binding Title}"
-            ImageSource="{Binding Avatar}"/>
-    </DataTemplate>
-</ListView.ItemTemplate>
-```
-Xamarin.Forms will automatically download, cache, and display the image from the server.
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.SpeakersPage"
+             Title="Speakers">
 
-### Connect the View with the ViewModel
-As we have bound some elements of the View to ViewModel properties, we have to tell the View which ViewModel to bind against. For this, we have to set the `BindingContext` to the `SpeakersViewModel`, we created. Open the `SpeakersPage.xaml.cs` file and see, that we already did this binding for you.
+    <StackLayout Spacing="0">
+
+        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+
+        <ListView
+            x:Name="ListViewSpeakers"
+            ItemsSource="{Binding Speakers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell
+                        Text="{Binding Name}"
+                        Detail="{Binding Title}"
+                        ImageSource="{Binding Avatar}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+</ContentPage>
+```
+
+### 10. Connect SpeakersPage with SpeakersViewModel
+
+Because we have bound some elements of the View to ViewModel properties, we have to tell the View with which ViewModel to bind. For this, we have to set the `BindingContext` to the `SpeakersViewModel`.
+
+1. In `SpeakersPage.xaml.cs`, in the constructor, create a field `SpeakersViewModel vm`, initialize `vm` and assign it to the `BindingContext`
 
 ```csharp
-SpeakersViewModel vm;
+readonly SpeakersViewModel vm;
 
 public SpeakersPage()
 {
@@ -420,24 +478,23 @@ public SpeakersPage()
 }
 ```
 
-### Validate App.cs
+### 11. Run the App
 
-Open the App.cs file and you will see the entry point for the application, which is the constructor for `App()`. It creates the SpeakersPage, and then wraps it in a navigation page which adds title bar and enables stack navigation.
-
-### Run the App!
-
-Set the iOS, Android, or UWP project as the startup project and start debugging.
+1. In Visual Studio, set the iOS, Android, or UWP project as the startup project 
 
 ![Startup project](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/020972ff-2a81-48f1-bbc7-1e4b89794369/2016-07-11_1442.png)
 
-#### iOS
+2. In Visual Studio, click "Start Debugging"
+    - If you are having any trouble, see the Setup guides below for your runtime platform
+
+#### iOS Setup
 If you are on a Windows PC then you will need to be connected to a macOS build host with the Xamarin tools installed to run and debug the app.
 
 If connected, you will see a Green connection status. Select `iPhoneSimulator` as your target, and then select a Simulator to debug on.
 
 ![iOS Setup](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a6b32d62-cd3d-41ea-bd16-1bcc1fbe1f9d/2016-07-11_1445.png)
 
-#### Android
+#### Android Setup
 
 Set the DevDaysSpeakers.Droid as the startup project and select a simulator. The first compile may take some additional time as Support Packages may need to be downloaded.
 
@@ -449,24 +506,33 @@ Additionally, see James' blog for visual reference: https://motzcod.es/post/1497
 
 If you are running into issues with Android support packages that can't be unzipped because of corruption please check: https://xamarinhelp.com/debugging-xamarin-android-build-and-deployment-failures/
 
-#### Windows 10
+#### Windows 10 Setup
 
 Set the DevDaysSpeakers.UWP as the startup project and select debug to **Local Machine**.
 
+### 12. Add Navigation
 
-## Details
+Now, let's add navigation to a second page that displays speaker details!
 
-Now, let's add navigation to a second page that displays speaker details. Open the code-behind for **SpeakersPage.xaml** called **SpeakersPage.xaml.cs**.
-
-### ItemSelected Event
-
-In the code-behind you will find the setup for the SpeakersViewModel. Under **BindingContext = vm;**, let's add an event to the **ListViewSpeakers** to get notified when an item is selected:
+1. In `SpeakersPage.xaml.cs`, under `BindingContext = vm;`, add an event to the `ListViewSpeakers` to get notified when an item is selected:
 
 ```csharp
-ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
+readonly SpeakersViewModel vm;
+
+public SpeakersPage()
+{
+    InitializeComponent();
+
+    // Create the view model and set as binding context
+    vm = new SpeakersViewModel();
+    BindingContext = vm;
+
+    ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
+}
 ```
 
-Implement this method so it navigates to the DetailsPage:
+2. In `ListViewSpeakers_ItemSelected`, create a method called `ListViewSpeakers_ItemSelected`:
+    - This code checks to see if the selected item is non-null and then use the built in `Navigation` API to push a new page and deselect the item.
 
 ```csharp
 private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -481,42 +547,57 @@ private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChan
 }
 ```
 
-In the above code we check to see if the selected item is non-null and then use the built in **Navigation** API to push a new page and deselect the item.
-
-### DetailsPage.xaml
+### 13. Create DetailsPage.xaml UI
 
 Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView. This allows the user to scroll if the page content is longer than the avaliable screen space.
+
+1. In `DetailsPage.xaml`, add a `ScrollView` and a `StackLayout`
 
 ```xml
 <ScrollView Padding="10">
     <StackLayout Spacing="10">
         <!-- Detail controls here -->
-    </StackLayout>    
+    </StackLayout>
 </ScrollView>
 ```
 
-Now add controls and bindings for the properties in the Speaker class:
+2.  In `DetailsPage.xaml`, add controls and bindings for the properties in the Speaker class:
 
 ```xml
-<Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
-      
-<Label Text="{Binding Name}" FontSize="24"/>
-<Label Text="{Binding Title}" TextColor="Purple"/>
-<Label Text="{Binding Description}"/>
+<ScrollView Padding="10">
+    <StackLayout Spacing="10">
+        <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
+            
+        <Label Text="{Binding Name}" FontSize="24"/>
+        <Label Text="{Binding Title}" TextColor="Purple"/>
+        <Label Text="{Binding Description}"/>
+    </StackLayout>
+</ScrollView>
 ```
 
-Add two buttons; give them names so we can access them in the code-behind. We'll be adding click handlers to each button.
+3. In `DetailsPage.xaml`, add two buttons and give them names so we can access them in the code-behind.
+     - We'll be adding click handlers to each button.
 
 ```xml
-<Button Text="Speak" x:Name="ButtonSpeak"/>
-<Button Text="Go to Website" x:Name="ButtonWebsite"/>
+<ScrollView Padding="10">
+    <StackLayout Spacing="10">
+        <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
+
+        <Label Text="{Binding Name}" FontSize="24"/>
+        <Label Text="{Binding Title}" TextColor="Purple"/>
+        <Label Text="{Binding Description}"/>
+
+        <Button Text="Speak" x:Name="ButtonSpeak"/>
+        <Button Text="Go to Website" x:Name="ButtonWebsite"/>
+    </StackLayout>
+</ScrollView>
 ```
 
-### Text to Speech
+### 14. Add Text to Speech
 
-If we open up **DetailsPage.xaml.cs** we can now add a few more click handlers. Let's start with ButtonSpeak, where we will use the [Text To Speech Plugin](https://github.com/jamesmontemagno/TextToSpeechPlugin) to read back the speaker's description.
+If we open up `DetailsPage.xaml.cs` we can now add a few more click handlers. Let's start with ButtonSpeak, where we will use the [Text To Speech Plugin](https://github.com/jamesmontemagno/TextToSpeechPlugin) to read back the speaker's description.
 
-In the constructor, add a clicked handler below the BindingContext:
+1. In `DetailsPage.xaml.cs`, in the constructor, add a clicked handler below the BindingContext:
 
 ```csharp
 ButtonSpeak.Clicked += ButtonSpeak_Clicked;

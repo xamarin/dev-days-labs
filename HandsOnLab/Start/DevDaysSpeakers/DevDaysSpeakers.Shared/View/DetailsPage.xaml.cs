@@ -15,7 +15,8 @@ namespace DevDaysSpeakers.View
 {
     public partial class DetailsPage : ContentPage
     {
-        Speaker speaker;
+        readonly Speaker speaker;
+
         public DetailsPage(Speaker speaker)
         {
             InitializeComponent();
@@ -24,6 +25,5 @@ namespace DevDaysSpeakers.View
             this.speaker = speaker;
             BindingContext = this.speaker;
         }
-        
     }
 }
