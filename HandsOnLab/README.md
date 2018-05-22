@@ -48,8 +48,8 @@ public string Avatar { get; set; }
 
 *INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, lets our view know about changes to the model.
 
-1. In Visual Studio, open **SpeakersViewModel.cs**
-2. In **SpeakersViewModel.cs**, implement INotifyPropertyChanged by changing this
+1. In Visual Studio, open `SpeakersViewModel.cs`
+2. In `SpeakersViewModel.cs`, implement INotifyPropertyChanged by changing this
 
 ```csharp
 public class SpeakersViewModel
@@ -67,17 +67,17 @@ public class SpeakersViewModel : INotifyPropertyChanged
 }
 ```
 
-3. In **SpeakersViewModel.cs**, right click on `INotifyPropertyChanged`
+3. In `SpeakersViewModel.cs`, right click on `INotifyPropertyChanged`
 4. Implement the `INotifyPropertyChanged` Interface
    - (Visual Studio Mac) In the right-click menu, select Quick Fix -> Implement Interface
    - (Visual Studio PC) In the right-click menu, select Quick Actions and Refactorings -> Implement Interface
-5. In **SpeakersViewModel.cs**, ensure this line of code now appears:
+5. In `SpeakersViewModel.cs`, ensure this line of code now appears:
 
 ```csharp
 public event PropertyChangedEventHandler PropertyChanged;
 ```
 
-6. In **SpeakersViewModel.cs**, create a new method called `OnPropertyChanged`
+6. In `SpeakersViewModel.cs`, create a new method called `OnPropertyChanged`
     - Note: We will call `OnPropertyChanged` whenever a property updates
 
 ```csharp
@@ -113,17 +113,17 @@ private void OnPropertyChanged([CallerMemberName] string name = null)
 }
 ```
 
-
 ### 5. Implementing IsBusy
+
 We will create a backing field and accessors for a boolean property. This property will let our view know that our view model is busy so we don't perform duplicate operations (like allowing the user to refresh the data multiple times).
 
-First, create the backing field:
+1. In Create the backing field:
 
 ```csharp
 private bool isBusy;
 ```
 
-Next, create the property:
+2. Create the property:
 
 ```csharp
 public bool IsBusy
@@ -137,19 +137,19 @@ public bool IsBusy
 }
 ```
 
-Notice that we call **OnPropertyChanged();** when the value changes. The Xamarin.Forms binding infrastructure will subscribe to our **PropertyChanged** event so the UI will be notified of the change.
+Notice that we call `OnPropertyChanged` when the value changes. The Xamarin.Forms binding infrastructure will subscribe to our **PropertyChanged** event so the UI will be notified of the change.
 
-#### ObservableCollection of Speaker
+### 6. Create ObservableCollection of Speaker
 
-We will use an **ObservableCollection<Speaker>** that will be cleared and then loaded with **Speaker** objects. We use an **ObservableCollection** because it has built-in support to raise **CollectionChanged** events when we Add or Remove items from the collection. This means we don't call **OnPropertyChanged** when updating the collection.
+We will use an `ObservableCollection<Speaker>` that will be cleared and then loaded with **Speaker** objects. We use an `ObservableCollection` because it has built-in support to raise `CollectionChanged` events when we Add or Remove items from the collection. This means we don't call `OnPropertyChanged` when updating the collection.
 
-Above the constructor of the **SpeakersViewModel** class definition, declare an auto-property:
+1. In `SpeakersViewModel.cs`, above the constructor, declare an auto-property:
 
 ```csharp
 public ObservableCollection<Speaker> Speakers { get; set; }
 ```
 
-Inside of the constructor, create a new instance of the `ObservableCollection`:
+2. Inside of the constructor, create a new instance of the `ObservableCollection`:
 
 ```csharp
 public SpeakersViewModel()
@@ -158,11 +158,11 @@ public SpeakersViewModel()
 }
 ```
 
-#### GetSpeakers Method
+### 7. Create GetSpeakers Method
 
-We are ready to create a method named **GetSpeakers** which will retrieve the speaker data from the internet. We will first implement this with a simple HTTP request, and later update it to grab and sync the data from Azure!
+We are ready to create a method named `GetSpeakers` which will retrieve the speaker data from the internet. We will first implement this with a simple HTTP request, and later update it to grab and sync the data from Azure!
 
-Create a method named **GetSpeakers** with that returns an *async Task*:
+1. In `SpeakersViewModel.cs`, create a method named `GetSpeakers` with that returns `async Task`:
 
 ```csharp
 private async Task GetSpeakers()
@@ -170,9 +170,8 @@ private async Task GetSpeakers()
 
 }
 ```
-The following code will be written INSIDE of this method.
 
-Check the IsBusy boolean to see if we are already getting data:
+2. In `GetSpeakers`, first ensure `IsBusy` is false. If it is true, `return`
 
 ```csharp
 private async Task GetSpeakers()
@@ -182,7 +181,8 @@ private async Task GetSpeakers()
 }
 ```
 
-Next, add some scaffolding for try/catch/finally blocks:
+3. In `GetSpeakers`, add some scaffolding for try/catch/finally blocks
+    - Notice, that we toggle *IsBusy* to true and then false when we start to call to the server and when we finish.
 
 ```csharp
 private async Task GetSpeakers()
@@ -190,7 +190,6 @@ private async Task GetSpeakers()
     if (IsBusy)
         return;
 
-    Exception error = null;
     try
     {
         IsBusy = true;
@@ -208,38 +207,81 @@ private async Task GetSpeakers()
 }
 ```
 
-Notice, that we toggle *IsBusy* to true and then false when we start to call to the server and when we finish.
+4. In the `try` block of `GetSpeakers`, create a new instance of `HttpClient`.     - We will use `HttpClient` to get the json-ecoded data from the server
 
-Now, we will use *HttpClient* to get the json-ecoded data from the server inside of the **try** block.
-
- ```csharp
-using(var client = new HttpClient())
+```csharp
+private async Task GetSpeakers()
 {
-    var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
-} 
+    ...
+    try
+    {
+        using(var client = new HttpClient())
+        {
+            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+        }
+    }
+    ... 
+}
 ```
 
-Still inside of the **using**, we deserialize the json data and turn it into a list of Speakers using Json.NET:
+5. Inside of the `using` we just created, deserialize the json data and turn it into a list of Speakers using Json.NET:
 
 ```csharp
-var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
+private async Task GetSpeakers()
+{
+    ...
+    try
+    {
+        using(var client = new HttpClient())
+        {
+            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+
+            var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
+        }
+    }
+    ... 
+}
 ```
 
-Still inside of the **using**, clear the Speakers ObservableCollection collection and then add the new speaker data:
+6. Inside of the `using`, clear the `Speakers` property and then add the new speaker data:
 
 ```csharp
-Speakers.Clear();
-foreach (var item in items)
-    Speakers.Add(item);
+private async Task GetSpeakers()
+{
+    //...
+    try
+    {
+        using(var client = new HttpClient())
+        {
+            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+
+            var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
+
+            Speakers.Clear();
+
+            foreach (var item in items)
+                Speakers.Add(item);
+        }
+    }
+    //...
+}
 ```
-If anything goes wrong the **catch** block will save the exception. After the finally block we can display an alert:
+
+7. In `GetSpeakers`, add this code to the `catch` block to display a popup if the data retrieval fails:
 
 ```csharp
-if (error != null)
-    await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
+private async Task GetSpeakers()
+{
+    //...
+    catch(Exception e)
+    {
+        await Application.Current.MainPage.DisplayAlert("Error!", e.Message, "OK");
+    }
+    //...
+}
 ```
 
-The completed code should look like this:
+8. Ensure the completed code looks like this:
 
 ```csharp
 private async Task GetSpeakers()
@@ -247,37 +289,33 @@ private async Task GetSpeakers()
     if (IsBusy)
         return;
 
-    Exception error = null;
     try
     {
         IsBusy = true;
-        
+
         using(var client = new HttpClient())
         {
             //grab json from server
             var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
-            
+
             //Deserialize json
             var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
-            
+
             //Load speakers into list
             Speakers.Clear();
             foreach (var item in items)
                 Speakers.Add(item);
-        } 
+        }
     }
-    catch (Exception ex)
+    catch (Exception e)
     {
-        Debug.WriteLine("Error: " + ex);
+        await Application.Current.MainPage.DisplayAlert("Error!", e.Message, "OK");
         error = ex;
     }
     finally
     {
         IsBusy = false;
-    }
-
-    if (error != null)
-        await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
+    }        
 }
 ```
 
