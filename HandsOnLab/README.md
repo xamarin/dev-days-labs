@@ -597,28 +597,47 @@ Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a Stac
 
 If we open up `DetailsPage.xaml.cs` we can now add a few more click handlers. Let's start with ButtonSpeak, where we will use the [Text To Speech Plugin](https://github.com/jamesmontemagno/TextToSpeechPlugin) to read back the speaker's description.
 
-1. In `DetailsPage.xaml.cs`, in the constructor, add a clicked handler below the BindingContext:
+1. In `DetailsPage.xaml.cs`, in the constructor, add a clicked handler below the BindingContext
 
 ```csharp
-ButtonSpeak.Clicked += ButtonSpeak_Clicked;
-```
-
-Then we can add the clicked handler and call the cross-platform API for text to speech:
-
-```csharp
-private void ButtonSpeak_Clicked(object sender, EventArgs e)
+public DetailsPage(Speaker speaker)
 {
-    CrossTextToSpeech.Current.Speak(this.speaker.Description);
+    InitializeComponent();
+
+    //Set local instance of speaker and set BindingContext
+    this.speaker = speaker;
+    BindingContext = this.speaker;
+
+    ButtonSpeak.Clicked += ButtonSpeak_Clicked;
 }
 ```
 
-### Open Website
-Xamarin.Forms includes many APIs for performing common tasks such as opening a URL in the default browser.
-
-Let's add another clicked handler, but this time for `ButtonWebsite`:
+2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will call the cross-platform API for text to speech
 
 ```csharp
-ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+private async void ButtonSpeak_Clicked(object sender, EventArgs e)
+{
+    await CrossTextToSpeech.Current.Speak(speaker.Description);
+}
+```
+
+### 15. Add Open Website Functionality
+Xamarin.Forms includes many APIs for performing common tasks such as opening a URL in the default browser.
+
+1. In `DetailsPage.xaml.cs`, add a clicked handler for `ButtonWebsite.Clicked`:
+
+```csharp
+public DetailsPage(Speaker speaker)
+{
+    InitializeComponent();
+
+    //Set local instance of speaker and set BindingContext
+    this.speaker = speaker;
+    BindingContext = this.speaker;
+
+    ButtonSpeak.Clicked += ButtonSpeak_Clicked;
+    ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+}
 ```
 
 Then, we can use the static Device class to call the OpenUri method:
