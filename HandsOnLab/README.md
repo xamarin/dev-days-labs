@@ -702,72 +702,82 @@ It will take about 3-5 minutes for Azure to create the new service, so let's hea
 
 We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?MontrealMobile-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
 
-Open the DevDaysSpeakers/Services/AzureService.cs and add our url to the Initialize method:
+1. In `DevDaysSpeakers/Services/AzureService.cs`, add your url to the Initialize method:
+    - Be sure to update YOUR-APP-NAME-HERE with the app name you specified when creating your Azure Mobile App.
 
 ```csharp
 var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
 ```
 
-Be sure to update YOUR-APP-NAME-HERE with the app name you specified when creating your Azure Mobile App.
-
-The logic in the Initialize method will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to retieve speaker data from the Azure Mobile App. There are two methods that we need to fill in to get and sync data from the server.
+The logic in the `Initialize` method will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to retrieve speaker data from the Azure Mobile App. There are two methods that we need to fill in to get and sync data from the server.
 
 
-#### GetSpeakers
-In this method, we will need to initialize, sync, and query the table for items. We can use complex LINQ queries to order the results:
+2. In `AzureService.cs`, update the `GetSpeakers` method to initialize, sync, and query the table for items using LINQ queries to order the results:
 
 ```csharp
-await Initialize();
-await SyncSpeakers();
-return await table.OrderBy(s => s.Name).ToEnumerableAsync();   
-```
-
-#### SyncSpeakers
-Our Azure backend can push any local changes and then pull all of the latest data from the server using the following code that can be added to the try inside of the SyncSpeakers method:
-
-```csharp
-await Client.SyncContext.PushAsync();
-await table.PullAsync("allSpeakers", table.CreateQuery());
-```
-That is it for our Azure code! Just a few lines, and we are ready to pull the data from Azure.
-
-### Update SpeakersViewModel.cs
-
-Update async Task GetSpeakers():
-
-Now, instead of using the HttpClient to get a string, let's query the Table:
-
-Change the *try* block of code to:
-
-```csharp
-try
+public async Task<IEnumerable<Speaker>> GetSpeakers()
 {
-    IsBusy = true;
-
-    var service = DependencyService.Get<AzureService>();
-    var items = await service.GetSpeakers();
-
-    Speakers.Clear();
-    foreach (var item in items)
-        Speakers.Add(item);
+    await Initialize();
+    await SyncSpeakers();
+    return await table.OrderBy(s => s.Name).ToEnumerableAsync();   
 }
 ```
 
-Now, we have implemented the code we need in our app! Amazing isn't it? The AzureService object will automatically handle all communication with your Azure back-end for you, do online/offline synchronization so your app works even when it's not connected.
+3. In `AzureService.cs`, update the `SyncSpeakers` method to sync the local database our in our app with our remote database in Azure:
 
-Let's head back to the Azure Portal and populate the database.
+```csharp
+public async Task SyncSpeakers()
+{
+    try
+    {
+        await Client.SyncContext.PushAsync();
+        await table.PullAsync("allSpeakers", table.CreateQuery());
+    }
+    catch (Exception ex)
+    {
+        Debug.WriteLine("Unable to sync speakers, that is alright as we have offline capabilities: " + ex);
+    }
+}
+```
 
-When the Quickstart finishes you should see the following screen, or can go to it by tapping the pin on the dashboard:
+That is it for our Azure code! Just a few lines, and we are ready to pull the data from Azure.
 
-![Quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/71ad3e06-dcc5-4c8b-8ebd-93b2df9ea2b2/2016-07-11_1601.png)
+### 3. Update SpeakersViewModel.cs
 
-Under **Features** select **Easy Tables**.
+1. Update `GetSpeakers` to use the Azure Service by ammending the code in the `try` block:
 
-It will have created a `TodoItem`, which you should see, but we can create a new table and upload a default set of data by selecting **Add from CSV** from the menu.
+```csharp
+private async Task GetSpeakers()
+{
+    //...
+    try
+    {
+        IsBusy = true;
 
-Ensure that you have downloaded this repo and have the **Speaker.csv** file that is in this folder.
+        var service = DependencyService.Get<AzureService>();
+        var items = await service.GetSpeakers();
 
-Select the file and it will add a new table name and find the fields that we have listed. Then hit Start Upload.
+        Speakers.Clear();
+        foreach (var item in items)
+            Speakers.Add(item);
+    }
+    //...
+}
+```
+
+Now, we have implemented the code we need in our app! Amazing isn't it? The `AzureService` object will automatically handle all communication with your Azure back-end for you, do online/offline synchronization so your app works even when it's not connected.
+
+### 3. Populate Azure Database
+
+Let's head back to the Azure Portal and populate the database!
+
+1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), click on the  **Mobile App** tile for the Azure Mobile App we created earlier.
+
+2. On the left-hand menu, select **Quickstart**
+
+3. Select **Xamarin.Forms**
+
+//ToDo
 
 ![upload data](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
 
@@ -776,179 +786,3 @@ Select the file and it will add a new table name and find the fields that we hav
 ![application settings fix](appsettingsfix.png)
 
 Now you can re-run your application and get data from Azure!
-
-
-## Bonus Take Home Challenges
-
-Take Dev Days further with these additional challenges that you can complete at home after Dev Days ends.
-
-### Challenge 1: Cognitive Services
-For fun, you can add the [Cognitive Service Emotion API](https://www.microsoft.com/cognitive-services/en-us/emotion-api) and add another Button to the detail page to analyze the speaker's face for happiness level. 
-
-Go to: https://microsoft.com/cognitive and create a new account and an API key for the Emotion service.
-
-Follow these steps:
-
-1.) Add **Microsoft.ProjectOxford.Emotion** NuGet package to all projects
-
-2.) Add a new class called EmotionService and add the following code (ensure you update the API key in the GetHappinessAsync call):
-
-```csharp
-public class EmotionService
-{
-    private static async Task<Emotion[]> GetHappinessAsync(string url)
-    {        
-        var emotionClient = new EmotionServiceClient("INSERT_EMOTION_SERVICE_KEY_HERE");
-
-        var emotionResults = await emotionClient.RecognizeAsync(url);
-
-        if (emotionResults == null || emotionResults.Count() == 0)
-        {
-            throw new Exception("Can't detect face");
-        }
-
-        return emotionResults;
-    }
-
-    //Average happiness calculation in case of multiple people
-    public static async Task<float> GetAverageHappinessScoreAsync(string url)
-    {
-        Emotion[] emotionResults = await GetHappinessAsync(url);
-
-        float score = 0;
-        foreach (var emotionResult in emotionResults)
-        {
-            score = score + emotionResult.Scores.Happiness;
-        }
-
-        return score / emotionResults.Count();
-    }
-
-    public static string GetHappinessMessage(float score)
-    {
-        score = score * 100;
-        double result = Math.Round(score, 2);
-
-        if (score >= 50)
-            return result + " % :-)";
-        else
-            return result + "% :-(";
-    }
-}
-```
-
-3.) Now add a new button to the Details Page and expose it with **x:Name="ButtonAnalyze**
-
-4.) Add a new clicked handler and add the async keyword to it.
-
-5.) Call 
-```csharp
-var level = await EmotionService.GetAverageHappinessScoreAsync(this.speaker.Avatar);
-```
-
-6.) Then display a pop-up alert:
-```csharp
-await DisplayAlert("Happiness Level", EmotionService.GetHappinessMessage(level), "OK");
-```
-
-### Challenge 2: Edit Speaker Details
-
-In this challenge we will make the speaker's Title editable.
-
-Open DetailsPage.xaml and change the Label that is displaying the Title from:
-
-```xml
-<Label Text="{Binding Title}" TextColor="Purple"/>
-```
-
-to an Entry with a OneWay data binding (this means when we enter text it will not change the actual data), and a Name to expose it in the code behind.
-
-```xml
-<Entry
-    Text="{Binding Title, Mode=OneWay}" 
-    TextColor="Purple" 
-    x:Name="EntryTitle"/>
-```
-
-Let's add a save Button under the Go To Website button.
-
-```xml
-<Button Text="Save" x:Name="ButtonSave"/>
-```
-
-#### Update SpeakersViewModel
-
-Open AzureService and add a new method called UpdateSpeaker(Speaker speaker), that will update the speaker, sync, and refresh the list:
-
-```csharp
-public async Task UpdateSpeaker(Speaker speaker)
-{
-    await Initialize();
-    await table.UpdateAsync(speaker);
-    await SyncSpeakers();
-}
-```
-
-Open the SpeakersViewModel.cs and add a similar method:
-
-```
-public async Task UpdateSpeaker(Speaker speaker)
-{
-    var service = DependencyService.Get<AzureService>();
-    service.UpdateSpeaker(speaker);
-    await GetSpeakers();         
-}
-```
-
-#### Update DetailsPage.xaml.cs
-Let's update the constructor to pass in the SpeakersViewModel for the DetailsPage:
-
-Before:
-```csharp
-Speaker speaker;
-public DetailsPage(Speaker item)
-{
-    InitializeComponent();
-    this.speaker = item;
-    
-    // ...
-}
-```
-After:
-```csharp
-Speaker speaker;
-SpeakersViewModel vm;
-public DetailsPage(Speaker item, SpeakersViewModel viewModel)
-{
-    InitializeComponent();
-    this.speaker = item;
-    this.vm = viewModel;
-    
-    // ...
-}
-```
-
-Under the other clicked handlers, we will add another clicked handler for ButtonSave.
-
-```csharp
-ButtonSave.Clicked += ButtonSave_Clicked;
-```
-When the button is clicked, we will update the speaker, and call save and then navigate back:
-
-```csharp
-private async void ButtonSave_Clicked(object sender, EventArgs e)
-{
-    speaker.Title = EntryTitle.Text;
-    await vm.UpdateSpeaker(speaker);
-    await Navigation.PopAsync();
-}
-```
-
-Finally, we will need to pass in the ViewModel when we navigate in the SpeakersPage.xaml.cs in the ListViewSpeakers_ItemSelected method:
-
-```csharp
-//Pass in view model now.
-await Navigation.PushAsync(new DetailsPage(speaker, vm));
-```
-
-There you have it!
