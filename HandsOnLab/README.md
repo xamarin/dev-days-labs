@@ -889,10 +889,39 @@ Let's head back to the Azure Portal and populate the database!
 
 ![Data Connection Create](https://user-images.githubusercontent.com/13558917/40459143-a5437ffe-5eb4-11e8-8558-5acd9dc0e6a5.png)
 
-![upload data](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
+![Data Connection Completed](https://user-images.githubusercontent.com/13558917/40459358-cdf13eb8-5eb5-11e8-9f1f-3f161d4d3eed.png)
 
-> Note: If you get an error while uploading the Speaker.CSV file, it may be a bug that has been resolved. To workaround this, go to the "Application settings" under the "Settings" section and scroll to "App Settings". Change the value for MobileAppsManagement_EXTENSION_VERSION to 1.0.367 and save the changes. Now retry the "Add from CSV" process again
+Our database is now created! Let's populate it with some data!
+
+### 4. Populate Database with Data
+
+1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), click on the  **Mobile App**
+
+![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
+
+2. In the **Mobile App** menu, enter **easy** into the search bar
+3. In the **Mobile App** menu, select **Easy tables**
+
+![Easy Tables](https://user-images.githubusercontent.com/13558917/40459471-6874bf96-5eb6-11e8-8e29-edb5ef08b9f8.png)
+
+4. In the **Easy tables** window, select **Click here to continue**
+5. In the new **Easy tables** window, check the box **I acknowledge that this will overwrite all site contents.**
+6. In the new **Easy tables** window, select **Create TodoItem table**
+    - Ignore that it says "TodoItem Table"; selecting **Create** will create an empty table
+![Initialize Easy Tables](https://user-images.githubusercontent.com/13558917/40459585-0f9d2d8a-5eb7-11e8-8bed-6480ab69862c.png)
+
+7. In the **Easy tables** window, select **Add from CSV**
+
+![Add From CSV](https://user-images.githubusercontent.com/13558917/40459674-92841420-5eb7-11e8-80d3-618ccc630882.png)
+
+8. In the **Add from CSV** window, select the **Folder Icon**
+9. In the file browser, locate and select the [**Speakers.csv** file](https://github.com/brminnick/dev-days-labs/blob/master/HandsOnLab/Speaker.csv) in the HandsOnLabs folder
+10. In the **Add from CSV** window, after uploading the CSV file, select the blank white button at the bottom
+    - This is the save button; it's blank because of a bug
+    - Note: If you get an error while uploading the Speaker.CSV file, it may be a bug that has been resolved. To workaround this, go to the "Application settings" under the "Settings" section and scroll to "App Settings". Change the value for MobileAppsManagement_EXTENSION_VERSION to 1.0.367 and save the changes. Now retry the "Add from CSV" process again
+
+![Upload CSV](https://user-images.githubusercontent.com/13558917/40459751-fc8e29f0-5eb7-11e8-9534-4ad6f276c003.png)
 
 ![application settings fix](appsettingsfix.png)
 
-Now you can re-run your application and get data from Azure!
+11. Re-run your application and get data from Azure!
