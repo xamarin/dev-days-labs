@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 
 namespace DevDaysSpeakers.ViewModel
 {
-    public class SpeakersViewModel
+	public class SpeakersViewModel
     {
     }
 }

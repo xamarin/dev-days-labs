@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>10.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>DevDaysSpeakers</string>
 	<key>CFBundleIdentifier</key>
@@ -47,5 +47,7 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1</string>
+	<key>CFBundleName</key>
+	<string>DevDaysSpeakers</string>
 </dict>
 </plist>
