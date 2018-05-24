@@ -31,8 +31,8 @@ All projects have the required NuGet packages already installed, so there will b
 
 We will download details about the speakers.
 
-1. Open the **DevDaysSpeakers/Model/Speaker.cs** file
-2. Copy/paste the following properties to the **Speaker** class:
+1. Open `Speaker.cs`
+2. In `Speaker.cs`, copy/paste the following properties:
 
 ```csharp
 public string Id { get; set; }
@@ -116,23 +116,32 @@ private void OnPropertyChanged([CallerMemberName] string name = null)
 
 We will create a backing field and accessors for a boolean property. This property will let our view know that our view model is busy so we don't perform duplicate operations (like allowing the user to refresh the data multiple times).
 
-1. In Create the backing field:
+1. In `SpeakersViewModel.cs`, create the backing field:
 
 ```csharp
-private bool isBusy;
+public class SpeakersViewModel : INotifyPropertyChanged
+{
+    private bool isBusy;
+    //...
+}
 ```
 
 2. Create the property:
 
 ```csharp
-public bool IsBusy
+public class SpeakersViewModel : INotifyPropertyChanged
 {
-    get { return isBusy; }
-    set
+    //...
+    public bool IsBusy
     {
-        isBusy = value;
-        OnPropertyChanged();
+        get { return isBusy; }
+        set
+        {
+            isBusy = value;
+            OnPropertyChanged();
+        }
     }
+    //...
 }
 ```
 
@@ -142,18 +151,14 @@ Notice that we call `OnPropertyChanged` when the value changes. The Xamarin.Form
 
 We will use an `ObservableCollection<Speaker>` that will be cleared and then loaded with **Speaker** objects. We use an `ObservableCollection` because it has built-in support to raise `CollectionChanged` events when we Add or Remove items from the collection. This means we don't call `OnPropertyChanged` when updating the collection.
 
-1. In `SpeakersViewModel.cs`, above the constructor, declare an auto-property:
+1. In `SpeakersViewModel.cs` declare an auto-property which we will initialize to an empty collection
 
 ```csharp
-public ObservableCollection<Speaker> Speakers { get; set; }
-```
-
-2. Inside of the constructor, create a new instance of the `ObservableCollection`:
-
-```csharp
-public SpeakersViewModel()
+public class SpeakersViewModel : INotifyPropertyChanged
 {
-    Speakers = new ObservableCollection<Speaker>();
+    //...
+    public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
+    //...
 }
 ```
 
@@ -164,9 +169,14 @@ We are ready to create a method named `GetSpeakers` which will retrieve the spea
 1. In `SpeakersViewModel.cs`, create a method named `GetSpeakers` with that returns `async Task`:
 
 ```csharp
-private async Task GetSpeakers()
+public class SpeakersViewModel : INotifyPropertyChanged
 {
+    //...
+    private async Task GetSpeakers()
+    {
 
+    }
+    //...
 }
 ```
 
@@ -194,9 +204,9 @@ private async Task GetSpeakers()
         IsBusy = true;
 
     }
-    catch (Exception ex)
+    catch (Exception e)
     {
-        error = ex;
+
     }
     finally
     {
@@ -214,9 +224,11 @@ private async Task GetSpeakers()
     ...
     try
     {
+        IsBusy = true;
+
         using(var client = new HttpClient())
         {
-            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+            var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
         }
     }
     ... 
@@ -231,6 +243,8 @@ private async Task GetSpeakers()
     ...
     try
     {
+        IsBusy = true;
+
         using(var client = new HttpClient())
         {
             var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
@@ -250,6 +264,8 @@ private async Task GetSpeakers()
     //...
     try
     {
+        IsBusy = true;
+
         using(var client = new HttpClient())
         {
             var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
@@ -309,7 +325,6 @@ private async Task GetSpeakers()
     catch (Exception e)
     {
         await Application.Current.MainPage.DisplayAlert("Error!", e.Message, "OK");
-        error = ex;
     }
     finally
     {
@@ -327,7 +342,12 @@ Instead of invoking this method directly, we will expose it with a `Command`. A 
 1. In `SpeakersViewModel.cs`, create a new Command called `GetSpeakersCommand`:
 
 ```csharp
-public Command GetSpeakersCommand { get; set; }
+public class SpeakersViewModel : INotifyPropertyChanged
+{
+    //...
+    public Command GetSpeakersCommand { get; }
+    //...
+}
 ```
 
 2. Inside of the `SpeakersViewModel` constructor, create the `GetSpeakersCommand` and pass it two methods
@@ -335,9 +355,14 @@ public Command GetSpeakersCommand { get; set; }
     - Another that determines if the command is enabled. Both methods can be implemented as lambda expressions as shown below:
 
 ```csharp
-public SpeakersViewModel()
+public class SpeakersViewModel : INotifyPropertyChanged
 {
-    GetSpeakersCommand = new Command(async () => await GetSpeakers(),() => !IsBusy);
+    //...
+    public SpeakersViewModel()
+    {
+        GetSpeakersCommand = new Command(async () => await GetSpeakers(),() => !IsBusy);
+    }
+    //...
 }
 ```
 
@@ -348,6 +373,7 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
     - By setting `Spacing="0"`, we're requesting that no space is added between the contents of the `StackLayout`
 
 ```xml
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevDaysSpeakers.View.SpeakersPage"
@@ -364,6 +390,7 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
     - The command will be executed whenever the user taps the button.
 
 ```xml
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevDaysSpeakers.View.SpeakersPage"
@@ -383,6 +410,7 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
     - The `ActivityIndicator` will be bound to `IsBusy`
 
 ```xml
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevDaysSpeakers.View.SpeakersPage"
@@ -403,6 +431,7 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
     - We will use `x:Name="ListViewSpeakers"` so that we can access this XAML control from the C# code-behind
 
 ```xml
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevDaysSpeakers.View.SpeakersPage"
@@ -429,6 +458,7 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
     - Xamarin.Forms contains a few default Templates that we can use, and we will use the `ImageCell` that displays an image and two rows of text
 
 ```xml
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevDaysSpeakers.View.SpeakersPage"
@@ -462,18 +492,21 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
 
 Because we have bound some elements of the View to ViewModel properties, we have to tell the View with which ViewModel to bind. For this, we have to set the `BindingContext` to the `SpeakersViewModel`.
 
-1. In `SpeakersPage.xaml.cs`, in the constructor, create a field `SpeakersViewModel vm`, initialize `vm` and assign it to the `BindingContext`
+1. In `SpeakersPage.xaml.cs`, create a field `SpeakersViewModel vm`, initialize `vm` and assign it to the `BindingContext`
 
 ```csharp
-readonly SpeakersViewModel vm;
-
-public SpeakersPage()
+public partial class SpeakersPage : ContentPage
 {
-    InitializeComponent();
+    readonly SpeakersViewModel vm;
 
-    // Create the view model and set as binding context
-    vm = new SpeakersViewModel();
-    BindingContext = vm;
+    public SpeakersPage()
+    {
+        InitializeComponent();
+
+        // Create the view model and set as binding context
+        vm = new SpeakersViewModel();
+        BindingContext = vm;
+    }
 }
 ```
 
@@ -516,21 +549,24 @@ Now, let's add navigation to a second page that displays speaker details!
 1. In `SpeakersPage.xaml.cs`, under `BindingContext = vm;`, add an event to the `ListViewSpeakers` to get notified when an item is selected:
 
 ```csharp
-readonly SpeakersViewModel vm;
-
-public SpeakersPage()
+public partial class SpeakersPage : ContentPage
 {
-    InitializeComponent();
+    readonly SpeakersViewModel vm;
 
-    // Create the view model and set as binding context
-    vm = new SpeakersViewModel();
-    BindingContext = vm;
+    public SpeakersPage()
+    {
+        InitializeComponent();
 
-    ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
+        // Create the view model and set as binding context
+        vm = new SpeakersViewModel();
+        BindingContext = vm;
+
+        ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
+    }
 }
 ```
 
-2. In `ListViewSpeakers_ItemSelected`, create a method called `ListViewSpeakers_ItemSelected`:
+2. In `SpeakersPage.xaml.cs`, create a method called `ListViewSpeakers_ItemSelected`:
     - This code checks to see if the selected item is non-null and then use the built in `Navigation` API to push a new page and deselect the item.
 
 ```csharp
@@ -563,33 +599,47 @@ Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a Stac
 2.  In `DetailsPage.xaml`, add controls and bindings for the properties in the Speaker class:
 
 ```xml
-<ScrollView Padding="10">
-    <StackLayout Spacing="10">
-        <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
-            
-        <Label Text="{Binding Name}" FontSize="24"/>
-        <Label Text="{Binding Title}" TextColor="Purple"/>
-        <Label Text="{Binding Description}"/>
-    </StackLayout>
-</ScrollView>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.DetailsPage"
+             Title="Details">
+
+    <ScrollView Padding="10">
+        <StackLayout Spacing="10">
+            <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
+
+            <Label Text="{Binding Name}" FontSize="24"/>
+            <Label Text="{Binding Title}" TextColor="Purple"/>
+            <Label Text="{Binding Description}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
 ```
 
 3. In `DetailsPage.xaml`, add two buttons and give them names so we can access them in the code-behind.
      - We'll be adding click handlers to each button.
 
 ```xml
-<ScrollView Padding="10">
-    <StackLayout Spacing="10">
-        <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.DetailsPage"
+             Title="Details">
 
-        <Label Text="{Binding Name}" FontSize="24"/>
-        <Label Text="{Binding Title}" TextColor="Purple"/>
-        <Label Text="{Binding Description}"/>
+    <ScrollView Padding="10">
+        <StackLayout Spacing="10">
+            <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
 
-        <Button Text="Speak" x:Name="ButtonSpeak"/>
-        <Button Text="Go to Website" x:Name="ButtonWebsite"/>
-    </StackLayout>
-</ScrollView>
+            <Label Text="{Binding Name}" FontSize="24"/>
+            <Label Text="{Binding Title}" TextColor="Purple"/>
+            <Label Text="{Binding Description}"/>
+
+            <Button Text="Speak" x:Name="ButtonSpeak"/>
+            <Button Text="Go to Website" x:Name="ButtonWebsite"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
 ```
 
 ### 14. Add Text to Speech
@@ -599,24 +649,33 @@ If we open up `DetailsPage.xaml.cs` we can now add a few more click handlers. Le
 1. In `DetailsPage.xaml.cs`, in the constructor, add a clicked handler below the BindingContext
 
 ```csharp
-public DetailsPage(Speaker speaker)
+public partial class DetailsPage : ContentPage
 {
-    InitializeComponent();
+    readonly Speaker speaker;
 
-    //Set local instance of speaker and set BindingContext
-    this.speaker = speaker;
-    BindingContext = this.speaker;
+    public DetailsPage(Speaker speaker)
+    {
+        InitializeComponent();
 
-    ButtonSpeak.Clicked += ButtonSpeak_Clicked;
+        //Set local instance of speaker and set BindingContext
+        speaker = speaker;
+        BindingContext = speaker;
+
+        ButtonSpeak.Clicked += ButtonSpeak_Clicked;
+    }
 }
 ```
 
 2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will call the cross-platform API for text to speech
 
 ```csharp
-private async void ButtonSpeak_Clicked(object sender, EventArgs e)
+public partial class DetailsPage : ContentPage
 {
-    await CrossTextToSpeech.Current.Speak(speaker.Description);
+    //...
+    private async void ButtonSpeak_Clicked(object sender, EventArgs e)
+    {
+        await CrossTextToSpeech.Current.Speak(speaker.Description);
+    }
 }
 ```
 
@@ -626,26 +685,35 @@ Xamarin.Forms includes many APIs for performing common tasks such as opening a U
 1. In `DetailsPage.xaml.cs`, add a clicked handler for `ButtonWebsite.Clicked`:
 
 ```csharp
-public DetailsPage(Speaker speaker)
+public partial class DetailsPage : ContentPage
 {
-    InitializeComponent();
+    //...
+    public DetailsPage(Speaker speaker)
+    {
+        InitializeComponent();
 
-    //Set local instance of speaker and set BindingContext
-    this.speaker = speaker;
-    BindingContext = this.speaker;
+        //Set local instance of speaker and set BindingContext
+        this.speaker = speaker;
+        BindingContext = this.speaker;
 
-    ButtonSpeak.Clicked += ButtonSpeak_Clicked;
-    ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+        ButtonSpeak.Clicked += ButtonSpeak_Clicked;
+        ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+    }
+    //...
 }
 ```
 
 2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will use the static class `Device` to call the `OpenUri` method
 
 ```csharp
-private void ButtonWebsite_Clicked(object sender, EventArgs e)
+public partial class DetailsPage : ContentPage
 {
-    if (speaker.Website.StartsWith("http"))
-        Device.OpenUri(new Uri(speaker.Website));
+    //...
+    private void ButtonWebsite_Clicked(object sender, EventArgs e)
+    {
+        if (speaker.Website.StartsWith("http"))
+            Device.OpenUri(new Uri(speaker.Website));
+    }
 }
 ```
 
@@ -658,18 +726,13 @@ Being able to grab data from a RESTful end point is great, but what about creati
 
 ### 1. Create Azure Mobile App
 
-1. Create a Free Azure account including a free $200 credit by navigating to [The Azure Portal](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin) and register.
+1. Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin) and creating an account
 
-2. In the Azure Portal, select the **+ New** button 
-3. In the Azure Portal, search for **mobile apps**. You will see the results as shown below. Select **Mobile Apps Quickstart**
+2. In the Azure Portal, select the **Create a resource** button
+3. In **New** window, tap **Mobile**
+4. In **New** window, tap **Mobile App**
 
-![Quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/c2894f06-c688-43ad-b812-6384b34c5cb0/2016-07-11_1546.png)
-
-4. In the Quickstart blade, select **Create**
-
-![Create quickstart](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/344d6fc2-1771-4cb7-a49a-6bd9e9579ba6/2016-07-11_1548.png)
-
-This will open a settings blade with 4 settings:
+![Create Resource](https://user-images.githubusercontent.com/13558917/40452936-6032bcf2-5e98-11e8-991d-8bca36d61bf1.png)
 
 5. Enter your **App name**
     - This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App
@@ -687,26 +750,23 @@ This will open a settings blade with 4 settings:
     - Give it a unique name
     - Select a location (typically you would choose a location close to your customers)
     - Select the F1 Free tier
-
-![service plan](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/7559d3f1-7ee6-490f-ac5e-d1028feba88f/2016-07-11_1553.png)
-
-9. Check **Pin to dashboard** 
+9. Check **Pin to dashboard**
 10. Click Create
 
-![](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a844c283-550c-4647-82d3-32d8bda4282f/2016-07-11_1554.png)
+![Create Mobile App](https://user-images.githubusercontent.com/13558917/40457467-6c74d398-5eab-11e8-8fe4-bf8b6669a64d.png)
 
-It will take about 3-5 minutes for Azure to create the new service, so let's head back to the code!
-
+After clicking **Create**, it will take Azure about 3-5 minutes to create the new service, so let's head back to the code!
 
 ### 2. Update AzureService.cs
 
 We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?MontrealMobile-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
 
-1. In `DevDaysSpeakers/Services/AzureService.cs`, add your url to the Initialize method:
+1. In `AzureService.cs`, add your url to the Initialize method:
     - Be sure to update YOUR-APP-NAME-HERE with the app name you specified when creating your Azure Mobile App.
+    - My appUrl is "https://minnickspeakers.azurewebsites.net"
 
 ```csharp
-var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
+var appUrl = "https://YOUR-APP-NAME-HERE.azurewebsites.net";
 ```
 
 The logic in the `Initialize` method will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to retrieve speaker data from the Azure Mobile App. There are two methods that we need to fill in to get and sync data from the server.
@@ -744,7 +804,7 @@ That is it for our Azure code! Just a few lines, and we are ready to pull the da
 
 ### 3. Update SpeakersViewModel.cs
 
-1. Update `GetSpeakers` to use the Azure Service by ammending the code in the `try` block:
+1. In `SpeakersViewModel.cs`, update `GetSpeakers` to use the Azure Service by amending the code in the `try` block:
 
 ```csharp
 private async Task GetSpeakers()
@@ -773,11 +833,61 @@ Let's head back to the Azure Portal and populate the database!
 
 1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), click on the  **Mobile App** tile for the Azure Mobile App we created earlier.
 
+![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
+
 2. On the left-hand menu, select **Quickstart**
 
-3. Select **Xamarin.Forms**
+3. In the new window, select **Xamarin.Forms**
 
-//ToDo
+![Xamarin Forms Quick Start](https://user-images.githubusercontent.com/13558917/40458465-f9bf6362-5eb0-11e8-8520-4159ee8f22b3.png)
+
+4. In the **Quick Start** menu, select the box below **Connect a database**
+5. In the **Data Connections** window, select **+ Add**
+6. In the **Add data connection** window, select the **SQL Database** box
+7. In the **Database** window, select **Create a new database**
+
+![Create Database](https://user-images.githubusercontent.com/13558917/40458584-886e203a-5eb1-11e8-9185-8a0e959e20f9.png)
+
+8. In the **SQL Database** window, enter a name
+    - The name must be unique
+    - I recommend using *LastnameSpeakersDatabase*
+9. In the **SQL Database** window, select **Target Server** *Configure required settings*
+10. In the **Server** window, select **Create a new server**
+11. In the **New server** window, enter a Server name
+    - The server name must be unique and all lower-case
+    - I recommend using *lastnamespeakerserver*
+12. In the **New server** window, create a **Server admin login**
+    - This will be your username for accessing the database remotely (which we won't be doing in this lab)
+13. In the **New server** window, create a **Password**
+    - This will be your password for accessing the database remotely (which we won't be doing in this lab)
+14. In the **New server** window, **Confirm Password**
+15. In the **New server** window, select a **Location**
+    - This is the physical location where your server will be located
+    - I recommend selecting a location that is closest to your users
+16. In the **New server** window, select **Select**
+
+![Configure Database Server](https://user-images.githubusercontent.com/13558917/40458706-4797a8c8-5eb2-11e8-9c83-af6f4d9a5cca.png)
+
+17. In the **SQL Database** window, select **Pricing Tier**
+18. In the **Configure** window, select **Free**
+19. In the **Configure** window, select **Apply**
+
+![Database Pricing Tier](https://user-images.githubusercontent.com/13558917/40458930-84e5ecac-5eb3-11e8-82a1-75b958936bcf.png)
+
+20. In the **SQL Database** window, select **Select**
+
+![Select SQL Database](https://user-images.githubusercontent.com/13558917/40459019-e2aa3d3e-5eb3-11e8-9dc6-258f8871db40.png)
+
+21. In the **Add data connection** window, select **Connection String**
+22. In the **Connection string** window, select **OK**, leaving the default value
+23. In the **Add data connection** window, select **OK**
+
+![Connection String](https://user-images.githubusercontent.com/13558917/40459075-43d05a3a-5eb4-11e8-8b47-6971c22176b2.png)
+
+24. Standby while Azure creates the Data Connection
+    - This may take 3-5 minutes
+
+![Data Connection Create](https://user-images.githubusercontent.com/13558917/40459143-a5437ffe-5eb4-11e8-8558-5acd9dc0e6a5.png)
 
 ![upload data](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/eea2bca6-2dd0-45b3-99af-699d14a0113c/2016-07-11_1603.png)
 
