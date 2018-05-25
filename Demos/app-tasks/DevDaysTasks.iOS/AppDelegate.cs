@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
-using Microsoft.WindowsAzure.MobileServices;
 
 namespace DevDaysTasks.iOS
 {
-	[Register ("AppDelegate")]
+	[Register(nameof(AppDelegate))]
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
-		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
 		{
-            // Initialize Azure Mobile App for the current platform
-            CurrentPlatform.Init();
+			global::Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+			global::Xamarin.Forms.Forms.Init();
 
-            // Initialize and load the Xamarin.Forms application
-            global::Xamarin.Forms.Forms.Init();            
-            LoadApplication (new App());
+			LoadApplication(new App());
 
-			return base.FinishedLaunching (app, options);
+			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
 	}
 }
