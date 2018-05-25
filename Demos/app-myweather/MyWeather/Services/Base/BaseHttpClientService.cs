@@ -185,6 +185,6 @@ namespace MyWeather.Services
 			}
 		}
 
-		static void Report(Exception e, [CallerMemberName]string callerMemberName = "") => DebugServices.Report(e);
+		static void Report(Exception e, [CallerMemberName]string callerMemberName = "") => DebugServices.Report(e, callerMemberName);
 	}
 }
