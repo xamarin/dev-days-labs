@@ -1,143 +1,157 @@
-﻿using MyWeather.Helpers;
-using MyWeather.Models;
-using MyWeather.Services;
-using Plugin.Geolocator;
-using Plugin.TextToSpeech;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using MyWeather.Helpers;
+using MyWeather.Models;
+using MyWeather.Services;
+
+using Plugin.Geolocator;
+using Plugin.TextToSpeech;
+
 using Xamarin.Forms;
 
 namespace MyWeather.ViewModels
 {
-    public class WeatherViewModel : INotifyPropertyChanged
-    {
-        WeatherService WeatherService { get; } = new WeatherService();
+	public class WeatherViewModel : INotifyPropertyChanged
+	{
+		bool useGPS;
+		string temperature = string.Empty;
+		string location = Settings.City;
+		bool isImperial = Settings.IsImperial;
+		string condition = string.Empty;
+		bool isBusy = false;
+		WeatherForecastRoot forecast;
+		ICommand getWeather;
 
-        string location = Settings.City;
-        public string Location
-        {
-            get { return location; }
-            set
-            {
-                location = value;
-                OnPropertyChanged();
-                Settings.City = value;
-            }
-        }
+		public event PropertyChangedEventHandler PropertyChanged;
 
-        bool useGPS;
-        public bool UseGPS
-        {
-            get { return useGPS; }
-            set
-            {
-                useGPS = value;
-                OnPropertyChanged();
-            }
-        }
+		public ICommand GetWeatherCommand => getWeather ??
+			(getWeather = new Command(async () => await ExecuteGetWeatherCommand()));
 
+		WeatherService WeatherService { get; } = new WeatherService();
 
+		public string Location
+		{
+			get { return location; }
+			set
+			{
+				location = value;
+				OnPropertyChanged();
+				Settings.City = value;
+			}
+		}
 
+		public bool UseGPS
+		{
+			get { return useGPS; }
+			set
+			{
+				useGPS = value;
+				OnPropertyChanged();
+			}
+		}
 
-        bool isImperial = Settings.IsImperial;
-        public bool IsImperial
-        {
-            get { return isImperial; }
-            set
-            {
-                isImperial = value;
-                OnPropertyChanged();
-                Settings.IsImperial = value;
-            }
-        }
+		public bool IsImperial
+		{
+			get { return isImperial; }
+			set
+			{
+				isImperial = value;
+				OnPropertyChanged();
+				Settings.IsImperial = value;
+			}
+		}
 
+		public string Temperature
+		{
+			get { return temperature; }
+			set
+			{
+				temperature = value;
+				OnPropertyChanged();
+			}
+		}
 
+		public string Condition
+		{
+			get { return condition; }
+			set
+			{
+				condition = value;
+				OnPropertyChanged();
+			}
+		}
 
-        string temp = string.Empty;
-        public string Temp
-        {
-            get { return temp; }
-            set { temp = value; OnPropertyChanged(); }
-        }
+		public bool IsBusy
+		{
+			get { return isBusy; }
+			set
+			{
+				isBusy = value;
+				OnPropertyChanged();
+			}
+		}
 
-        string condition = string.Empty;
-        public string Condition
-        {
-            get { return condition; }
-            set { condition = value; OnPropertyChanged(); }
-        }
+		public WeatherForecastRoot Forecast
+		{
+			get { return forecast; }
+			set
+			{
+				forecast = value;
+				OnPropertyChanged();
+			}
+		}
 
+		async Task ExecuteGetWeatherCommand()
+		{
+			if (IsBusy)
+				return;
 
+			IsBusy = true;
 
-        bool isBusy = false;
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { isBusy = value; OnPropertyChanged(); }
-        }
-
-        WeatherForecastRoot forecast;
-        public WeatherForecastRoot Forecast
-        {
-            get { return forecast; }
-            set { forecast = value; OnPropertyChanged(); }
-        }
-
-
-        ICommand getWeather;
-        public ICommand GetWeatherCommand =>
-                getWeather ??
-                (getWeather = new Command(async () => await ExecuteGetWeatherCommand()));
-
-        private async Task ExecuteGetWeatherCommand()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
             try
             {
                 WeatherRoot weatherRoot = null;
-                var units = IsImperial ? Units.Imperial : Units.Metric;
 
+				var units = IsImperial ? Units.Imperial : Units.Metric;
 
-                if (UseGPS)
-                {
-                    var gps = await CrossGeolocator.Current.GetPositionAsync(10000);
-                    weatherRoot = await WeatherService.GetWeather(gps.Latitude, gps.Longitude, units);
-                }
-                else
-                {
-                    //Get weather by city
-                    weatherRoot = await WeatherService.GetWeather(Location.Trim(), units);
-                }
-                
+				if (UseGPS)
+				{
+					var gps = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
+					weatherRoot = await WeatherService.GetWeather(gps.Latitude, gps.Longitude, units).ConfigureAwait(false);
+				}
+				else
+				{
+					//Get weather by city
+					weatherRoot = await WeatherService.GetWeather(Location.Trim(), units).ConfigureAwait(false);
+				}
 
-                //Get forecast based on cityId
-                Forecast = await WeatherService.GetForecast(weatherRoot, units);
+				//Get forecast based on cityId
+				Forecast = await WeatherService.GetForecast(weatherRoot, units).ConfigureAwait(false);
 
-                var unit = IsImperial ? "F" : "C";
-                Temp = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
-                Condition = $"{weatherRoot.Name}: {weatherRoot?.Weather?[0]?.Description ?? string.Empty}";
+				var unit = IsImperial ? "F" : "C";
+				Temperature = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
+				Condition = $"{weatherRoot.Name}: {weatherRoot?.Weather?[0]?.Description ?? string.Empty}";
 
-                CrossTextToSpeech.Current.Speak(Temp + " " + Condition);
-            }
-            catch (Exception ex)
-            {
-                Temp = "Unable to get Weather";
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+				IsBusy = false;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+				await CrossTextToSpeech.Current.Speak(Temperature + " " + Condition).ConfigureAwait(false);
+			}
+			catch (Exception e)
+			{
+				DebugServices.Report(e);
+				Temperature = "Unable to get Weather";
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
 
-        public void OnPropertyChanged([CallerMemberName]string name = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
+		void OnPropertyChanged([CallerMemberName]string name = "") =>
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+	}
 }
