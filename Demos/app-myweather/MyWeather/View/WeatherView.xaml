@@ -1,11 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyWeather.View.WeatherView"
              Title="Weather">
     <StackLayout Padding="10" Spacing="10">
       
-      <Entry Text="{Binding Location}"/>
+      <Entry Text="{Binding Location}"
+             Placeholder="City,CountryAbbreviation, e.g. Seattle,USA"/>
 
       <StackLayout Orientation="Horizontal">
         <Label Text="Use Imperial?" VerticalTextAlignment="Center"/>

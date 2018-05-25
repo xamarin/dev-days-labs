@@ -5,14 +5,14 @@ namespace MyWeather.Helpers
 {
 	public static class Settings
 	{
-		const string isImperialKey = "";
+		const string isImperialKey = nameof(isImperialKey);
 		static readonly bool isImperialDefault = true;
 
-		const string useCityKey = "use_city";
+		const string useCityKey = nameof(useCityKey);
 		static readonly bool useCityDefault = true;
 
-		const string cityKey = "city";
-		static readonly string cityDefault = "Seattle,WA";
+		const string cityKey = nameof(cityKey);
+		static readonly string cityDefault = "Seattle,USA";
 
 		public static bool IsImperial
 		{

@@ -152,12 +152,14 @@ namespace MyWeather.Services
 			{
 				httpRequestMessage.Content = new StreamContent(stream);
 				httpRequestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
 				return httpRequestMessage;
 			}
 			else
 			{
 				var stringPayload = await Task.Run(() => JsonConvert.SerializeObject(requestData)).ConfigureAwait(false);
 				httpRequestMessage.Content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+
 				return httpRequestMessage;
 			}
 		}

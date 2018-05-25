@@ -111,11 +111,13 @@ namespace MyWeather.ViewModels
 				return;
 
 			IsBusy = true;
-			try
-			{
-				WeatherRoot weatherRoot = null;
+
+            try
+            {
+                WeatherRoot weatherRoot = null;
+
 				var units = IsImperial ? Units.Imperial : Units.Metric;
-                            
+
 				if (UseGPS)
 				{
 					var gps = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
@@ -126,13 +128,15 @@ namespace MyWeather.ViewModels
 					//Get weather by city
 					weatherRoot = await WeatherService.GetWeather(Location.Trim(), units).ConfigureAwait(false);
 				}
-            
+
 				//Get forecast based on cityId
 				Forecast = await WeatherService.GetForecast(weatherRoot, units).ConfigureAwait(false);
 
 				var unit = IsImperial ? "F" : "C";
 				Temperature = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
 				Condition = $"{weatherRoot.Name}: {weatherRoot?.Weather?[0]?.Description ?? string.Empty}";
+
+				IsBusy = false;
 
 				await CrossTextToSpeech.Current.Speak(Temperature + " " + Condition).ConfigureAwait(false);
 			}
