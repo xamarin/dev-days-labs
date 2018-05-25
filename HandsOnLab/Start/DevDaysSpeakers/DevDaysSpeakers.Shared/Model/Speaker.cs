@@ -8,7 +8,7 @@ namespace DevDaysSpeakers.Model
 {
     public class Speaker
     {
-        //Add speaker attributes here
+        //Add speaker propeties here
 
 
         //Azure information for version
