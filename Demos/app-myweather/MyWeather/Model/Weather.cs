@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using Newtonsoft.Json;
 
 namespace MyWeather.Models
 {
-    public class Coord
+	public class Coord
     {
         [JsonProperty("lon")]
         public double Longitude { get; set; } = 0;
@@ -109,31 +110,38 @@ namespace MyWeather.Models
     {
         [JsonProperty("city")]
         public City City { get; set; }
+
         [JsonProperty("cod")]
         public string Vod { get; set; }
+
         [JsonProperty("message")]
         public double Message { get; set; }
+
         [JsonProperty("cnt")]
         public int Cnt { get; set; }
-        [JsonProperty("list")]
-        public List<WeatherRoot> Items { get; set; }
 
+        [JsonProperty("list")]
+        public List<WeatherRoot> Items { get; set; }      
     }
 
     public class City
     {
         [JsonProperty("id")]
         public int Id { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
+
         [JsonProperty("coord")]
         public Coord Coord { get; set; }
+
         [JsonProperty("country")]
         public string Country { get; set; }
+
         [JsonProperty("population")]
         public int Population { get; set; }
+
         [JsonProperty("sys")]
         public Sys Sys { get; set; }
-    }
-
+    }   
 }

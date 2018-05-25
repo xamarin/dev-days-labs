@@ -7,7 +7,8 @@ namespace MyWeather.View
         public ForecastView()
         {
             InitializeComponent();
-            if (Device.OS == TargetPlatform.iOS)
+
+			if (Device.RuntimePlatform.Equals(Device.iOS))
                 Icon = new FileImageSource { File = "tab2.png" };
         }
     }

@@ -1,76 +1,38 @@
-// Helpers/Settings.cs
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
 namespace MyWeather.Helpers
 {
-    /// <summary>
-    /// This is the Settings static class that can be used in your Core solution or in any
-    /// of your client applications. All settings are laid out the same exact way with getters
-    /// and setters. 
-    /// </summary>
-    public static class Settings
-    {
-        private static ISettings AppSettings
-        {
-            get
-            {
-                return CrossSettings.Current;
-            }
-        }
+	public static class Settings
+	{
+		const string isImperialKey = "";
+		static readonly bool isImperialDefault = true;
 
-        #region Setting Constants
+		const string useCityKey = "use_city";
+		static readonly bool useCityDefault = true;
 
-        private const string IsImperialKey = "is_imperial";
-        private static readonly bool IsImperialDefault = true;
+		const string cityKey = "city";
+		static readonly string cityDefault = "Seattle,WA";
+
+		public static bool IsImperial
+		{
+			get { return AppSettings.GetValueOrDefault(isImperialKey, isImperialDefault); }
+			set { AppSettings.AddOrUpdateValue(isImperialKey, value); }
+		}
 
 
-        private const string UseCityKey = "use_city";
-        private static readonly bool UseCityDefault = true;
+		public static bool UseCity
+		{
+			get { return AppSettings.GetValueOrDefault(useCityKey, useCityDefault); }
+			set { AppSettings.AddOrUpdateValue(useCityKey, value); }
+		}
 
+		public static string City
+		{
+			get { return AppSettings.GetValueOrDefault(cityKey, cityDefault); }
+			set { AppSettings.AddOrUpdateValue(cityKey, value); }
+		}
 
-        private const string CityKey = "city";
-        private static readonly string CityDefault = "Seattle,WA";
-
-        #endregion
-
-
-        public static bool IsImperial
-        {
-            get
-            {
-                return AppSettings.GetValueOrDefault(IsImperialKey, IsImperialDefault);
-            }
-            set
-            {
-                AppSettings.AddOrUpdateValue(IsImperialKey, value);
-            }
-        }
-
-
-        public static bool UseCity
-        {
-            get
-            {
-                return AppSettings.GetValueOrDefault(UseCityKey, UseCityDefault);
-            }
-            set
-            {
-                AppSettings.AddOrUpdateValue(UseCityKey, value);
-            }
-        }
-
-        public static string City
-        {
-            get
-            {
-                return AppSettings.GetValueOrDefault(CityKey, CityDefault);
-            }
-            set
-            {
-                AppSettings.AddOrUpdateValue(CityKey, value);
-            }
-        }
-
-    }
+		static ISettings AppSettings => CrossSettings.Current;
+	}
 }
