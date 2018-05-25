@@ -24,7 +24,7 @@ namespace DevDaysSpeakers.Services
             if (Client?.SyncContext?.IsInitialized ?? false)
                 return;
 
-            var appUrl = "https://OUR-APP-NAME-HERE.azurewebsites.net";
+            var appUrl = "https://YOUR-APP-NAME-HERE.azurewebsites.net";
 
             //Create our client
             Client = new MobileServiceClient(appUrl);
