@@ -247,7 +247,7 @@ private async Task GetSpeakers()
 
         using(var client = new HttpClient())
         {
-            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+            var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
 
             var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
         }
@@ -268,7 +268,7 @@ private async Task GetSpeakers()
 
         using(var client = new HttpClient())
         {
-            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+            var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
 
             var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 
@@ -311,7 +311,7 @@ private async Task GetSpeakers()
         using(var client = new HttpClient())
         {
             //grab json from server
-            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+            var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
 
             //Deserialize json
             var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
@@ -589,11 +589,17 @@ Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a Stac
 1. In `DetailsPage.xaml`, add a `ScrollView` and a `StackLayout`
 
 ```xml
-<ScrollView Padding="10">
-    <StackLayout Spacing="10">
-        <!-- Detail controls here -->
-    </StackLayout>
-</ScrollView>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevDaysSpeakers.View.DetailsPage"
+             Title="Details">
+    <ScrollView Padding="10">
+        <StackLayout Spacing="10">
+            <!-- Detail controls here -->
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
 ```
 
 2.  In `DetailsPage.xaml`, add controls and bindings for the properties in the Speaker class:
@@ -728,30 +734,35 @@ Being able to grab data from a RESTful end point is great, but what about creati
 
 1. Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin) and creating an account
 
-2. In the Azure Portal, select the **Create a resource** button
+2. In the [Azure Portal](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), select the **Create a resource** button
 3. In **New** window, tap **Mobile**
 4. In **New** window, tap **Mobile App**
 
 ![Create Resource](https://user-images.githubusercontent.com/13558917/40452936-6032bcf2-5e98-11e8-991d-8bca36d61bf1.png)
 
-5. Enter your **App name**
+5. In the **Mobile App** window, enter your **App name**
     - This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App
-    - You will need to choose a globally-unique name; for example, you could try something like *yourlastnamespeakers*
+    - You will need to choose a globally-unique name
+    - I reccomend using *yourlastnamespeakers*
 
-6. Select your **Subscription**
+6. In the **Mobile App** window, select your **Subscription**
     - Select a subscription or create a pay-as-you-go account (this service will not cost you anything).
 
-7. Create a new **Resource Group**
+7. In the **Mobile App** window, create a new **Resource Group**
     - Select *Create new* and call it **DevDaysSpeakers**
     - A resource group is just a folder that holds multiple Azure services
 
-8. Create new **App Service plan/Location**
-    - Click this field and select **Create New**
-    - Give it a unique name
-    - Select a location (typically you would choose a location close to your customers)
-    - Select the F1 Free tier
-9. Check **Pin to dashboard**
-10. Click Create
+8. In the **Mobile App** window, select create new **App Service plan/Location**
+9. In the **New App Service Plan** window, enter a unique name
+    - I reccommend *yourlastnamespeakersserver*
+10. In the **New App Service Plan** window, select a location (typically you would choose a location close to your customers)
+11. In the **New App Service Plan** window, select **Pricing tier**
+12. In the **Pricing Tier** window, select **Dev/Test**
+13. In the **Pricing Tier** window, select **Free**
+14. In the **Pricing Tier** window, select **Apply**
+15. In the **New App Service Plan** window, select **OK**
+16. In the **Mobile App** window, check **Pin to dashboard**
+17. In the **Mobile App** window, click Create
 
 ![Create Mobile App](https://user-images.githubusercontent.com/13558917/40457467-6c74d398-5eab-11e8-8fe4-bf8b6669a64d.png)
 

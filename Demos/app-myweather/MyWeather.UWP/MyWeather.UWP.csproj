@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWeather\MyWeather.csproj">
-      <Project>{5366cc83-65a3-4969-b883-3229108447e2}</Project>
+      <Project>{6664B839-80A9-47CF-BFE1-0BA26BADF026}</Project>
       <Name>MyWeather</Name>
     </ProjectReference>
   </ItemGroup>

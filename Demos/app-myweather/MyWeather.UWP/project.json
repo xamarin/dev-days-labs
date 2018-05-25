@@ -1,11 +1,11 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "Newtonsoft.Json": "9.0.1",
-    "Xam.Plugin.Geolocator": "3.0.4",
-    "Xam.Plugins.Settings": "2.5.4",
-    "Xam.Plugins.TextToSpeech": "2.0.0",
-    "Xamarin.Forms": "2.3.4.270"
+    "Newtonsoft.Json": "11.0.2",
+    "Xam.Plugin.Geolocator": "4.5.0.6",
+    "Xam.Plugins.Settings": "3.1.1",
+    "Xam.Plugins.TextToSpeech": "4.0.0.7",
+    "Xamarin.Forms": "3.0.0.482510"
   },
   "frameworks": {
     "uap10.0.10240": {}
