@@ -1,15 +1,17 @@
 using System;
 
+using Android.App;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
+
 using ImageSearch.ViewModel;
-using Android.App;
+
 using Square.Picasso;
 
 namespace ImageSearch.Droid.Adapters
 {
-    class ImageAdapter : RecyclerView.Adapter
+	class ImageAdapter : RecyclerView.Adapter
     {
         public event EventHandler<ImageAdapterClickEventArgs> ItemClick;
         public event EventHandler<ImageAdapterClickEventArgs> ItemLongClick;
@@ -48,15 +50,14 @@ namespace ImageSearch.Droid.Adapters
 
             // Replace the contents of the view with that element
             var holder = viewHolder as ImageAdapterViewHolder;
-            holder.Caption.Text = item.Title;
-            Picasso.With(activity).Load(item.ImageLink).Into(holder.Image);
+            holder.Caption.Text = item?.Name;
+			Picasso.With(activity).Load(item?.ContentUrl).Into(holder.Image);
         }
 
         public override int ItemCount => viewModel.Images.Count;
-
+        
         void OnClick(ImageAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
-        void OnLongClick(ImageAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
-
+        void OnLongClick(ImageAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);      
     }
 
     public class ImageAdapterViewHolder : RecyclerView.ViewHolder
