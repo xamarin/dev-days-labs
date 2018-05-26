@@ -1,15 +1,17 @@
 using System;
 
+using Android.App;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
+
 using ImageSearch.ViewModel;
-using Android.App;
+
 using Square.Picasso;
 
 namespace ImageSearch.Droid.Adapters
 {
-    class ImageAdapter : RecyclerView.Adapter
+	class ImageAdapter : RecyclerView.Adapter
     {
         public event EventHandler<ImageAdapterClickEventArgs> ItemClick;
         public event EventHandler<ImageAdapterClickEventArgs> ItemLongClick;

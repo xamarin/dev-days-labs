@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ImageSearch.Model
+﻿namespace ImageSearch.Model
 {
-    public class ImageResult
+	public class ImageResult
     {
         public string ThumbnailLink { get; set; }
 

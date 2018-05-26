@@ -10,69 +10,63 @@ using Acr.UserDialogs;
 
 namespace ImageSearch.Droid
 {
-    [Activity(Label = "Image Search", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity(Label = "Image Search", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : BaseActivity
     {
-        RecyclerView recyclerView;
-        RecyclerView.LayoutManager layoutManager;
-        ImageAdapter adapter;
-        ProgressBar progressBar;
+		RecyclerView recyclerView;
+		RecyclerView.LayoutManager layoutManager;
+		ImageAdapter adapter;
+		ProgressBar progressBar;
+		int count = 1;
 
         ImageSearchViewModel viewModel;
 
-        protected override int LayoutResource
-        {
-            get { return Resource.Layout.main; }
-        }
-        int count = 1;
+        protected override int LayoutResource => Resource.Layout.main;
 
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
+		protected override void OnCreate(Bundle savedInstanceState)
+		{
+			base.OnCreate(savedInstanceState);
+                     
+			viewModel = new ImageSearchViewModel();
 
+			//Setup RecyclerView         
+			adapter = new ImageAdapter(this, viewModel);
 
-            viewModel = new ImageSearchViewModel();
+			recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
 
-            //Setup RecyclerView
+			recyclerView.SetAdapter(adapter);
 
-            adapter = new ImageAdapter(this, viewModel);
+			layoutManager = new GridLayoutManager(this, 2);
 
-            recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
+			recyclerView.SetLayoutManager(layoutManager);
 
-            recyclerView.SetAdapter(adapter);
+			progressBar = FindViewById<ProgressBar>(Resource.Id.my_progress);
+			progressBar.Visibility = ViewStates.Gone;
 
-            layoutManager = new GridLayoutManager(this, 2);
+			var query = FindViewById<EditText>(Resource.Id.my_query);
 
-            recyclerView.SetLayoutManager(layoutManager);
+			// Get our button from the layout resource,
+			// and attach an event to it
+			var clickButton = FindViewById<Button>(Resource.Id.my_button);
 
-            progressBar = FindViewById<ProgressBar>(Resource.Id.my_progress);
-            progressBar.Visibility = ViewStates.Gone;
+			//Button Click event to get images
 
-            var query = FindViewById<EditText>(Resource.Id.my_query);
+			clickButton.Click += async (sender, args) =>
+			{
+				clickButton.Enabled = false;
+				progressBar.Visibility = ViewStates.Visible;
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            var clickButton = FindViewById<Button>(Resource.Id.my_button);
-
-            //Button Click event to get images
-
-            clickButton.Click += async (sender, args) =>
-            {
-                clickButton.Enabled = false;
-                progressBar.Visibility = ViewStates.Visible;
-
-                await viewModel.SearchForImagesAsync(query.Text.Trim()).ConfigureAwait(false);
+				await viewModel.SearchForImagesAsync(query.Text.Trim()).ConfigureAwait(false);
 
 
-                progressBar.Visibility = ViewStates.Gone;
-                clickButton.Enabled = true;
-            };
-            
-            UserDialogs.Init(this);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-            SupportActionBar.SetHomeButtonEnabled(false);
+				progressBar.Visibility = ViewStates.Gone;
+				clickButton.Enabled = true;
+			};
 
-        }
-    }
+			UserDialogs.Init(this);
+			SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+			SupportActionBar.SetHomeButtonEnabled(false);         
+		}
+	}
 }
 
