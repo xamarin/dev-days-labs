@@ -8,7 +8,6 @@ using Android.Widget;
 using ImageSearch.ViewModel;
 
 using Square.Picasso;
-using System.Linq;
 
 namespace ImageSearch.Droid.Adapters
 {

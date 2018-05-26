@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 using Acr.UserDialogs;
+
+using ImageSearch.Services;
 
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 
 using MvvmHelpers;
 
 using Plugin.Connectivity;
-
-using ImageSearch.Services;
 
 namespace ImageSearch.ViewModel
 {

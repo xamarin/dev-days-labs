@@ -36,7 +36,7 @@ namespace ImageSearch.Services
 				OnError429_TooManyApiRequests();            
 				throw;
 			}
-			catch (ArgumentNullException e)
+			catch (ArgumentNullException)
 			{
 				OnInvalidApiKey();
 				throw;

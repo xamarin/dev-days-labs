@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+
 using Android.App;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android.Support.V7.Widget;
+using Android.Views;
+using Android.Widget;
+
 using ImageSearch.Droid.Adapters;
 using ImageSearch.ViewModel;
-using Acr.UserDialogs;
 
 namespace ImageSearch.Droid
 {
