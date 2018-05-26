@@ -29,8 +29,8 @@ namespace ImageSearch.ViewModel
 			try
 			{
 				var images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
-
-				Images.ReplaceRange(images?.Value.Where(x => !(x.ContentUrl is null)));
+                
+				Images.ReplaceRange(images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false));
 
 				return true;
 			}
