@@ -46,9 +46,9 @@ namespace ImageSearch.iOS
 
 			var item = viewModel.Images[indexPath.Row];
 
-			cell.Caption.Text = item.Title;
+			cell.Caption.Text = item?.Name;
 
-			cell.Image.SetImage(new NSUrl(item.ThumbnailLink));
+			cell.Image.SetImage(new NSUrl(item?.ContentUrl));
                   
 			return cell;
 		}

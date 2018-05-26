@@ -1,8 +1,8 @@
 ﻿namespace ImageSearch.Services
 {
-    public class CognitiveServicesKeys
+    public class ServiceKeys
     {
         //Setup a Bing Search API key from: http://www.microsoft.com/cognitive-services
-        public const string BingSearch = "ef96c46d582f49aa8f0bb3c610573ce0";      
+		public const string BingSearch = "11da754889b448f7b8ab3ab16fa42667";      
     } 
 }

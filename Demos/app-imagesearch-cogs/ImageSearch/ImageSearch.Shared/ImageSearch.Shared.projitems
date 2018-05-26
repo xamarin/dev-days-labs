@@ -9,16 +9,11 @@
     <Import_RootNamespace>ImageSearch.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Model\ImageResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ImageSearchViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\Image.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\SearchResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\Suggestion.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\Thumbnail.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ImageSearchServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Model\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModel\" />
   </ItemGroup>

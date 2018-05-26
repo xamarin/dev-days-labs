@@ -8,6 +8,7 @@ using Android.Widget;
 using ImageSearch.ViewModel;
 
 using Square.Picasso;
+using System.Linq;
 
 namespace ImageSearch.Droid.Adapters
 {
@@ -50,15 +51,14 @@ namespace ImageSearch.Droid.Adapters
 
             // Replace the contents of the view with that element
             var holder = viewHolder as ImageAdapterViewHolder;
-            holder.Caption.Text = item.Title;
-            Picasso.With(activity).Load(item.ImageLink).Into(holder.Image);
+            holder.Caption.Text = item?.Name;
+			Picasso.With(activity).Load(item?.ContentUrl).Into(holder.Image);
         }
 
         public override int ItemCount => viewModel.Images.Count;
-
+        
         void OnClick(ImageAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
-        void OnLongClick(ImageAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
-
+        void OnLongClick(ImageAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);      
     }
 
     public class ImageAdapterViewHolder : RecyclerView.ViewHolder

@@ -56,7 +56,7 @@ namespace ImageSearch.Droid
 				clickButton.Enabled = false;
 				progressBar.Visibility = ViewStates.Visible;
 
-				await viewModel.SearchForImagesAsync(query.Text.Trim()).ConfigureAwait(false);
+				await viewModel.SearchForImagesAsync(query.Text.Trim());
 
 
 				progressBar.Visibility = ViewStates.Gone;
