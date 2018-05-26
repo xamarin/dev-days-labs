@@ -61,13 +61,13 @@ namespace ImageSearch.Droid
                 clickButton.Enabled = false;
                 progressBar.Visibility = ViewStates.Visible;
 
-                await viewModel.SearchForImagesAsync(query.Text.Trim());
+                await viewModel.SearchForImagesAsync(query.Text.Trim()).ConfigureAwait(false);
 
 
                 progressBar.Visibility = ViewStates.Gone;
                 clickButton.Enabled = true;
             };
-
+            
             UserDialogs.Init(this);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
             SupportActionBar.SetHomeButtonEnabled(false);

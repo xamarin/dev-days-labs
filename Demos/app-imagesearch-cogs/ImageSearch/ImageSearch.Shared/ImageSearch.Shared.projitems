@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{C6363AC5-00F0-45B0-90DC-FBE8EC5D4490}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ImageSearch.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ImageResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ImageSearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\SearchResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\Suggestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\BingSearch\Thumbnail.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Model\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModel\" />
+  </ItemGroup>
+</Project>
