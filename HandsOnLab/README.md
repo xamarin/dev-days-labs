@@ -732,9 +732,9 @@ Being able to grab data from a RESTful end point is great, but what about creati
 
 ### 1. Create Azure Mobile App
 
-1. Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin) and creating an account
+1. Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=none-XamarinWorkshop-bramin) and creating an account
 
-2. In the [Azure Portal](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), select the **Create a resource** button
+2. In the [Azure Portal](https://portal.azure.com/?WT.mc_id=none-XamarinWorkshop-bramin), select the **Create a resource** button
 3. In **New** window, tap **Mobile**
 4. In **New** window, tap **Mobile App**
 
@@ -770,7 +770,7 @@ After clicking **Create**, it will take Azure about 3-5 minutes to create the ne
 
 ### 2. Update AzureService.cs
 
-We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?MontrealMobile-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
+We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?none-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
 
 1. In `AzureService.cs`, add your url to the Initialize method:
     - Be sure to update YOUR-APP-NAME-HERE with the app name you specified when creating your Azure Mobile App.
@@ -842,7 +842,7 @@ Now, we have implemented the code we need in our app! Amazing isn't it? The `Azu
 
 Let's head back to the Azure Portal and populate the database!
 
-1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), click on the  **Mobile App** tile for the Azure Mobile App we created earlier.
+1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=none-XamarinWorkshop-bramin), click on the  **Mobile App** tile for the Azure Mobile App we created earlier.
 
 ![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
 
@@ -906,7 +906,7 @@ Our database is now created! Let's populate it with some data!
 
 ### 4. Populate Database with Data
 
-1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=MontrealMobile-XamarinWorkshop-bramin), click on the  **Mobile App**
+1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=none-XamarinWorkshop-bramin), click on the  **Mobile App**
 
 ![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
 
