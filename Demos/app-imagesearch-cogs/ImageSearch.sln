@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSearch.iOS", "ImageSearch\ImageSearch.iOS\ImageSearch.iOS.csproj", "{A6BB4BC6-708C-4CF9-96F1-1EC5279E94C9}"
 EndProject
@@ -10,6 +10,11 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ImageSearch.Shared", "ImageSearch\ImageSearch.Shared\ImageSearch.Shared.shproj", "{C6363AC5-00F0-45B0-90DC-FBE8EC5D4490}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ImageSearch\ImageSearch.Shared\ImageSearch.Shared.projitems*{a6bb4bc6-708c-4cf9-96f1-1ec5279e94c9}*SharedItemsImports = 4
+		ImageSearch\ImageSearch.Shared\ImageSearch.Shared.projitems*{c6363ac5-00f0-45b0-90dc-fbe8ec5d4490}*SharedItemsImports = 13
+		ImageSearch\ImageSearch.Shared\ImageSearch.Shared.projitems*{e033292c-1101-44f4-867d-083ef8db215f}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -70,5 +75,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C32B977-2686-4C53-91C2-BC6ECEEB4968}
 	EndGlobalSection
 EndGlobal

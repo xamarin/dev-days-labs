@@ -145,7 +145,7 @@
       <Version>2.2.29</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.4</Version>
+      <Version>6.1.5</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
@@ -154,10 +154,10 @@
       <Version>1.1.11</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugins.TextToSpeech">
-      <Version>3.3.2</Version>
+      <Version>4.0.0.7</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.482510</Version>
+      <Version>3.0.0.530893</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems" Label="Shared" />
