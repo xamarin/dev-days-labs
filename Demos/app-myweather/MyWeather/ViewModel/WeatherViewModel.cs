@@ -8,9 +8,7 @@ using MyWeather.Helpers;
 using MyWeather.Models;
 using MyWeather.Services;
 
-using Plugin.Geolocator;
-using Plugin.TextToSpeech;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyWeather.ViewModels
@@ -29,7 +27,7 @@ namespace MyWeather.ViewModels
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public ICommand GetWeatherCommand => getWeather ??
-			(getWeather = new Command(async () => await ExecuteGetWeatherCommand()));
+			(getWeather = new Command(async () => await ExecuteGetWeatherCommand(UseGPS)));
 
 		WeatherService WeatherService { get; } = new WeatherService();
 
@@ -105,7 +103,7 @@ namespace MyWeather.ViewModels
 			}
 		}
 
-		async Task ExecuteGetWeatherCommand()
+		async Task ExecuteGetWeatherCommand(bool useGps)
 		{
 			if (IsBusy)
 				return;
@@ -118,9 +116,9 @@ namespace MyWeather.ViewModels
 
 				var units = IsImperial ? Units.Imperial : Units.Metric;
 
-				if (UseGPS)
+                if (useGps)
 				{
-					var gps = await CrossGeolocator.Current.GetPositionAsync(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
+					var gps = await Geolocation.GetLocationAsync().ConfigureAwait(false);
 					weatherRoot = await WeatherService.GetWeather(gps.Latitude, gps.Longitude, units).ConfigureAwait(false);
 				}
 				else
@@ -138,7 +136,7 @@ namespace MyWeather.ViewModels
 
 				IsBusy = false;
 
-				await CrossTextToSpeech.Current.Speak(Temperature + " " + Condition).ConfigureAwait(false);
+				await TextToSpeech.SpeakAsync(Temperature + " " + Condition).ConfigureAwait(false);
 			}
 			catch (Exception e)
 			{

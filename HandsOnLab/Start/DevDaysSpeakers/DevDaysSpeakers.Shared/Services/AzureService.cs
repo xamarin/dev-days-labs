@@ -1,15 +1,17 @@
-﻿using DevDaysSpeakers.Services;
-using DevDaysSpeakers.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using Xamarin.Forms;
-using Microsoft.WindowsAzure.MobileServices;
-using Microsoft.WindowsAzure.MobileServices.Sync;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
+
+using DevDaysSpeakers.Model;
+using DevDaysSpeakers.Services;
+
+using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
+using Microsoft.WindowsAzure.MobileServices.Sync;
+
+using Xamarin.Forms;
 
 [assembly: Dependency(typeof(AzureService))]
 namespace DevDaysSpeakers.Services

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
 
 using DevDaysSpeakers.Model;
-using Plugin.TextToSpeech;
 
-using DevDaysSpeakers.ViewModel;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace DevDaysSpeakers.View
 {
