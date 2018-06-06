@@ -16,10 +16,8 @@ namespace DevDaysSpeakers.View
             vm = new SpeakersViewModel();
 
             BindingContext = vm;
-            
 
             ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
-
         }
 
         async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
