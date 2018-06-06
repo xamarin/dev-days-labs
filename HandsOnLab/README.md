@@ -139,6 +139,8 @@ public class SpeakersViewModel : INotifyPropertyChanged
         {
             isBusy = value;
             OnPropertyChanged();
+
+            GetSpeakersCommand.ChangeCanExecute();
         }
     }
     //...
@@ -443,9 +445,9 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
 
-        <ListView
-            x:Name="ListViewSpeakers"
-            ItemsSource="{Binding Speakers}">
+        <ListView x:Name="ListViewSpeakers"
+              ItemsSource="{Binding Speakers}"
+              CachingStrategy="RecycleElement">
         <!--Add ItemTemplate Here-->
         </ListView>
 
@@ -472,7 +474,8 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
 
         <ListView
             x:Name="ListViewSpeakers"
-            ItemsSource="{Binding Speakers}">
+            ItemsSource="{Binding Speakers}"
+            CachingStrategy="RecycleElement">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell

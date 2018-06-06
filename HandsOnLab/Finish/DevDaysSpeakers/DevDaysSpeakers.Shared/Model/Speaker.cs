@@ -1,6 +1,4 @@
-﻿
-
-namespace DevDaysSpeakers.Model
+﻿namespace DevDaysSpeakers.Model
 {
     public class Speaker
     {

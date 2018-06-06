@@ -24,6 +24,7 @@ namespace DevDaysSpeakers.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Command GetSpeakersCommand { get; }
+
         public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
 
         public bool IsBusy
