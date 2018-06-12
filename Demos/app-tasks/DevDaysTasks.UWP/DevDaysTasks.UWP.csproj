@@ -152,7 +152,7 @@
       <Version>1.1.11</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.0.0.530893</Version>
+      <Version>3.0.0.550146</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\DevDaysTasks.Shared\DevDaysTasks.Shared.projitems" Label="Shared" />

@@ -1,36 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-using Xamarin.Forms;
 using DevDaysSpeakers.Model;
-using System.Net.Http;
-using Newtonsoft.Json;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using DevDaysSpeakers.Services;
+
+using Xamarin.Forms;
 
 namespace DevDaysSpeakers.ViewModel
 {
     public class SpeakersViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Speaker> Speakers { get; set; }
-        public Command GetSpeakersCommand { get; set; }
+        bool isBusy;
+
         public SpeakersViewModel()
         {
-            
-            Speakers = new ObservableCollection<Speaker>();
-            GetSpeakersCommand = new Command(
-                async () => await GetSpeakers(),
-                () => !IsBusy);
-
+            GetSpeakersCommand = new Command(async () => await GetSpeakers(), () => !IsBusy);
         }
 
-        bool isBusy;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Command GetSpeakersCommand { get; }
+
+        public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
 
         public bool IsBusy
         {
@@ -44,14 +39,11 @@ namespace DevDaysSpeakers.ViewModel
             }
         }
 
-
-
         async Task GetSpeakers()
         {
             if (IsBusy)
                 return;
 
-            Exception error = null;
             try
             {
                 IsBusy = true;
@@ -63,21 +55,16 @@ namespace DevDaysSpeakers.ViewModel
                 foreach (var item in items)
                     Speakers.Add(item);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.WriteLine("Error: " + ex);
-                error = ex;
+                Debug.WriteLine("Error: " + e.Message);
+                await Application.Current.MainPage.DisplayAlert("Error!", e.Message, "OK");
             }
             finally
             {
                 IsBusy = false;
             }
-
-            if (error != null)
-                await Application.Current.MainPage.DisplayAlert("Error!", error.Message, "OK");
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         void OnPropertyChanged([CallerMemberName] string name = null)
         {
