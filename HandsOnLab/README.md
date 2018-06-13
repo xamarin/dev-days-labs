@@ -683,7 +683,7 @@ public partial class DetailsPage : ContentPage
     //...
     private async void ButtonSpeak_Clicked(object sender, EventArgs e)
     {
-        await CrossTextToSpeech.Current.Speak(speaker.Description);
+        await TextToSpeech.SpeakAsync(speaker.Description);
     }
 }
 ```
