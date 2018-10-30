@@ -6,11 +6,11 @@ using Xamarin.Forms;
 namespace MyWeather
 {
 	public class App : Application
-	{
+    {
 		public App()
 		{
 			var tabs = new TabbedPage
-			{
+            {
 				Title = "My Weather",
 				BindingContext = new WeatherViewModel(),
 				Children =
@@ -20,7 +20,7 @@ namespace MyWeather
 				}
 			};
 
-			MainPage = new NavigationPage(tabs)
+            MainPage = new NavigationPage(tabs)
 			{
 				BarBackgroundColor = Color.FromHex("3498db"),
 				BarTextColor = Color.White
