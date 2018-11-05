@@ -11,53 +11,49 @@ using Square.Picasso;
 
 namespace ImageSearch.Droid.Adapters
 {
-	class ImageAdapter : RecyclerView.Adapter
+    class ImageAdapter : RecyclerView.Adapter
     {
-        public event EventHandler<ImageAdapterClickEventArgs> ItemClick;
-        public event EventHandler<ImageAdapterClickEventArgs> ItemLongClick;
-        ImageSearchViewModel viewModel;
-        Activity activity;
+        readonly ImageSearchViewModel _viewModel;
+        readonly Activity _activity;
 
         public ImageAdapter(Activity activity, ImageSearchViewModel viewModel)
         {
-            this.viewModel = viewModel;
-            this.activity = activity;
+            _viewModel = viewModel;
+            _activity = activity;
 
-            this.viewModel.Images.CollectionChanged += (sender, args) =>
-            {
-                this.activity.RunOnUiThread(NotifyDataSetChanged);
-            };
+            _viewModel.Images.CollectionChanged += (sender, args) => _activity.RunOnUiThread(NotifyDataSetChanged);
         }
 
-        // Create new views (invoked by the layout manager)
+        event EventHandler<ImageAdapterClickEventArgs> ItemClick;
+        event EventHandler<ImageAdapterClickEventArgs> ItemLongClick;
+
+        public override int ItemCount => _viewModel.Images.Count;
+
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
+            View itemView;
 
-            //Setup your layout here
-            View itemView = null;
             var id = Resource.Layout.item;
-            itemView = LayoutInflater.From(parent.Context).
-                   Inflate(id, parent, false);
 
-            var vh = new ImageAdapterViewHolder(itemView, OnClick, OnLongClick);
-            return vh;
+            itemView = LayoutInflater.From(parent.Context).Inflate(id, parent, false);
+
+            var holder = new ImageAdapterViewHolder(itemView, OnClick, OnLongClick);
+            return holder;
         }
 
-        // Replace the contents of a view (invoked by the layout manager)
-        public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            var item = viewModel.Images[position];
+            var item = _viewModel.Images[position];
 
-            // Replace the contents of the view with that element
-            var holder = viewHolder as ImageAdapterViewHolder;
-            holder.Caption.Text = item?.Name;
-			Picasso.With(activity).Load(item?.ContentUrl).Into(holder.Image);
+            var imageAdapterViewHolder = holder  as ImageAdapterViewHolder;
+
+            imageAdapterViewHolder.Caption.Text = item?.Name;
+
+            Picasso.With(_activity).Load(item?.ContentUrl).Into(imageAdapterViewHolder.Image);
         }
 
-        public override int ItemCount => viewModel.Images.Count;
-        
         void OnClick(ImageAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
-        void OnLongClick(ImageAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);      
+        void OnLongClick(ImageAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
     }
 
     public class ImageAdapterViewHolder : RecyclerView.ViewHolder
@@ -70,6 +66,7 @@ namespace ImageSearch.Droid.Adapters
         {
             Image = itemView.FindViewById<ImageView>(Resource.Id.imageView);
             Caption = itemView.FindViewById<TextView>(Resource.Id.textView);
+
             itemView.Click += (sender, e) => clickListener(new ImageAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new ImageAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }
