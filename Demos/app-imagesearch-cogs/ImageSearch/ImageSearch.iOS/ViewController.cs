@@ -10,48 +10,48 @@ using UIKit;
 
 namespace ImageSearch.iOS
 {
-	public partial class ViewController : UIViewController, IUICollectionViewDataSource
-	{
-		ImageSearchViewModel viewModel;
+    public partial class ViewController : UIViewController, IUICollectionViewDataSource
+    {
+        readonly ImageSearchViewModel _viewModel = new ImageSearchViewModel();
 
-		public ViewController(IntPtr handle) : base(handle)
-		{
-		}
+        public ViewController(IntPtr handle) : base(handle)
+        {
+        }
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-			viewModel = new ImageSearchViewModel();
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
 
-			CollectionViewImages.WeakDataSource = this;
+            CollectionViewImages.WeakDataSource = this;
 
-			ButtonSearch.TouchUpInside += async (sender, args) =>
-			{
-				ButtonSearch.Enabled = false;
-				ActivityIsLoading.StartAnimating();
 
-				await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
-				CollectionViewImages.ReloadData();
+            ButtonSearch.TouchUpInside += async (sender, args) =>
+            {
+                ButtonSearch.Enabled = false;
+                ActivityIsLoading.StartAnimating();
 
-				ButtonSearch.Enabled = true;
-				ActivityIsLoading.StopAnimating();
-			};
-		}
+                await _viewModel.SearchForImagesAsync(TextFieldQuery.Text);
+                CollectionViewImages.ReloadData();
 
-		public nint GetItemsCount(UICollectionView collectionView, nint section) => viewModel.Images.Count;
+                ButtonSearch.Enabled = true;
+                ActivityIsLoading.StopAnimating();
+            };
+        }
 
-		public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
-		{
-			var cell = collectionView.DequeueReusableCell("imagecell", indexPath) as ImageCell;
+        public nint GetItemsCount(UICollectionView collectionView, nint section) => _viewModel.Images.Count;
 
-			var item = viewModel.Images[indexPath.Row];
+        public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
+        {
+            var cell = collectionView.DequeueReusableCell("imagecell", indexPath) as ImageCell;
 
-			cell.Caption.Text = item?.Name;
+            var item = _viewModel.Images[indexPath.Row];
 
-			cell.Image.SetImage(new NSUrl(item?.ContentUrl));
-                  
-			return cell;
-		}
-	}
+            cell.Caption.Text = item?.Name;
+
+            cell.Image.SetImage(new NSUrl(item?.ContentUrl));
+
+            return cell;
+        }
+    }
 }
 

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment version="4352" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,13 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Cute Monkey" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="35">
-                                <rect key="frame" x="20" y="104" width="433" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Xamarin" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="35">
+                                <rect key="frame" x="20" y="104" width="208" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="36">
-                                <rect key="frame" x="473" y="109" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="36">
+                                <rect key="frame" x="248" y="109" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37">
                                 <rect key="frame" x="286" y="104" width="69" height="30"/>
@@ -39,28 +39,28 @@
                                 </state>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="55">
-                                <rect key="frame" x="0.0" y="152" width="375" height="660"/>
+                                <rect key="frame" x="0.0" y="154" width="375" height="658"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="57">
-                                    <size key="itemSize" width="140" height="140"/>
+                                    <size key="itemSize" width="169" height="140"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imagecell" id="56" customClass="ImageCell">
-                                        <rect key="frame" x="10" y="10" width="140" height="140"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <rect key="frame" x="10" y="10" width="169" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" fixedFrame="YES" text="Caption" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="97">
-                                                    <rect key="frame" x="0.0" y="110" width="140" height="30"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" fixedFrame="YES" text="Caption" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="97" customClass="LabelWithBorder">
+                                                    <rect key="frame" x="0.0" y="110" width="169" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -69,7 +69,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <size key="customSize" width="140" height="140"/>
+                                        <size key="customSize" width="169" height="140"/>
                                         <connections>
                                             <outlet property="LabelCaption" destination="97" id="name-outlet-97"/>
                                             <outlet property="MainImage" destination="94" id="name-outlet-94"/>
@@ -86,12 +86,12 @@
                             <constraint firstItem="36" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="21" id="51"/>
                             <constraint firstItem="35" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="52"/>
                             <constraint firstItem="35" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="53"/>
-                            <constraint firstItem="36" firstAttribute="leading" secondItem="35" secondAttribute="trailing" constant="20" id="54"/>
-                            <constraint firstItem="55" firstAttribute="top" secondItem="35" secondAttribute="bottom" constant="18" id="77"/>
+                            <constraint firstItem="55" firstAttribute="top" secondItem="35" secondAttribute="bottom" constant="20" id="77"/>
                             <constraint firstItem="55" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="78"/>
                             <constraint firstItem="55" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="79"/>
                             <constraint firstItem="55" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="80"/>
                             <constraint firstItem="55" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="81"/>
+                            <constraint firstItem="36" firstAttribute="leading" secondItem="35" secondAttribute="trailing" constant="20" id="KrU-pV-bjw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Image Search" id="32"/>
@@ -104,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42" y="47"/>
+            <point key="canvasLocation" x="-42.399999999999999" y="45.812807881773402"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5">
