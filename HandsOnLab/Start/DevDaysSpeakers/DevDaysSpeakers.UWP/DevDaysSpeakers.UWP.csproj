@@ -90,10 +90,6 @@
         <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     </PropertyGroup>
     <ItemGroup>
-        <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-        <None Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
         </Compile>
@@ -129,36 +125,10 @@
         </Page>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Azure.Mobile.Client">
-            <Version>4.0.2</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore">
-            <Version>4.0.2</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Bcl">
-            <Version>1.1.10</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Bcl.Build">
-            <Version>1.0.21</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Net.Http">
-            <Version>2.2.29</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-            <Version>6.1.5</Version>
-        </PackageReference>
-        <PackageReference Include="Newtonsoft.Json">
-            <Version>11.0.2</Version>
-        </PackageReference>
-        <PackageReference Include="SQLitePCLRaw.bundle_green">
-            <Version>1.1.11</Version>
-        </PackageReference>
-        <PackageReference Include="Xamarin.Essentials">
-            <Version>0.6.0-preview</Version>
-        </PackageReference>
-        <PackageReference Include="Xamarin.Forms">
-            <Version>3.0.0.550146</Version>
-        </PackageReference>
+        <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore" Version="4.0.2" />
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
     </ItemGroup>
     <Import Project="..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems" Label="Shared" />
     <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
