@@ -2,6 +2,7 @@
 
 using Xamarin.Forms;
 
+[assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
 namespace DevDaysSpeakers
 {
     public class App : Application
