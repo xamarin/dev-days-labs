@@ -21,9 +21,12 @@ namespace DevDaysSpeakers.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
+
             LoadApplication(new App());
         }
     }

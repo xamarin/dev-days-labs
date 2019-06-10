@@ -60,6 +60,7 @@
         <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
         <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore" Version="4.1.1" />
         <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
