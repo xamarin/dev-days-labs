@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.Droid", "DevDaysSpeakers\DevDaysSpeakers.Droid\DevDaysSpeakers.Droid.csproj", "{98248CE3-4317-4FB5-9F37-7AC19FEFDF1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.Droid", "Src\DevDaysSpeakers.Droid\DevDaysSpeakers.Droid.csproj", "{98248CE3-4317-4FB5-9F37-7AC19FEFDF1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.iOS", "DevDaysSpeakers\DevDaysSpeakers.iOS\DevDaysSpeakers.iOS.csproj", "{367B4F1E-C7D4-432C-B767-59121E12C2BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.iOS", "Src\DevDaysSpeakers.iOS\DevDaysSpeakers.iOS.csproj", "{367B4F1E-C7D4-432C-B767-59121E12C2BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.UWP", "DevDaysSpeakers\DevDaysSpeakers.UWP\DevDaysSpeakers.UWP.csproj", "{5A77AD80-10E0-4093-9332-ECFB62D3342A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.UWP", "Src\DevDaysSpeakers.UWP\DevDaysSpeakers.UWP.csproj", "{5A77AD80-10E0-4093-9332-ECFB62D3342A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{1500BFBD-3344-420D-A321-69B755C7930F}"
 EndProject
@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{B54E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{86740496-055C-4713-8419-8A5AA73222D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers", "DevDaysSpeakers\DevDaysSpeakers\DevDaysSpeakers.csproj", "{AE6AFDCB-6945-48D4-9D5E-76D3EBB11C28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers", "Src\DevDaysSpeakers\DevDaysSpeakers.csproj", "{AE6AFDCB-6945-48D4-9D5E-76D3EBB11C28}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DevDaysSpeakers.Shared", "DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.shproj", "{F0365254-D93D-4178-8849-73A302EAF71E}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DevDaysSpeakers.Shared", "Src\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.shproj", "{F0365254-D93D-4178-8849-73A302EAF71E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.Functions", "DevDaysSpeakers.Functions\DevDaysSpeakers.Functions.csproj", "{439ADDAE-E36A-4858-A020-D97CDDA4DF17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDaysSpeakers.Functions", "Src\DevDaysSpeakers.Functions\DevDaysSpeakers.Functions.csproj", "{439ADDAE-E36A-4858-A020-D97CDDA4DF17}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
