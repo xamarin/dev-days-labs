@@ -20,7 +20,7 @@ namespace DevDaysSpeakers.Services
     {
         IMobileServiceSyncTable<Speaker> table;
 
-        public MobileServiceClient Client { get; set; } = null;
+        public MobileServiceClient Client { get; set; }
 
         public async Task Initialize()
         {

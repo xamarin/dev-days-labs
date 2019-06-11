@@ -25,7 +25,7 @@ namespace DevDaysSpeakers.ViewModel
 
         public Command GetSpeakersCommand { get; }
 
-        public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
+        public ObservableCollection<Speaker> Speakers { get; } = new ObservableCollection<Speaker>();
 
         public bool IsBusy
         {
@@ -66,14 +66,7 @@ namespace DevDaysSpeakers.ViewModel
             }
         }
 
-        void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            var changed = PropertyChanged;
-
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        void OnPropertyChanged([CallerMemberName] string name = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

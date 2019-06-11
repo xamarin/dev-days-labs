@@ -23,15 +23,15 @@ namespace DevDaysSpeakers.View
             ButtonWebsite.Clicked += ButtonWebsite_Clicked;
         }
 
-        void ButtonWebsite_Clicked(object sender, EventArgs e)
+        async void ButtonWebsite_Clicked(object sender, EventArgs e)
         {
-            if (speaker.Website.StartsWith("http"))
-                Device.OpenUri(new Uri(speaker.Website));
+            if (speaker.Website.StartsWith("https"))
+                await Browser.OpenAsync(speaker.Website);
         }
 
         async void ButtonSpeak_Clicked(object sender, EventArgs e)
         {
-            await TextToSpeech.SpeakAsync(this.speaker.Description);
+            await TextToSpeech.SpeakAsync(speaker.Description);
         }
     }
 }

@@ -22,13 +22,11 @@ namespace DevDaysSpeakers.View
 
         async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var speaker = e.SelectedItem as Speaker;
-            if (speaker == null)
-                return;
-
-            await Navigation.PushAsync(new DetailsPage(speaker));
-
-            ListViewSpeakers.SelectedItem = null;
+            if (e.SelectedItem is Speaker speaker)
+            {
+                await Navigation.PushAsync(new DetailsPage(speaker));
+                ListViewSpeakers.SelectedItem = null;
+            }
         }
     }
 }

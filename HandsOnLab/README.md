@@ -141,7 +141,7 @@ We will use an `ObservableCollection<Speaker>` that will be cleared and then loa
 public class SpeakersViewModel : INotifyPropertyChanged
 {
     //...
-    public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
+    public ObservableCollection<Speaker> Speakers { get; } = new ObservableCollection<Speaker>();
     //...
 }
 ```
@@ -557,13 +557,11 @@ public partial class SpeakersPage : ContentPage
 ```csharp
 private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
 {
-    var speaker = e.SelectedItem as Speaker;
-    if (speaker == null)
-        return;
-
-    await Navigation.PushAsync(new DetailsPage(speaker));
-
-    ListViewSpeakers.SelectedItem = null;
+    if (e.SelectedItem is Speaker speaker)
+    {
+        await Navigation.PushAsync(new DetailsPage(speaker));
+        ListViewSpeakers.SelectedItem = null;
+    }
 }
 ```
 
@@ -684,8 +682,8 @@ public partial class DetailsPage : ContentPage
         InitializeComponent();
 
         //Set local instance of speaker and set BindingContext
-        this.speaker = speaker;
-        BindingContext = this.speaker;
+        speaker = speaker;
+        BindingContext = speaker;
 
         ButtonSpeak.Clicked += ButtonSpeak_Clicked;
         ButtonWebsite.Clicked += ButtonWebsite_Clicked;
@@ -702,8 +700,8 @@ public partial class DetailsPage : ContentPage
     //...
     private void ButtonWebsite_Clicked(object sender, EventArgs e)
     {
-        if (speaker.Website.StartsWith("http"))
-            Device.OpenUri(new Uri(speaker.Website));
+        if (speaker.Website.StartsWith("https"))
+            await Browser.OpenAsync(speaker.Website);
     }
 }
 ```
