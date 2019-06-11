@@ -1,6 +1,6 @@
 # Xamarin Dev Days Hands On Lab
 
-Today we will build a cloud connected [Xamarin.Forms](https://xamarin.com/forms) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
+Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com/xamarin/xamarin-forms?WT.mc_id=devdayslabs-github-bramin) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
 
 ## Mobile App Walkthrough
 
@@ -12,8 +12,8 @@ This solution contains 4 projects
 
 * DevDaysSpeakers  - Shared Project that will have all shared code (model, views, and view models)
 * DevDaysSpeakers.Droid - Xamarin.Android application
-* DevDaysSpeakers.iOS - Xamarin.iOS application (requires a macOS build host)
-* DevDaysSpeakers.UWP - Windows 10 UWP application (requires Visual Studio 2015/2017 on Windows 10)
+* DevDaysSpeakers.iOS - Xamarin.iOS application (requires a Mac)
+* DevDaysSpeakers.UWP - Windows 10 UWP application (requires Visual Studio on PC)
 
 ![Solution](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/44f4caa9-efb9-4405-95d4-7341608e1c0a/Portable.png)
 
@@ -70,6 +70,7 @@ public class SpeakersViewModel : INotifyPropertyChanged
 4. Implement the `INotifyPropertyChanged` Interface
    - (Visual Studio Mac) In the right-click menu, select Quick Fix -> Implement Interface
    - (Visual Studio PC) In the right-click menu, select Quick Actions and Refactorings -> Implement Interface
+
 5. In `SpeakersViewModel.cs`, ensure this line of code now appears:
 
 ```csharp
@@ -87,29 +88,10 @@ private void OnPropertyChanged([CallerMemberName] string name = null)
 ```
 
 7. Add code to `OnPropertyChanged`:
-    - Visual Studio Mac and Visual Studio PC 2017 or newer
 
 ```csharp
 private void OnPropertyChanged([CallerMemberName] string name = null) =>
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-```
-
-<ul>
-    <ul>
-        <li>Visual Studio PC 2015 or earlier</li>
-    </ul>
-</ul>
-
-```csharp
-private void OnPropertyChanged([CallerMemberName] string name = null)
-{
-    var changed = PropertyChanged;
-
-    if (changed == null)
-       return;
-
-    changed.Invoke(this, new PropertyChangedEventArgs(name));
-}
 ```
 
 ### 5. Implementing IsBusy
