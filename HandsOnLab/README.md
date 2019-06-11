@@ -344,10 +344,6 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
              x:Class="DevDaysSpeakers.View.SpeakersPage"
              Title="Speakers">
 
-    <StackLayout Spacing="0">
-
-    </StackLayout>
-
 </ContentPage>
 ```
 
@@ -369,8 +365,6 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
               CachingStrategy="RecycleElement">
     <!--Add ItemTemplate Here-->
     </ListView>
-
-    </StackLayout>
 
 </ContentPage>
 ```
@@ -508,7 +502,7 @@ private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChan
 
 ### 13. Create DetailsPage.xaml UI
 
-Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView. This allows the user to scroll if the page content is longer than the avaliable screen space.
+Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView. This allows the user to scroll if the page content is longer than the available screen space.
 
 1. In `DetailsPage.xaml`, add a `ScrollView` and a `StackLayout`
 
@@ -639,7 +633,7 @@ public partial class DetailsPage : ContentPage
 public partial class DetailsPage : ContentPage
 {
     //...
-    private void ButtonWebsite_Clicked(object sender, EventArgs e)
+    private async void ButtonWebsite_Clicked(object sender, EventArgs e)
     {
         if (speaker.Website.StartsWith("https"))
             await Browser.OpenAsync(speaker.Website);
@@ -656,9 +650,9 @@ Being able to grab data from a RESTful end point is great, but what about creati
 
 ### 1. Create Azure Mobile App
 
-1. Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps/?WT.mc_id=none-XamarinWorkshop-bramin) and creating an account
+1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account
 
-2. In the [Azure Portal](https://portal.azure.com/?WT.mc_id=none-XamarinWorkshop-bramin), select the **Create a resource** button
+2. In the [Azure Portal](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), select the **Create a resource** button
 3. In **New** window, tap **Mobile**
 4. In **New** window, tap **Mobile App**
 
@@ -667,26 +661,26 @@ Being able to grab data from a RESTful end point is great, but what about creati
 5. In the **Mobile App** window, enter your **App name**
     - This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App
     - You will need to choose a globally-unique name
-    - I reccomend using *yourlastnamespeakers*
+    - I recommend using `[Your Last Name]speakers`
 
 6. In the **Mobile App** window, select your **Subscription**
-    - Select a subscription or create a pay-as-you-go account (this service will not cost you anything).
+    - Select a subscription or create a pay-as-you-go account
+        - We'll be using the free tier of Azure Mobile App and it will not cost anything
 
 7. In the **Mobile App** window, create a new **Resource Group**
     - Select *Create new* and call it **DevDaysSpeakers**
     - A resource group is just a folder that holds multiple Azure services
 
-8. In the **Mobile App** window, select create new **App Service plan/Location**
+8. In the **Mobile App** window, select **App Service plan/Location**
 9. In the **New App Service Plan** window, enter a unique name
-    - I reccommend *yourlastnamespeakersserver*
+    - I recommend `[Your Last Name]speakersserver`
 10. In the **New App Service Plan** window, select a location (typically you would choose a location close to your customers)
 11. In the **New App Service Plan** window, select **Pricing tier**
 12. In the **Pricing Tier** window, select **Dev/Test**
 13. In the **Pricing Tier** window, select **Free**
 14. In the **Pricing Tier** window, select **Apply**
 15. In the **New App Service Plan** window, select **OK**
-16. In the **Mobile App** window, check **Pin to dashboard**
-17. In the **Mobile App** window, click Create
+16. In the **Mobile App** window, click Create
 
 ![Create Mobile App](https://user-images.githubusercontent.com/13558917/40457467-6c74d398-5eab-11e8-8fe4-bf8b6669a64d.png)
 
@@ -714,7 +708,7 @@ public async Task<IEnumerable<Speaker>> GetSpeakers()
 {
     await Initialize();
     await SyncSpeakers();
-    return await table.OrderBy(s => s.Name).ToEnumerableAsync();   
+    return await table.OrderBy(s => s.Name).ToEnumerableAsync();
 }
 ```
 
@@ -760,66 +754,68 @@ private async Task GetSpeakers()
 }
 ```
 
-Now, we have implemented the code we need in our app! Amazing isn't it? The `AzureService` object will automatically handle all communication with your Azure back-end for you, do online/offline synchronization so your app works even when it's not connected.
+Now, we have implemented the code we need in our app. `AzureService` will automatically handle all communication with your Azure back-end for you including online/offline synchronization so your app works even when it's not connected to the internet.
 
 ### 3. Populate Azure Database
 
 Let's head back to the Azure Portal and populate the database!
 
-1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=none-XamarinWorkshop-bramin), click on the  **Mobile App** tile for the Azure Mobile App we created earlier.
+1. In the [Azure Portal Dashboard](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), click on the notification button (bell icon)
 
-![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
+1. In the **Notifiations** window, click **Go to resource**
 
-2. On the left-hand menu, select **Quickstart**
+![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/59301196-ec80b200-8c45-11e9-9631-83da7ee355ce.png)
 
-3. In the new window, select **Xamarin.Forms**
+3. On the left-hand menu, select **Quickstart**
+
+4. In the new window, select **Xamarin.Forms**
 
 ![Xamarin Forms Quick Start](https://user-images.githubusercontent.com/13558917/40458465-f9bf6362-5eb0-11e8-8520-4159ee8f22b3.png)
 
-4. In the **Quick Start** menu, select the box below **Connect a database**
-5. In the **Data Connections** window, select **+ Add**
-6. In the **Add data connection** window, select the **SQL Database** box
-7. In the **Database** window, select **Create a new database**
+5. In the **Quick Start** menu, select the box below **Connect a database**
+6. In the **Data Connections** window, select **+ Add**
+7. In the **Add data connection** window, select the **SQL Database** box
+8. In the **Database** window, select **Create a new database**
 
 ![Create Database](https://user-images.githubusercontent.com/13558917/40458584-886e203a-5eb1-11e8-9185-8a0e959e20f9.png)
 
 8. In the **SQL Database** window, enter a name
     - The name must be unique
     - I recommend using *LastnameSpeakersDatabase*
-9. In the **SQL Database** window, select **Target Server** *Configure required settings*
-10. In the **Server** window, select **Create a new server**
-11. In the **New server** window, enter a Server name
-    - The server name must be unique and all lower-case
+10. In the **SQL Database** window, select **Target Server** *Configure required settings*
+11. In the **Server** window, select **Create a new server**
+12. In the **New server** window, enter a Server name
+  - The server name must be unique and all lower-case
     - I recommend using *lastnamespeakerserver*
-12. In the **New server** window, create a **Server admin login**
+13. In the **New server** window, create a **Server admin login**
     - This will be your username for accessing the database remotely (which we won't be doing in this lab)
-13. In the **New server** window, create a **Password**
+14. In the **New server** window, create a **Password**
     - This will be your password for accessing the database remotely (which we won't be doing in this lab)
-14. In the **New server** window, **Confirm Password**
-15. In the **New server** window, select a **Location**
+15. In the **New server** window, **Confirm Password**
+16. In the **New server** window, select a **Location**
     - This is the physical location where your server will be located
     - I recommend selecting a location that is closest to your users
-16. In the **New server** window, select **Select**
+17. In the **New server** window, select **Select**
 
 ![Configure Database Server](https://user-images.githubusercontent.com/13558917/40458706-4797a8c8-5eb2-11e8-9c83-af6f4d9a5cca.png)
 
-17. In the **SQL Database** window, select **Pricing Tier**
-18. In the **Configure** window, select **Free**
-19. In the **Configure** window, select **Apply**
+18. In the **SQL Database** window, select **Pricing Tier**
+19. In the **Configure** window, select **Free**
+20. In the **Configure** window, select **Apply**
 
 ![Database Pricing Tier](https://user-images.githubusercontent.com/13558917/40458930-84e5ecac-5eb3-11e8-82a1-75b958936bcf.png)
 
-20. In the **SQL Database** window, select **Select**
+21. In the **SQL Database** window, select **Select**
 
 ![Select SQL Database](https://user-images.githubusercontent.com/13558917/40459019-e2aa3d3e-5eb3-11e8-9dc6-258f8871db40.png)
 
-21. In the **Add data connection** window, select **Connection String**
-22. In the **Connection string** window, select **OK**, leaving the default value
-23. In the **Add data connection** window, select **OK**
+22. In the **Add data connection** window, select **Connection String**
+23. In the **Connection string** window, select **OK**, leaving the default value
+24. In the **Add data connection** window, select **OK**
 
 ![Connection String](https://user-images.githubusercontent.com/13558917/40459075-43d05a3a-5eb4-11e8-8b47-6971c22176b2.png)
 
-24. Standby while Azure creates the Data Connection
+25. Standby while Azure creates the Data Connection
     - This may take 3-5 minutes
 
 ![Data Connection Create](https://user-images.githubusercontent.com/13558917/40459143-a5437ffe-5eb4-11e8-8558-5acd9dc0e6a5.png)
@@ -830,7 +826,7 @@ Our database is now created! Let's populate it with some data!
 
 ### 4. Populate Database with Data
 
-1. In the [Azure Portal Dashboard](https://portal.azure.com/?WT.mc_id=none-XamarinWorkshop-bramin), click on the  **Mobile App**
+1. In the [Azure Portal Dashboard](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), click on the  **Mobile App**
 
 ![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
 
