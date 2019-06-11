@@ -29,7 +29,7 @@ namespace DevDaysSpeakers.ViewModel
 
         public bool IsBusy
         {
-            get { return isBusy; }
+            get => isBusy;
             set
             {
                 isBusy = value;
@@ -41,9 +41,6 @@ namespace DevDaysSpeakers.ViewModel
 
         async Task GetSpeakers()
         {
-            if (IsBusy)
-                return;
-
             try
             {
                 IsBusy = true;

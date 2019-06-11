@@ -20,6 +20,13 @@ namespace DevDaysSpeakers.View
             ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            ListViewSpeakers.BeginRefresh();
+        }
+
         async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is Speaker speaker)

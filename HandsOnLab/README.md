@@ -116,7 +116,7 @@ public class SpeakersViewModel : INotifyPropertyChanged
     //...
     public bool IsBusy
     {
-        get { return isBusy; }
+        get => isBusy;
         set
         {
             isBusy = value;
@@ -148,7 +148,7 @@ public class SpeakersViewModel : INotifyPropertyChanged
 
 ### 7. Create GetSpeakers Method
 
-We are ready to create a method named `GetSpeakers` which will retrieve the speaker data from the internet. We will first implement this with a simple HTTP request, and later update it to grab and sync the data from Azure!
+We are ready to create a method named `GetSpeakers` which will retrieve the speaker data from the internet. We will first implement this with a simple HTTP request, and later update it to grab and sync the data from Azure.
 
 1. In `SpeakersViewModel.cs`, create a method named `GetSpeakers` with that returns `async Task`:
 
@@ -164,29 +164,15 @@ public class SpeakersViewModel : INotifyPropertyChanged
 }
 ```
 
-2. In `GetSpeakers`, first ensure `IsBusy` is false. If it is true, `return`
-
-```csharp
-private async Task GetSpeakers()
-{
-    if (IsBusy)
-        return;
-}
-```
-
-3. In `GetSpeakers`, add some scaffolding for try/catch/finally blocks
+2. In `GetSpeakers`, add some scaffolding for try/catch/finally blocks
     - Notice, that we toggle *IsBusy* to true and then false when we start to call to the server and when we finish.
 
 ```csharp
 private async Task GetSpeakers()
 {
-    if (IsBusy)
-        return;
-
     try
     {
         IsBusy = true;
-
     }
     catch (Exception e)
     {
@@ -200,7 +186,7 @@ private async Task GetSpeakers()
 }
 ```
 
-4. In the `try` block of `GetSpeakers`, create a new instance of `HttpClient`.     - We will use `HttpClient` to get the json-ecoded data from the server
+3. In the `try` block of `GetSpeakers`, create a new instance of `HttpClient`.     - We will use `HttpClient` to get the json-ecoded data from the server
 
 ```csharp
 private async Task GetSpeakers()
@@ -219,7 +205,7 @@ private async Task GetSpeakers()
 }
 ```
 
-5. Inside of the `using` we just created, deserialize the json data and turn it into a list of Speakers using Json.NET:
+4. Inside of the `using` we just created, deserialize the json data and turn it into a list of Speakers using Json.NET:
 
 ```csharp
 private async Task GetSpeakers()
@@ -240,7 +226,7 @@ private async Task GetSpeakers()
 }
 ```
 
-6. Inside of the `using`, clear the `Speakers` property and then add the new speaker data:
+5. Inside of the `using`, clear the `Speakers` property and then add the new speaker data:
 
 ```csharp
 private async Task GetSpeakers()
@@ -248,7 +234,7 @@ private async Task GetSpeakers()
     //...
     try
     {
-        IsBusy = true;
+        IsBusy = true
 
         using(var client = new HttpClient())
         {
@@ -266,7 +252,7 @@ private async Task GetSpeakers()
 }
 ```
 
-7. In `GetSpeakers`, add this code to the `catch` block to display a popup if the data retrieval fails:
+6. In `GetSpeakers`, add this code to the `catch` block to display a popup if the data retrieval fails:
 
 ```csharp
 private async Task GetSpeakers()
@@ -280,21 +266,16 @@ private async Task GetSpeakers()
 }
 ```
 
-8. Ensure the completed code looks like this:
+7. Ensure the completed code looks like this:
 
 ```csharp
 private async Task GetSpeakers()
 {
-    if (IsBusy)
-        return;
-
     try
     {
-        IsBusy = true;
-
         using(var client = new HttpClient())
         {
-            //grab json from server
+            //GET json from server
             var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
 
             //Deserialize json
@@ -317,7 +298,7 @@ private async Task GetSpeakers()
 }
 ```
 
-Our main method for getting data is now complete!
+Our method for getting data is now complete.
 
 #### 8. Create GetSpeakers Command
 
@@ -370,48 +351,7 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
 </ContentPage>
 ```
 
-2. In `SpeakersPage.xaml`, add a `Button` that has a binding to `GetSpeakersCommand`
-    - The command will be executed whenever the user taps the button.
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-    <StackLayout Spacing="0">
-
-        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
-
-    </StackLayout>
-
-</ContentPage>
-```
-
-3. In `SpeakersPage.xaml`, under the button, add an `ActivityIndicator`
-    - The `ActivityIndicator` is a spinning indicator we'll use to let the user know we are retrieving the files in the background
-    - The `ActivityIndicator` will be bound to `IsBusy`
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-    <StackLayout Spacing="0">
-
-        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
-
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-
-    </StackLayout>
-
-</ContentPage>
-```
-
-4. In `SpeakersPage.xaml`, add a ListView that binds to the `Speakers` collection to display all of the items. 
+2. In `SpeakersPage.xaml`, add a ListView that binds to the `Speakers` collection to display all of the items. 
     - We will use `x:Name="ListViewSpeakers"` so that we can access this XAML control from the C# code-behind
 
 ```xml
@@ -421,24 +361,21 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
              x:Class="DevDaysSpeakers.View.SpeakersPage"
              Title="Speakers">
 
-    <StackLayout Spacing="0">
-
-        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
-
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-
-        <ListView x:Name="ListViewSpeakers"
+    <ListView x:Name="ListViewSpeakers"
               ItemsSource="{Binding Speakers}"
+              IsPullToRefreshEnabled="true"
+              RefreshCommand="{Binding GetSpeakersCommand}"
+              IsRefreshing="{Binding IsBusy}"
               CachingStrategy="RecycleElement">
-        <!--Add ItemTemplate Here-->
-        </ListView>
+    <!--Add ItemTemplate Here-->
+    </ListView>
 
     </StackLayout>
 
 </ContentPage>
 ```
 
-5. In `SpeakersPage.xaml`, add a `ItemTemplate` to describe what each item looks like
+3. In `SpeakersPage.xaml`, add a `ItemTemplate` to describe what each item looks like
     - Xamarin.Forms contains a few default Templates that we can use, and we will use the `ImageCell` that displays an image and two rows of text
 
 ```xml
@@ -448,27 +385,20 @@ It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.x
              x:Class="DevDaysSpeakers.View.SpeakersPage"
              Title="Speakers">
 
-    <StackLayout Spacing="0">
-
-        <Button Text="Sync Speakers" Command="{Binding GetSpeakersCommand}"/>
-
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-
-        <ListView
-            x:Name="ListViewSpeakers"
-            ItemsSource="{Binding Speakers}"
-            CachingStrategy="RecycleElement">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ImageCell
-                        Text="{Binding Name}"
-                        Detail="{Binding Title}"
-                        ImageSource="{Binding Avatar}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-    </StackLayout>
+    <ListView x:Name="ListViewSpeakers"
+              ItemsSource="{Binding Speakers}"
+              IsPullToRefreshEnabled="true"
+              RefreshCommand="{Binding GetSpeakersCommand}"
+              IsRefreshing="{Binding IsBusy}"
+              CachingStrategy="RecycleElement">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ImageCell Text="{Binding Name}"
+                     Detail="{Binding Title}"
+                     ImageSource="{Binding Avatar}"/>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
 
 </ContentPage>
 ```
@@ -492,6 +422,17 @@ public partial class SpeakersPage : ContentPage
         vm = new SpeakersViewModel();
         BindingContext = vm;
     }
+}
+```
+
+2. In `SpeakersPage.xaml.xs`, override `OnAppearing()` by adding the following method which tells the ListView to automatically refresh when the page appears on the screen:
+
+```csharp
+protected override void OnAppearing()
+{
+    base.OnAppearing();
+
+    ListViewSpeakers.BeginRefresh();
 }
 ```
 
