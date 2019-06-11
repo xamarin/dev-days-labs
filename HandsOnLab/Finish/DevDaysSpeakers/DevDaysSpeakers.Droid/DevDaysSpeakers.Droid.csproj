@@ -58,9 +58,9 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
-        <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore" Version="4.1.1" />
         <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
         <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
@@ -86,6 +86,11 @@
         <AndroidResource Include="Resources\layout\Toolbar.axml" />
         <AndroidResource Include="Resources\values\styles.xml" />
     </ItemGroup>
-    <Import Project="..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems" Label="Shared" Condition="Exists('..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems')" />
+    <ItemGroup>
+        <ProjectReference Include="..\DevDaysSpeakers\DevDaysSpeakers.csproj">
+            <Project>{AE6AFDCB-6945-48D4-9D5E-76D3EBB11C28}</Project>
+            <Name>DevDaysSpeakers</Name>
+        </ProjectReference>
+    </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using DevDaysSpeakers.Model;
+using DevDaysSpeakers.Shared.Models;
 
 using Xamarin.Essentials;
 using Xamarin.Forms;

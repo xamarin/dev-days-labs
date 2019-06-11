@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="View\DetailsPage.xaml" />
+    <None Remove="View\SpeakersPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="View\DetailsPage.xaml.cs">
+      <DependentUpon>..\..\DevDaysSpeakers.Shared\View\DetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\SpeakersPage.xaml.cs">
+      <DependentUpon>..\..\DevDaysSpeakers.Shared\View\SpeakersPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+  <Import Project="..\..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems" Label="Shared" Condition="Exists('..\..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems')" />
+</Project>

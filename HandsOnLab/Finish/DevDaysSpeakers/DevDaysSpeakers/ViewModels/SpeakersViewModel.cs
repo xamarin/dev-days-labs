@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-using DevDaysSpeakers.Model;
+using DevDaysSpeakers.Shared.Models;
 using DevDaysSpeakers.Services;
 
 using Xamarin.Forms;
@@ -45,12 +45,14 @@ namespace DevDaysSpeakers.ViewModel
             {
                 IsBusy = true;
 
-                var service = DependencyService.Get<AzureService>();
-                var items = await service.GetSpeakers();
+                var items = await AzureService.GetSpeakers();
 
                 Speakers.Clear();
+
                 foreach (var item in items)
+                {
                     Speakers.Add(item);
+                }
             }
             catch (Exception e)
             {

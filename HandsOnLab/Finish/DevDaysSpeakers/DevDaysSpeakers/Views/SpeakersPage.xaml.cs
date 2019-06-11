@@ -1,7 +1,10 @@
 ﻿using Xamarin.Forms;
 
-using DevDaysSpeakers.Model;
+using DevDaysSpeakers.Shared.Models;
 using DevDaysSpeakers.ViewModel;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DevDaysSpeakers.View
 {
@@ -24,7 +27,10 @@ namespace DevDaysSpeakers.View
         {
             base.OnAppearing();
 
-            ListViewSpeakers.BeginRefresh();
+            if (ListViewSpeakers.ItemsSource is ObservableCollection<Speaker> speakerCollection && speakerCollection.Count is 0)
+            {
+                ListViewSpeakers.BeginRefresh();
+            }
         }
 
         async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
