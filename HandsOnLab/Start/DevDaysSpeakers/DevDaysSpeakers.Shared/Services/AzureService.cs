@@ -18,7 +18,7 @@ namespace DevDaysSpeakers.Services
 {
     public class AzureService
     {
-        public MobileServiceClient Client { get; set; } = null;
+        public MobileServiceClient Client { get; set; }
         IMobileServiceSyncTable<Speaker> table;
 
         public async Task Initialize()
