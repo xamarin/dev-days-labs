@@ -11,7 +11,7 @@ namespace DevDaysSpeakers.Functions
     public static class GetSpeakersFunction
     {
         [FunctionName(nameof(GetSpeakersFunction))]
-        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req, ILogger log)
+        public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
         {
             //Add logic to return a 200 OK Response with a JSON body containing the list of speakers in the body
 			return null;

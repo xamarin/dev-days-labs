@@ -646,213 +646,90 @@ Now, we should be all set to compile and run our application!
 
 ## Azure Backend Walkthrough
 
-Being able to grab data from a RESTful end point is great, but what about creating the back-end service? This is where Azure Mobile Apps comes in. Let's update our application to use an Azure Mobile Apps back-end.
+Being able to grab data from a RESTful end point is great, but what about creating the back-end service? Let's update our application to use an Azure Functions back-end.
 
-### 1. Create Azure Mobile App
+### 1. Write Code for Azure Functions Backend
 
-1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account
+1. In `GetSpeakersFunction.cs`, populate `GenerateSpeakers()` with the following `List<Speaker>`
 
-2. In the [Azure Portal](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), select the **Create a resource** button
-3. In **New** window, tap **Mobile**
-4. In **New** window, tap **Mobile App**
-
-![Create Resource](https://user-images.githubusercontent.com/13558917/40452936-6032bcf2-5e98-11e8-991d-8bca36d61bf1.png)
-
-5. In the **Mobile App** window, enter your **App name**
-    - This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App
-    - You will need to choose a globally-unique name
-    - I recommend using `[Your Last Name]speakers`
-
-6. In the **Mobile App** window, select your **Subscription**
-    - Select a subscription or create a pay-as-you-go account
-        - We'll be using the free tier of Azure Mobile App and it will not cost anything
-
-7. In the **Mobile App** window, create a new **Resource Group**
-    - Select *Create new* and call it **DevDaysSpeakers**
-    - A resource group is just a folder that holds multiple Azure services
-
-8. In the **Mobile App** window, select **App Service plan/Location**
-9. In the **New App Service Plan** window, enter a unique name
-    - I recommend `[Your Last Name]speakersserver`
-10. In the **New App Service Plan** window, select a location (typically you would choose a location close to your customers)
-11. In the **New App Service Plan** window, select **Pricing tier**
-12. In the **Pricing Tier** window, select **Dev/Test**
-13. In the **Pricing Tier** window, select **Free**
-14. In the **Pricing Tier** window, select **Apply**
-15. In the **New App Service Plan** window, select **OK**
-16. In the **Mobile App** window, click Create
-
-![Create Mobile App](https://user-images.githubusercontent.com/13558917/40457467-6c74d398-5eab-11e8-8fe4-bf8b6669a64d.png)
-
-After clicking **Create**, it will take Azure about 3-5 minutes to create the new service, so let's head back to the code!
-
-### 2. Update AzureService.cs
-
-We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?none-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
-
-1. In `AzureService.cs`, add your url to the Initialize method:
-    - Be sure to update YOUR-APP-NAME-HERE with the app name you specified when creating your Azure Mobile App.
-    - My appUrl is "https://minnickspeakers.azurewebsites.net"
+    - Feel free to add yourself to the Lst
 
 ```csharp
-var appUrl = "https://YOUR-APP-NAME-HERE.azurewebsites.net";
-```
-
-The logic in the `Initialize` method will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to retrieve speaker data from the Azure Mobile App. There are two methods that we need to fill in to get and sync data from the server.
-
-
-2. In `AzureService.cs`, update the `GetSpeakers` method to initialize, sync, and query the table for items using LINQ queries to order the results:
-
-```csharp
-public async Task<IEnumerable<Speaker>> GetSpeakers()
+static List<Speaker> GenerateSpeakers()
 {
-    await Initialize();
-    await SyncSpeakers();
-    return await table.OrderBy(s => s.Name).ToEnumerableAsync();
+    return new List<Speaker>
+    {
+        new Speaker
+        {
+            Name = "Kim Noel",
+            Description = "Kim is a co-organizer for Montreal Mobile .NET Developers",
+            Title = "Community Engineer",
+            Website = "https://www.linkedin.com/in/kimcodes/",
+            Avatar = "https://pbs.twimg.com/profile_images/1095401068442386433/83JOBFoE_400x400.jpg"
+        },
+        new Speaker
+        {
+            Name = "Martijn van Dijk",
+            Description = "Martijn is a Xamarin consultant at Xablu, Xamarin MVP, contributor of MvvmCross, and creator of several Xamarin plugins.",
+            Title = "Xamarin Consultant",
+            Website = "https://www.xablu.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/696643425706340353/QGsT4xLt_400x400.png",
+        },
+        new Speaker
+        {
+            Name = "Michael Stonis",
+            Description = "Michael Stonis is a partner at Eight-Bot, a software consultancy in Chicago, where he focuses on mobile and integration solutions for enterprises using .NET. He loves mobile technology and how it has opened up our world in new and interesting ways that seemed like an impossibility just a few years ago. Outside of work, you will probably find him spending time with his family, brewing beer, or playing pinball.",
+            Title = "President",
+            Website = "https://www.eightbot.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/3544049213/c90b7bfed6c5cbc1067b7d13b4f6f0e6_400x400.png",
+        },
+        new Speaker
+        {
+            Name = "Kasey Uhlenhuth",
+            Description = "Kasey Uhlenhuth is a program manager on the .NET Managed Languages team at Microsoft. She is currently working on modernizing the C# developer experience, but has also worked on C# scripting and the REPL. Before joining Microsoft, Kasey studied computer science and played varsity lacrosse at Harvard University. In her free time she can be found creating art, reading, or playing volleyball and ultimate frisbee.",
+            Title = "Program Manager, .NET Managed Languages",
+            Website = "https://microsoft.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/704473408638050304/bVbzez9X_400x400.jpg",
+        },
+        new Speaker
+        {
+            Name = "Santosh Hari",
+            Description = "Santosh is an Azure MVP, Azure Consultant at NewSignature, President of Orlando Dot Net User Group and organizer of Orlando Code Camp.",
+            Title = "Azure Consultant",
+            Website = "http://santoshhari.wordpress.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/1108107477017493504/rKaK9ZPO_400x400.png",
+        },
+        new Speaker
+        {
+            Name = "Ana Betts",
+            Description = "Ana is a developer at Slack who works on the Windows and Linux application. Previously she was at GitHub where she built the GitHub Desktop application on Windows, as well as the popular Xamarin libraries ReactiveUI, ModernHttpClient, and Akavache.",
+            Title = "Engineer",
+            Website = "https://slack.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/1119744877825105920/Sv7VY9rm_400x400.png",
+        },
+    };
 }
 ```
 
-3. In `AzureService.cs`, update the `SyncSpeakers` method to sync the local database our in our app with our remote database in Azure:
+2. In `GetSpeakersFunction.cs`, populate `Run` with the following code:
 
 ```csharp
-public async Task SyncSpeakers()
+public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
 {
-    try
-    {
-        await Client.SyncContext.PushAsync();
-        await table.PullAsync("allSpeakers", table.CreateQuery());
-    }
-    catch (Exception ex)
-    {
-        Debug.WriteLine("Unable to sync speakers, that is alright as we have offline capabilities: " + ex);
-    }
+    log.LogInformation("Generating Speakers");
+
+    var speakersList = GenerateSpeakers();
+
+    log.LogInformation("Returning Speaker List");
+
+    return new OkObjectResult(speakersList);
 }
 ```
 
-That is it for our Azure code! Just a few lines, and we are ready to pull the data from Azure.
+### 2. Publish Code to Azure Functions
 
-### 3. Update SpeakersViewModel.cs
+1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account.
 
-1. In `SpeakersViewModel.cs`, update `GetSpeakers` to use the Azure Service by amending the code in the `try` block:
+2. 
 
-```csharp
-private async Task GetSpeakers()
-{
-    //...
-    try
-    {
-        IsBusy = true;
-
-        var service = DependencyService.Get<AzureService>();
-        var items = await service.GetSpeakers();
-
-        Speakers.Clear();
-        foreach (var item in items)
-            Speakers.Add(item);
-    }
-    //...
-}
-```
-
-Now, we have implemented the code we need in our app. `AzureService` will automatically handle all communication with your Azure back-end for you including online/offline synchronization so your app works even when it's not connected to the internet.
-
-### 3. Populate Azure Database
-
-Let's head back to the Azure Portal and populate the database!
-
-1. In the [Azure Portal Dashboard](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), click on the notification button (bell icon)
-
-1. In the **Notifiations** window, click **Go to resource**
-
-![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/59301196-ec80b200-8c45-11e9-9631-83da7ee355ce.png)
-
-3. On the left-hand menu, select **Quickstart**
-
-4. In the new window, select **Xamarin.Forms**
-
-![Xamarin Forms Quick Start](https://user-images.githubusercontent.com/13558917/40458465-f9bf6362-5eb0-11e8-8520-4159ee8f22b3.png)
-
-5. In the **Quick Start** menu, select the box below **Connect a database**
-6. In the **Data Connections** window, select **+ Add**
-7. In the **Add data connection** window, select the **SQL Database** box
-8. In the **Database** window, select **Create a new database**
-
-![Create Database](https://user-images.githubusercontent.com/13558917/40458584-886e203a-5eb1-11e8-9185-8a0e959e20f9.png)
-
-8. In the **SQL Database** window, enter a name
-    - The name must be unique
-    - I recommend using *LastnameSpeakersDatabase*
-10. In the **SQL Database** window, select **Target Server** *Configure required settings*
-11. In the **Server** window, select **Create a new server**
-12. In the **New server** window, enter a Server name
-  - The server name must be unique and all lower-case
-    - I recommend using *lastnamespeakerserver*
-13. In the **New server** window, create a **Server admin login**
-    - This will be your username for accessing the database remotely (which we won't be doing in this lab)
-14. In the **New server** window, create a **Password**
-    - This will be your password for accessing the database remotely (which we won't be doing in this lab)
-15. In the **New server** window, **Confirm Password**
-16. In the **New server** window, select a **Location**
-    - This is the physical location where your server will be located
-    - I recommend selecting a location that is closest to your users
-17. In the **New server** window, select **Select**
-
-![Configure Database Server](https://user-images.githubusercontent.com/13558917/40458706-4797a8c8-5eb2-11e8-9c83-af6f4d9a5cca.png)
-
-18. In the **SQL Database** window, select **Pricing Tier**
-19. In the **Configure** window, select **Free**
-20. In the **Configure** window, select **Apply**
-
-![Database Pricing Tier](https://user-images.githubusercontent.com/13558917/40458930-84e5ecac-5eb3-11e8-82a1-75b958936bcf.png)
-
-21. In the **SQL Database** window, select **Select**
-
-![Select SQL Database](https://user-images.githubusercontent.com/13558917/40459019-e2aa3d3e-5eb3-11e8-9dc6-258f8871db40.png)
-
-22. In the **Add data connection** window, select **Connection String**
-23. In the **Connection string** window, select **OK**, leaving the default value
-24. In the **Add data connection** window, select **OK**
-
-![Connection String](https://user-images.githubusercontent.com/13558917/40459075-43d05a3a-5eb4-11e8-8b47-6971c22176b2.png)
-
-25. Standby while Azure creates the Data Connection
-    - This may take 3-5 minutes
-
-![Data Connection Create](https://user-images.githubusercontent.com/13558917/40459143-a5437ffe-5eb4-11e8-8558-5acd9dc0e6a5.png)
-
-![Data Connection Completed](https://user-images.githubusercontent.com/13558917/40459358-cdf13eb8-5eb5-11e8-9f1f-3f161d4d3eed.png)
-
-Our database is now created! Let's populate it with some data!
-
-### 4. Populate Database with Data
-
-1. In the [Azure Portal Dashboard](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), click on the  **Mobile App**
-
-![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
-
-2. In the **Mobile App** menu, enter **easy** into the search bar
-3. In the **Mobile App** menu, select **Easy tables**
-
-![Easy Tables](https://user-images.githubusercontent.com/13558917/40459471-6874bf96-5eb6-11e8-8e29-edb5ef08b9f8.png)
-
-4. In the **Easy tables** window, select **Click here to continue**
-5. In the new **Easy tables** window, check the box **I acknowledge that this will overwrite all site contents.**
-6. In the new **Easy tables** window, select **Create TodoItem table**
-    - Ignore that it says "TodoItem Table"; selecting **Create** will create an empty table
-![Initialize Easy Tables](https://user-images.githubusercontent.com/13558917/40459585-0f9d2d8a-5eb7-11e8-8bed-6480ab69862c.png)
-
-7. In the **Easy tables** window, select **Add from CSV**
-
-![Add From CSV](https://user-images.githubusercontent.com/13558917/40459674-92841420-5eb7-11e8-80d3-618ccc630882.png)
-
-8. In the **Add from CSV** window, select the **Folder Icon**
-9. In the file browser, locate and select the [**Speakers.csv** file](https://github.com/brminnick/dev-days-labs/blob/master/HandsOnLab/Speaker.csv) in the HandsOnLabs folder
-10. In the **Add from CSV** window, after uploading the CSV file, select the blank white button at the bottom
-    - This is the save button; it's blank because of a bug
-    - Note: If you get an error while uploading the Speaker.CSV file, it may be a bug that has been resolved. To workaround this, go to the "Application settings" under the "Settings" section and scroll to "App Settings". Change the value for MobileAppsManagement_EXTENSION_VERSION to 1.0.367 and save the changes. Now retry the "Add from CSV" process again
-
-![Upload CSV](https://user-images.githubusercontent.com/13558917/40459751-fc8e29f0-5eb7-11e8-9534-4ad6f276c003.png)
-
-![application settings fix](appsettingsfix.png)
-
-11. Re-run your application and get data from Azure!
+### 3. Add Azure Functions Url to Mobile App
