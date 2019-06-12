@@ -726,10 +726,71 @@ public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get"
 }
 ```
 
-### 2. Publish Code to Azure Functions
+### 2a. Publish Code to Azure Functions, Visual Studio PC
 
 1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account.
 
-2. 
+2. In Visual Studio on PC, on the top-right menu bar, select **Sign in**
+    - **Note:** If you have already signed in, skip this step
+
+![Sign In](https://user-images.githubusercontent.com/13558917/59391534-68075f80-8d29-11e9-87aa-b7a210fd53bf.png)
+
+3. On the **Sign in to your account** popup, sign into your Microsoft account
+    - **Note:** If you have already signed in, skip this step
+
+![sign in to your account](https://user-images.githubusercontent.com/13558917/59391535-68075f80-8d29-11e9-98b6-9c4326b177f3.png)
+
+4. After signing in, on the top-right menu bar, select your profile icon
+
+5. In the profile menu, select **Account settings...**
+
+![Profile Settings](https://user-images.githubusercontent.com/13558917/59391526-66d63280-8d29-11e9-86f4-20b3c2a43cc2.png)
+
+6. In the **Account Settings** window, under **All Accounts**, ensure that the account associated with your Azure Subscription has been added.
+    - Note: If your Azure Subscription acount is not visible, click **Add an account...**
+
+![Account Settings](https://user-images.githubusercontent.com/13558917/59391525-66d63280-8d29-11e9-9491-f8b838dede67.png)
+
+7. On the Visual **Studio Solution Explorer**, right-click **DevDaysSpeakers.Functions**
+
+8. On the right-click menu, select **Publish...**
+
+![Publish](https://user-images.githubusercontent.com/13558917/59391532-68075f80-8d29-11e9-856b-9f40ec0cee97.png)
+
+9. In the **Pick a publish target** window, make the following selections:
+    - **Publish Target**: Azure Function App
+    - [x] **Create New**
+
+11. In the **Pick a publish target** window, select **Publish**
+
+![Create New Function](https://user-images.githubusercontent.com/13558917/59391529-676ec900-8d29-11e9-8c43-7460afcf5b78.png)
+
+12. In the **Azure App Service** window, make the following selections:
+    - **Name**: [Your Last Name]DevDaysSpeakersFunction
+    - **Subscription**: [Select your subscription]
+    - **Resource Group**: [Click **New...**]
+        - **New resource group name**: DevDaysSpeakers
+    - **Hosting Plan**: [Click **New...**]
+        - **Hosting Plan**: DevDaysSpeakersFunctionHostingPlan
+        - **Location**: [Choose the location closest to you]
+        - **Size**: Consumption
+    - **Azure Storage**: [Click **New...**]
+        - **Account Name**: [Your Last Name]devdayspeakers
+        - **Location**: [Choose the location closest to you]
+        - **Account Type**: Standard - Locally Redundant Storage
+
+13. In the **Azure App Service** window, click **Create**
+
+![Create New Azure App Service](https://user-images.githubusercontent.com/13558917/59391531-676ec900-8d29-11e9-8e2f-001a24d3d518.png)
+
+14. Stand by while the Function deploys to Azure
+
+![Deploying](https://user-images.githubusercontent.com/13558917/59391530-676ec900-8d29-11e9-88b1-18fa54b9700f.png)
+
+15. Once the deployment has completed, in the **Output** pad, ensure it says **Publish: 1 succeeded**
+
+![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59391533-68075f80-8d29-11e9-9c57-1728913de4b8.png)
+
+### 3a. Publish Code to Azure Functions, Visual Studio PC
 
 ### 3. Add Azure Functions Url to Mobile App
