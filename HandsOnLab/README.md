@@ -763,7 +763,7 @@ The following steps are for Visual Studio on PC. If you are using Visual Studio 
 
 9. In the **Pick a publish target** window, make the following selections:
     - **Publish Target**: Azure Function App
-    - [x] **Create New**
+    - **Create New**
 
 11. In the **Pick a publish target** window, select **Publish**
 
