@@ -728,6 +728,10 @@ public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get"
 
 ### 2a. Publish Code to Azure Functions, Visual Studio PC
 
+Let's publish the Azure Functions code we wrote to the Azure cloud.
+
+The following steps are for Visual Studio on PC. If you are using Visual Studio for Mac, skip to **Step 2b**.
+
 1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account.
 
 2. In Visual Studio on PC, on the top-right menu bar, select **Sign in**
@@ -746,7 +750,7 @@ public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get"
 
 ![Profile Settings](https://user-images.githubusercontent.com/13558917/59391526-66d63280-8d29-11e9-86f4-20b3c2a43cc2.png)
 
-6. In the **Account Settings** window, under **All Accounts**, ensure that the account associated with your Azure Subscription has been added.
+6. In the **Account Settings** window, under **All Accounts**, ensure that the account associated with your Azure Subscription has been added
     - Note: If your Azure Subscription acount is not visible, click **Add an account...**
 
 ![Account Settings](https://user-images.githubusercontent.com/13558917/59391525-66d63280-8d29-11e9-9491-f8b838dede67.png)
@@ -791,6 +795,57 @@ public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get"
 
 ![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59391533-68075f80-8d29-11e9-9c57-1728913de4b8.png)
 
-### 3a. Publish Code to Azure Functions, Visual Studio PC
+### 2b. Publish Code to Azure Functions, Visual Studio for Mac
+
+Let's publish the Azure Functions code we wrote to the Azure cloud.
+
+The following steps are for Visual Studio for Mac. If you are using Visual Studio on PC, continue to **Step 3**.
+
+1. On Visual Studio for Mac, on the top menu bar, select **Visual Studio** > **Account**
+
+![Account](https://user-images.githubusercontent.com/13558917/59393954-ace3c400-8d32-11e9-9b4f-50ea0b104618.png)
+
+2. In the **Account** window, sign in with your Microsoft account
+    - **Note:** If you have already signed in, skip this step
+
+![Sign In](https://user-images.githubusercontent.com/13558917/59393961-ad7c5a80-8d32-11e9-9d4e-fec5df8decd8.png)
+
+3. In the **Account** window, ensure that the account associated with your Azure Subscription has been added
+    - Note: If your Azure Subscription account is not visible, click **Add an account...**
+
+4. In the **Visual Studio for Mac Solution Explorer**, right-click **DevDaysSpeakers.Functions** > **Publish** > **Publish to Azure...**
+
+![Right-click Publish](https://user-images.githubusercontent.com/13558917/59393959-ace3c400-8d32-11e9-92f7-a6523131be45.png)
+
+5. In the **Publish to Azure App Service** window, select your Azure account
+
+6. In the **Publish to Azure App Service** window, select **New**
+
+![New Function](https://user-images.githubusercontent.com/13558917/59393957-ace3c400-8d32-11e9-9fcc-3c7f22e636e1.png)
+
+7. In the **New App Service** window, enter the following:
+
+    - **App Service Name**: [Your Last Name]MinnickDevDaysSpeakersFunction
+    - **Subscription**: [Select your Azure subscription]
+    - **Resource Group**:
+        - [Click the **+** icon]
+        - DevDaysSpeakers
+    - **Service Plan**: Custom
+    - **Plan Name**: DevDaysSpeakersFunctionPlan
+    - **Region**: [Choose the location closest to you]
+    - **Pricing**: Consumption
+
+8. In the **New App Service** window, click **Next**
+
+![Create new App Service on Azure](https://user-images.githubusercontent.com/13558917/59393958-ace3c400-8d32-11e9-8c31-302d30b6bc57.png)
+
+9. Stand by while the Function is published to Azure
+
+10. If the **Update Functions Runtime on Azure** popup appears, click **Yes**
+
+11. In the **Publish** pad, ensure it says **Publish Succeeded**
+
+![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59394342-24feb980-8d34-11e9-92c1-d7f383703964.png)
+ 
 
 ### 3. Add Azure Functions Url to Mobile App
