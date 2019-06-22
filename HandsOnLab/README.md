@@ -1,6 +1,6 @@
 # Xamarin Dev Days Hands On Lab
 
-Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com/xamarin/xamarin-forms?WT.mc_id=devdayslabs-github-bramin) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
+Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com/xamarin/xamarin-forms?WT.mc_id=devdayslabs-github-bramin) application that will display a list of Xamarin Dev Days speakers. We will start by building the business logic backend that pulls down json-ecoded data from an existing RESTful endpoint. Then we will connect it to an Azure Functions backend in just a few lines of code.
 
 ## Mobile App Walkthrough
 
@@ -652,7 +652,7 @@ Being able to grab data from a RESTful end point is great, but what about creati
 
 1. In `GetSpeakersFunction.cs`, populate `GenerateSpeakers()` with the following `List<Speaker>`
 
-    - Feel free to add yourself to the Lst
+    - Feel free to add yourself to the List
 
 ```csharp
 static List<Speaker> GenerateSpeakers()
@@ -785,15 +785,17 @@ The following steps are for Visual Studio on PC. If you are using Visual Studio 
 
 13. In the **Azure App Service** window, click **Create**
 
-![Create New Azure App Service](https://user-images.githubusercontent.com/13558917/59391531-676ec900-8d29-11e9-8e2f-001a24d3d518.png)
+![Create New Azure App Service](https://user-images.githubusercontent.com/13558917/59960601-bacfdc80-94ca-11e9-9901-0fb8b78e484d.png)
 
 14. Stand by while the Function deploys to Azure
 
-![Deploying](https://user-images.githubusercontent.com/13558917/59391530-676ec900-8d29-11e9-88b1-18fa54b9700f.png)
+![Deploying](https://user-images.githubusercontent.com/13558917/59960602-bacfdc80-94ca-11e9-9a88-b8864f62539a.png)
 
 15. Once the deployment has completed, in the **Output** pad, ensure it says **Publish: 1 succeeded**
 
 ![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59391533-68075f80-8d29-11e9-9c57-1728913de4b8.png)
+
+16. Ensure Visual Studio has automatically launched a browser, confirming that the Azure Functions App is 
 
 ### 2b. Publish Code to Azure Functions, Visual Studio for Mac
 
@@ -848,4 +850,14 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
 ![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59394342-24feb980-8d34-11e9-92c1-d7f383703964.png)
  
 
-### 3. Add Azure Functions Url to Mobile App
+### 3. Add Azure Functions URL to Mobile App
+
+1. In an internet browser, open the [Azure Portal](https://portal.azure.com?WT.mc_id=devdayslab-github-bramin)
+
+2. 
+
+### 4. Update SpeakersViewModel Logic to Use AzureService 
+
+1. In Visual Studio, open **DevDaysSpeakers** > **Services** > **AzureService.cs**
+
+2. In the **AzureService.cs** edit,

@@ -20,7 +20,6 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Functions\" />
-        <Folder Include="Properties\PublishProfiles\" />
     </ItemGroup>
     <Import Project="..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems" Label="Shared" Condition="Exists('..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems')" />
 </Project>
