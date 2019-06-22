@@ -3,6 +3,7 @@ using MyWeather.ViewModels;
 
 using Xamarin.Forms;
 
+[assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
 namespace MyWeather
 {
 	public class App : Application

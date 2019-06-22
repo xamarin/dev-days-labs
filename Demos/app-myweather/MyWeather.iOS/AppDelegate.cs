@@ -18,6 +18,8 @@ namespace MyWeather.iOS
             });
 
             Xamarin.Forms.Forms.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(uiApplication, launchOptions);

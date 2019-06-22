@@ -3,28 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyWeather.View.WeatherView"
              Title="Weather">
-    <StackLayout Padding="10" Spacing="10">
-      
-      <Entry Text="{Binding Location}"
-             Placeholder="City,CountryAbbreviation, e.g. Seattle,USA"/>
 
-      <StackLayout Orientation="Horizontal">
-        <Label Text="Use Imperial?" VerticalTextAlignment="Center"/>
-        <Switch IsToggled="{Binding IsImperial}"/>
-      </StackLayout>
+    <StackLayout Padding="10"
+                 Spacing="10">
 
-      <StackLayout Orientation="Horizontal">
-        <Label Text="Use GPS?" VerticalTextAlignment="Center"/>
-        <Switch IsToggled="{Binding UseGPS}"/>
-      </StackLayout>
+        <Entry Text="{Binding Location}"
+               Placeholder="City,CountryAbbreviation, e.g. Seattle,USA"
+               IsEnabled="{Binding IsLocationEntryEnabled}" />
 
-      <Button Text="Get Weather" Command="{Binding GetWeatherCommand}"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Use Imperial?"
+                   VerticalTextAlignment="Center" />
+            <Switch IsToggled="{Binding IsImperial}" />
+        </StackLayout>
 
-      <Label Text="{Binding Temp}" FontSize="30"/>
-      <Label Text="{Binding Condition}"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Use GPS?"
+                   VerticalTextAlignment="Center" />
+            <Switch IsToggled="{Binding UseGPS}" />
+        </StackLayout>
 
-      <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-      
+        <Button Text="Get Weather"
+                Command="{Binding GetWeatherCommand}" />
+
+        <Label Text="{Binding Temperature}"
+               FontSize="30" />
+
+        <Label Text="{Binding Condition}" />
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}" />
+
     </StackLayout>
 </ContentPage>
 

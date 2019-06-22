@@ -9,7 +9,7 @@ namespace MyWeather.View
             InitializeComponent();
 
             if (Device.RuntimePlatform.Equals(Device.iOS))
-                Icon = new FileImageSource { File = "tab1.png" };
+                IconImageSource = "tab1.png";
         }
     }
 }

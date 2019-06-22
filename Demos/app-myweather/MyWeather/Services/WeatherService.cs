@@ -3,40 +3,73 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using MyWeather.Models;
-
-using static Newtonsoft.Json.JsonConvert;
+using Polly;
+using Refit;
+using Xamarin.Forms;
 
 namespace MyWeather.Services
 {
-	public enum Units
-	{
-		Imperial,
-		Metric
-	}
+    public enum Units
+    {
+        Imperial,
+        Metric
+    }
 
-	public class WeatherService : BaseHttpClientService
-	{
-		const string openWeatherMapUrl = "https://api.openweathermap.org/data/2.5";
-		const string appId = "fc9f6c524fc093759cd28d41fda89a1b";
+    public static class WeatherService
+    {
+        public const string AppId = "fc9f6c524fc093759cd28d41fda89a1b";
 
-		public Task<WeatherRoot> GetWeather(double latitude, double longitude, Units units = Units.Imperial) =>
-			GetObjectFromAPI<WeatherRoot>($"{openWeatherMapUrl}/weather?lat={latitude}&lon={longitude}&units={units.ToString().ToLower()}&appid={appId}");
+        readonly static Lazy<IWeatherApi> weatherApiServiceHolder =
+            new Lazy<IWeatherApi>(() => RestService.For<IWeatherApi>(CreateHttpClient("https://api.openweathermap.org/data/2.5")));
 
-		public Task<WeatherRoot> GetWeather(string city, Units units = Units.Imperial) =>
-			GetObjectFromAPI<WeatherRoot>($"{openWeatherMapUrl}/weather?q={city}&units={units.ToString().ToLower()}&appid={appId}");
+        static IWeatherApi WeatherApiService => weatherApiServiceHolder.Value;
 
-		public Task<WeatherForecastRoot> GetForecast(WeatherRoot weather, Units units = Units.Imperial)
-		{
-			if (weather.CityId is 0)
-				return GetForecast(weather.Coordinates.Latitude, weather.Coordinates.Longitude, units);
+        public static Task<WeatherRoot> GetWeather(double latitude, double longitude, Units units = Units.Imperial) =>
+            ExecutePollyFunction(() => WeatherApiService.GetWeather(latitude, longitude, units.ToLowerString()));
 
-			return GetForecast(weather.CityId, units);
-		}
+        public static Task<WeatherRoot> GetWeather(string city, Units units = Units.Imperial) =>
+            ExecutePollyFunction(() => WeatherApiService.GetWeather(city, units.ToLowerString()));
 
-		Task<WeatherForecastRoot> GetForecast(int id, Units units = Units.Imperial) =>
-			GetObjectFromAPI<WeatherForecastRoot>($"{openWeatherMapUrl}/forecast?id={id}&units={units.ToString().ToLower()}&appid={appId}");
+        public static Task<WeatherForecastRoot> GetForecast(WeatherRoot weather, Units units = Units.Imperial)
+        {
+            if (weather.CityId is 0)
+                return GetForecast(weather.Coordinates.Latitude, weather.Coordinates.Longitude, units);
 
-		Task<WeatherForecastRoot> GetForecast(double latitude, double longitude, Units units = Units.Imperial) =>
-			GetObjectFromAPI<WeatherForecastRoot>($"{openWeatherMapUrl}/forecast?lat={latitude}&lon={longitude}&units={units.ToString().ToLower()}&appid={appId}");
-	}
+            return GetForecast(weather.CityId, units);
+        }
+
+        static Task<WeatherForecastRoot> GetForecast(int id, Units units = Units.Imperial) =>
+            ExecutePollyFunction(() => WeatherApiService.GetForecast(id, units.ToLowerString()));
+
+        static Task<WeatherForecastRoot> GetForecast(double latitude, double longitude, Units units = Units.Imperial) =>
+            ExecutePollyFunction(() => WeatherApiService.GetForecast(latitude, longitude, units.ToLowerString()));
+
+        static HttpClient CreateHttpClient(string url)
+        {
+            HttpClient client;
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                case Device.Android:
+                    client = new HttpClient();
+                    break;
+                default:
+                    client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
+                    break;
+            }
+            client.BaseAddress = new Uri(url);
+
+            return client;
+        }
+
+        static Task<T> ExecutePollyFunction<T>(Func<Task<T>> action, int numRetries = 3)
+        {
+            return Policy.Handle<Exception>().WaitAndRetryAsync(numRetries, pollyRetryAttempt).ExecuteAsync(action);
+
+            TimeSpan pollyRetryAttempt(int attemptNumber) => TimeSpan.FromSeconds(Math.Pow(2, attemptNumber));
+        }
+
+        static string ToLowerString(this Units units) => units.ToString().ToLower();
+    }
 }

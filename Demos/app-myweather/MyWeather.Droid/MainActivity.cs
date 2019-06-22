@@ -23,6 +23,8 @@ namespace MyWeather.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
+
             LoadApplication(new App());
         }
     }

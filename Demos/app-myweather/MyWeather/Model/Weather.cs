@@ -75,7 +75,7 @@ namespace MyWeather.Models
         [JsonIgnore]
         public string DisplayTemp => $"Temp: {MainWeather?.Temperature ?? 0}° {Weather?[0]?.Main ?? string.Empty}";
         [JsonIgnore]
-        public string DisplayIcon => $"http://openweathermap.org/img/w/{Weather?[0]?.Icon}.png";
+        public string DisplayIcon => $"https://openweathermap.org/img/w/{Weather?[0]?.Icon}.png";
 
         [JsonProperty("coord")]
         public Coord Coordinates { get; set; } = new Coord();

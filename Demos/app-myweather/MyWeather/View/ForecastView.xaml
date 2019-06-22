@@ -10,7 +10,8 @@
               IsPullToRefreshEnabled="True"
               RowHeight="66"
               RefreshCommand="{Binding GetWeatherCommand}"
-              IsRefreshing="{Binding IsBusy}">
+              IsRefreshing="{Binding IsBusy}"
+              ItemTapped="OnItemTapped">
         <ListView.SeparatorColor>
             <OnPlatform x:TypeArguments="Color"
                         iOS="Transparent" />

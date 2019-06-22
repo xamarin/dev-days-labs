@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -22,7 +23,7 @@ namespace MyWeather.ViewModels
         string location = Settings.City;
         bool isImperial = Settings.IsImperial;
         string condition = string.Empty;
-        bool isBusy = false;
+        bool isBusy;
         WeatherForecastRoot forecast;
         ICommand getWeatherCommand;
 
@@ -35,7 +36,7 @@ namespace MyWeather.ViewModels
         public ICommand GetWeatherCommand => getWeatherCommand ??
             (getWeatherCommand = new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS), continueOnCapturedContext: false));
 
-        WeatherService WeatherService { get; } = new WeatherService();
+        public bool IsLocationEntryEnabled => !UseGPS;
 
         public string Location
         {
@@ -46,7 +47,7 @@ namespace MyWeather.ViewModels
         public bool UseGPS
         {
             get => useGPS;
-            set => SetProperty(ref useGPS, value);
+            set => SetProperty(ref useGPS, value, () => OnPropertyChanged(nameof(IsLocationEntryEnabled)));
         }
 
         public bool IsImperial
@@ -120,7 +121,7 @@ namespace MyWeather.ViewModels
             }
         }
 
-        protected void SetProperty<T>(ref T backingStore, T value, Action? onChanged = null, [CallerMemberName] string propertyname = "")
+        protected void SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyname = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return;
@@ -129,8 +130,10 @@ namespace MyWeather.ViewModels
 
             onChanged?.Invoke();
 
-            onPropertyChangedEventManager.HandleEvent(this, new PropertyChangedEventArgs(name), nameof(INotifyPropertyChanged.PropertyChanged));
+            OnPropertyChanged(propertyname);
         }
 
+        void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
+            onPropertyChangedEventManager.HandleEvent(this, new PropertyChangedEventArgs(propertyName), nameof(INotifyPropertyChanged.PropertyChanged));
     }
 }

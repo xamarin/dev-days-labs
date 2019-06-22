@@ -9,8 +9,8 @@
         <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
         <PackageReference Include="Xamarin.Forms" Version="4.0.0.497661" />
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.1" />
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Services\Base\" />
+        <PackageReference Include="Refit" Version="4.7.9" />
+        <PackageReference Include="Polly" Version="7.1.0" />
+        <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     </ItemGroup>
 </Project>
