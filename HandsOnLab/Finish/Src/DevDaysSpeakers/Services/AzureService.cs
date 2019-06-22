@@ -19,13 +19,14 @@ namespace DevDaysSpeakers.Services
 
         public static async Task<List<Speaker>> GetSpeakers()
         {
-            var httpResponseMessage = await Client.GetAsync(getSpeakersFunctionUrl);
+            using (var httpResponseMessage = await Client.GetAsync(getSpeakersFunctionUrl))
+            {
+                httpResponseMessage.EnsureSuccessStatusCode();
 
-            httpResponseMessage.EnsureSuccessStatusCode();
+                var json = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            var json = await httpResponseMessage.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<List<Speaker>>(json);
+                return JsonConvert.DeserializeObject<List<Speaker>>(json);
+            }
         }
     }
 }
