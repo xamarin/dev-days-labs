@@ -16,7 +16,6 @@ namespace MyWeather.Models
 
     public class Sys
     {
-
         [JsonProperty("country")]
         public string Country { get; set; } = string.Empty;
     }
@@ -71,6 +70,13 @@ namespace MyWeather.Models
 
     public class WeatherRoot
     {
+        [JsonIgnore]
+        public string DisplayDate => DateTime.Parse(Date).ToLocalTime().ToString("g");
+        [JsonIgnore]
+        public string DisplayTemp => $"Temp: {MainWeather?.Temperature ?? 0}° {Weather?[0]?.Main ?? string.Empty}";
+        [JsonIgnore]
+        public string DisplayIcon => $"http://openweathermap.org/img/w/{Weather?[0]?.Icon}.png";
+
         [JsonProperty("coord")]
         public Coord Coordinates { get; set; } = new Coord();
 
@@ -97,13 +103,6 @@ namespace MyWeather.Models
 
         [JsonProperty("dt_txt")]
         public string Date { get; set; } = string.Empty;
-
-        [JsonIgnore]
-        public string DisplayDate => DateTime.Parse(Date).ToLocalTime().ToString("g");
-        [JsonIgnore]
-        public string DisplayTemp => $"Temp: {MainWeather?.Temperature ?? 0}° {Weather?[0]?.Main ?? string.Empty}";
-        [JsonIgnore]
-        public string DisplayIcon => $"http://openweathermap.org/img/w/{Weather?[0]?.Icon}.png";
     }
 
     public class WeatherForecastRoot

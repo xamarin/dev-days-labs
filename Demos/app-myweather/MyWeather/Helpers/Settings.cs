@@ -2,33 +2,24 @@ using Xamarin.Essentials;
 
 namespace MyWeather.Helpers
 {
-	public static class Settings
-	{
-		const string isImperialKey = nameof(isImperialKey);
-		static readonly bool isImperialDefault = true;
+    public static class Settings
+    {
+        public static bool IsImperial
+        {
+            get => Preferences.Get(nameof(IsImperial), true);
+            set => Preferences.Set(nameof(IsImperial), value);
+        }
 
-		const string useCityKey = nameof(useCityKey);
-		static readonly bool useCityDefault = true;
+        public static bool UseCity
+        {
+            get => Preferences.Get(nameof(UseCity), true);
+            set => Preferences.Set(nameof(UseCity), value);
+        }
 
-		const string cityKey = nameof(cityKey);
-		static readonly string cityDefault = "Seattle,USA";
-
-		public static bool IsImperial
-		{
-			get { return Preferences.Get(isImperialKey, isImperialDefault); }
-            set { Preferences.Set(isImperialKey, value); }
-		}
-
-		public static bool UseCity
-		{
-            get { return Preferences.Get(useCityKey, useCityDefault); }
-            set { Preferences.Set(useCityKey, value); }
-		}
-
-		public static string City
-		{
-            get { return Preferences.Get(cityKey, cityDefault); }
-            set { Preferences.Set(cityKey, value); }
-		}
-	}
+        public static string City
+        {
+            get => Preferences.Get(nameof(City), "Seattle,USA");
+            set => Preferences.Set(nameof(City), value);
+        }
+    }
 }

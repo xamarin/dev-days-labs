@@ -27,7 +27,7 @@ namespace MyWeather.Services
 
 		public Task<WeatherForecastRoot> GetForecast(WeatherRoot weather, Units units = Units.Imperial)
 		{
-			if (weather.CityId == 0)
+			if (weather.CityId is 0)
 				return GetForecast(weather.Coordinates.Latitude, weather.Coordinates.Longitude, units);
 
 			return GetForecast(weather.CityId, units);
