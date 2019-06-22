@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using DevDaysSpeakers.Shared.Models;
 
 using Newtonsoft.Json;
-using Xamarin.Forms.Internals;
 
 namespace DevDaysSpeakers.Services
 {

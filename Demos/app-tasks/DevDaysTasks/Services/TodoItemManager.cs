@@ -1,36 +1,32 @@
-
 using System;
-using System.IO;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
-
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace DevDaysTasks
 {
-    public partial class TodoItemManager
+    public class AzureService
     {
         MobileServiceClient client;
         IMobileServiceSyncTable<TodoItem> todoTable;
-        
-        private static TodoItemManager defaultManager;
-        public static TodoItemManager DefaultManager
+
+        static readonly Lazy<AzureService> defaultManagerHolder = new Lazy<AzureService>(() => new AzureService());
+
+        AzureService()
         {
-            get { return defaultManager ?? (defaultManager = new TodoItemManager()); }
+
         }
 
-        TodoItemManager()
-        {
-            defaultManager = this;
-        }
+        public static AzureService DefaultManager => defaultManagerHolder.Value;
 
         public async Task Initialize()
         {
             // Check if Sync Context already has been synchronized
-            if (client?.SyncContext?.IsInitialized ?? false)
+            if (client?.SyncContext?.IsInitialized is true)
                 return;
 
             // Initialize Mobile Client
@@ -38,12 +34,14 @@ namespace DevDaysTasks
 
             // Initialize local database for syncing 
             var path = Path.Combine(MobileServiceClient.DefaultDatabasePath, Constants.SyncStorePath);
-            var store = new MobileServiceSQLiteStore(path);
-            store.DefineTable<TodoItem>();
+            using (var store = new MobileServiceSQLiteStore(path))
+            {
+                store.DefineTable<TodoItem>();
 
-            //Initializes the SyncContext using the default IMobileServiceSyncHandler.
-            var handler = new MobileServiceSyncHandler();
-            await client.SyncContext.InitializeAsync(store, handler).ConfigureAwait(false);
+                //Initializes the SyncContext using the default IMobileServiceSyncHandler.
+                var handler = new MobileServiceSyncHandler();
+                await client.SyncContext.InitializeAsync(store, handler).ConfigureAwait(false);
+            }
 
             todoTable = client.GetSyncTable<TodoItem>();
         }
@@ -86,7 +84,7 @@ namespace DevDaysTasks
             await Initialize().ConfigureAwait(false);
 
             // Check if item is new or has already been existent by checking its Id
-            if (item.Id == null)
+            if (item.Id is null)
             {
                 // Insert new item
                 await todoTable.InsertAsync(item).ConfigureAwait(false);
@@ -95,7 +93,7 @@ namespace DevDaysTasks
             {
                 // Update existing item
                 await todoTable.UpdateAsync(item).ConfigureAwait(false);
-            }            
+            }
         }
 
 
@@ -108,11 +106,11 @@ namespace DevDaysTasks
 
             try
             {
-				await client.SyncContext.PushAsync().ConfigureAwait(false);
+                await client.SyncContext.PushAsync().ConfigureAwait(false);
 
                 //The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
                 //Use a different query name for each unique query in your program
-				await todoTable.PullAsync("allTodoItems", todoTable.CreateQuery()).ConfigureAwait(false);
+                await todoTable.PullAsync("allTodoItems", todoTable.CreateQuery()).ConfigureAwait(false);
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -128,15 +126,16 @@ namespace DevDaysTasks
             {
                 foreach (var error in syncErrors)
                 {
-                    if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
+                    switch (error.OperationKind)
                     {
-                        //Update failed, reverting to server's copy.
-						await error.CancelAndUpdateItemAsync(error.Result).ConfigureAwait(false);
-                    }
-                    else if(error.OperationKind != MobileServiceTableOperationKind.Update)
-                    {
-                        // Discard local change.
-						await error.CancelAndDiscardItemAsync().ConfigureAwait(false);
+                        case MobileServiceTableOperationKind.Update when error.Result != null:
+                            await error.CancelAndUpdateItemAsync(error.Result).ConfigureAwait(false);
+                            break;
+                        case MobileServiceTableOperationKind.Update:
+                            break;
+                        default:
+                            await error.CancelAndDiscardItemAsync().ConfigureAwait(false);
+                            break;
                     }
 
                     Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
