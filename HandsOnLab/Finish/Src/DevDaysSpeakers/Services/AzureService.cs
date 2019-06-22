@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 using DevDaysSpeakers.Shared.Models;
 
 using Newtonsoft.Json;
+using Xamarin.Forms.Internals;
 
 namespace DevDaysSpeakers.Services
 {
@@ -13,19 +15,21 @@ namespace DevDaysSpeakers.Services
     {
         const string getSpeakersFunctionUrl = "https://devdaysspeakers-functions.azurewebsites.net/api/GetSpeakersFunction";
 
-        readonly static Lazy<HttpClient> clientHolder = new Lazy<HttpClient>(() => new HttpClient());
+        static readonly Lazy<HttpClient> clientHolder = new Lazy<HttpClient>();
+        static readonly Lazy<JsonSerializer> serializer = new Lazy<JsonSerializer>();
 
         static HttpClient Client => clientHolder.Value;
+        static JsonSerializer Serializer => serializer.Value;
 
-        public static async Task<List<Speaker>> GetSpeakers()
+        public static Task<List<Speaker>> GetSpeakers() => GetObjectFromAPI<List<Speaker>>(getSpeakersFunctionUrl);
+
+        static async Task<T> GetObjectFromAPI<T>(string apiUrl)
         {
-            using (var httpResponseMessage = await Client.GetAsync(getSpeakersFunctionUrl))
+            using (var stream = await Client.GetStreamAsync(apiUrl))
+            using (var streamReader = new StreamReader(stream))
+            using (var json = new JsonTextReader(streamReader))
             {
-                httpResponseMessage.EnsureSuccessStatusCode();
-
-                var json = await httpResponseMessage.Content.ReadAsStringAsync();
-
-                return JsonConvert.DeserializeObject<List<Speaker>>(json);
+                return Serializer.Deserialize<T>(json);
             }
         }
     }
