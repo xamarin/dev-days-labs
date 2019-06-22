@@ -11,9 +11,18 @@ namespace ImageSearch.Droid
         protected abstract int LayoutResource { get; }
         protected int ActionBarIcon { set => Toolbar.SetNavigationIcon(value); }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [Android.Runtime.GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             SetContentView(LayoutResource);
 

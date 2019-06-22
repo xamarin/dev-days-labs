@@ -25,7 +25,7 @@
     -->
   </style>
 
-  <style name="Theme.MyTheme.ActionBar" parent="style/Widget.AppCompat.Light.ActionBar.Solid">
+  <style name="Theme.MyTheme.ActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
     <!-- remove shadow below action bar -->
     <!-- <item name="android:elevation">0dp</item> -->
     <!-- Support library compatibility -->
