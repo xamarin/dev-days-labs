@@ -135,7 +135,7 @@ Notice that we call `OnPropertyChanged` when the value changes. The Xamarin.Form
 
 We will use an `ObservableCollection<Speaker>` that will be cleared and then loaded with **Speaker** objects. We use an `ObservableCollection` because it has built-in support to raise `CollectionChanged` events when we Add or Remove items from the collection. This means we don't call `OnPropertyChanged` when updating the collection.
 
-1. In `SpeakersViewModel.cs` declare an auto-property which we will initialize to an empty collection
+1. In `SpeakersViewModel.cs` declare a read-only property which we will initialize to an empty collection
 
 ```csharp
 public class SpeakersViewModel : INotifyPropertyChanged
@@ -332,105 +332,109 @@ public class SpeakersViewModel : INotifyPropertyChanged
 ```
 
 ## 9. Build The SpeakersPage User Interface
-It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.xaml`.
+It is now time to build the Xamarin.Forms UI.
 
-1. In `SpeakersPage.xaml`, add a `StackLayout` between the `ContentPage` tags
-    - By setting `Spacing="0"`, we're requesting that no space is added between the contents of the `StackLayout`
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-</ContentPage>
-```
-
-2. In `SpeakersPage.xaml`, add a ListView that binds to the `Speakers` collection to display all of the items. 
-    - We will use `x:Name="ListViewSpeakers"` so that we can access this XAML control from the C# code-behind
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-    <ListView x:Name="ListViewSpeakers"
-              ItemsSource="{Binding Speakers}"
-              IsPullToRefreshEnabled="true"
-              RefreshCommand="{Binding GetSpeakersCommand}"
-              IsRefreshing="{Binding IsBusy}"
-              CachingStrategy="RecycleElement">
-    <!--Add ItemTemplate Here-->
-    </ListView>
-
-</ContentPage>
-```
-
-3. In `SpeakersPage.xaml`, add a `ItemTemplate` to describe what each item looks like
-    - Xamarin.Forms contains a few default Templates that we can use, and we will use the `ImageCell` that displays an image and two rows of text
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-    <ListView x:Name="ListViewSpeakers"
-              ItemsSource="{Binding Speakers}"
-              IsPullToRefreshEnabled="true"
-              RefreshCommand="{Binding GetSpeakersCommand}"
-              IsRefreshing="{Binding IsBusy}"
-              CachingStrategy="RecycleElement">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ImageCell Text="{Binding Name}"
-                     Detail="{Binding Title}"
-                     ImageSource="{Binding Avatar}"/>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-
-</ContentPage>
-```
-
-### 10. Connect SpeakersPage with SpeakersViewModel
-
-Because we have bound some elements of the View to ViewModel properties, we have to tell the View with which ViewModel to bind. For this, we have to set the `BindingContext` to the `SpeakersViewModel`.
-
-1. In `SpeakersPage.xaml.cs`, create a field `SpeakersViewModel vm`, initialize `vm` and assign it to the `BindingContext`
+1. In `SpeakersPage.cs`, in the constructor, set the `BindingContext` equal to `new SpeakersViewModel()`. This connects SpeakersPage with SpeakersViewModel via MVVM.
 
 ```csharp
-public partial class SpeakersPage : ContentPage
+public SpeakersPage()
 {
-    readonly SpeakersViewModel vm;
-
-    public SpeakersPage()
-    {
-        InitializeComponent();
-
-        // Create the view model and set as binding context
-        vm = new SpeakersViewModel();
-        BindingContext = vm;
-    }
+    BindingContext = new SpeakersViewModel();
 }
 ```
+
+2. In `SpeakersPage.cs`, initialize the `ListView`:
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+}
+```
+
+3. In `SpeakersPage.cs`, set the bindings for `speakersListView`. This follows the MVVM pattern to allow the `ListView` to display the data from `SpeakersViewModel`
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+    speakersListView.ItemSelected += ListViewSpeakers_ItemSelected;
+}
+```
+
+4. In `SpeakersPage.cs`, set the `Title` and `Content` for the page
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+
+    Title = "Speakers";
+
+    Content = speakersListView;
+}
+```
+
+
 
 2. In `SpeakersPage.xaml.xs`, override `OnAppearing()` by adding the following method which tells the ListView to automatically refresh when the page appears on the screen:
 
 ```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+
+    Title = "Speakers";
+
+    Content = speakersListView;
+}
+
 protected override void OnAppearing()
 {
     base.OnAppearing();
 
-    ListViewSpeakers.BeginRefresh();
+    speakersListView.BeginRefresh();
 }
 ```
 
-### 11. Run the App
+### 10. Run the App
 
 1. In Visual Studio, set the iOS, Android, or UWP project as the startup project 
 
@@ -462,178 +466,477 @@ If you are running into issues with Android support packages that can't be unzip
 
 Set the DevDaysSpeakers.UWP as the startup project and select debug to **Local Machine**.
 
-### 12. Add Navigation
+### 11. Add Navigation
 
 Now, let's add navigation to a second page that displays speaker details!
 
-1. In `SpeakersPage.xaml.cs`, under `BindingContext = vm;`, add an event to the `ListViewSpeakers` to get notified when an item is selected:
-
-```csharp
-public partial class SpeakersPage : ContentPage
-{
-    readonly SpeakersViewModel vm;
-
-    public SpeakersPage()
-    {
-        InitializeComponent();
-
-        // Create the view model and set as binding context
-        vm = new SpeakersViewModel();
-        BindingContext = vm;
-
-        ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
-    }
-}
-```
-
-2. In `SpeakersPage.xaml.cs`, create a method called `ListViewSpeakers_ItemSelected`:
+1. In `SpeakersPage.cs`, create a method called `ListViewSpeakers_ItemSelected`:
     - This code checks to see if the selected item is non-null and then use the built in `Navigation` API to push a new page and deselect the item.
+    - `listView.SelectedItem = null;` tells the `ListView` to unhighlight the selected row
 
 ```csharp
 private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
 {
-    if (e.SelectedItem is Speaker speaker)
+    if (sender is ListView listView && e.SelectedItem is Speaker speaker)
     {
         await Navigation.PushAsync(new DetailsPage(speaker));
-        ListViewSpeakers.SelectedItem = null;
+        listView.SelectedItem = null;
     }
 }
 ```
 
-### 13. Create DetailsPage.xaml UI
+2. In `SpeakersPage.cs`, in the constructor, assign `ListViewSpeakers_ItemSelected` to the `speakersListView.ItemSelected`
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+
+    Title = "Speakers";
+
+    Content = speakersListView;
+
+    speakersListView.ItemSelected += ListViewSpeakers_ItemSelected;
+}
+```
+
+### 12. Create DetailsPage.xaml UI
 
 Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView. This allows the user to scroll if the page content is longer than the available screen space.
 
-1. In `DetailsPage.xaml`, add a `ScrollView` and a `StackLayout`
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.DetailsPage"
-             Title="Details">
-    <ScrollView Padding="10">
-        <StackLayout Spacing="10">
-            <!-- Detail controls here -->
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
-```
-
-2.  In `DetailsPage.xaml`, add controls and bindings for the properties in the Speaker class:
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.DetailsPage"
-             Title="Details">
-
-    <ScrollView Padding="10">
-        <StackLayout Spacing="10">
-            <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
-
-            <Label Text="{Binding Name}" FontSize="24"/>
-            <Label Text="{Binding Title}" TextColor="Purple"/>
-            <Label Text="{Binding Description}"/>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
-```
-
-3. In `DetailsPage.xaml`, add two buttons and give them names so we can access them in the code-behind.
-     - We'll be adding click handlers to each button.
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.DetailsPage"
-             Title="Details">
-
-    <ScrollView Padding="10">
-        <StackLayout Spacing="10">
-            <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
-
-            <Label Text="{Binding Name}" FontSize="24"/>
-            <Label Text="{Binding Title}" TextColor="Purple"/>
-            <Label Text="{Binding Description}"/>
-
-            <Button Text="Speak" x:Name="ButtonSpeak"/>
-            <Button Text="Go to Website" x:Name="ButtonWebsite"/>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
-```
-
-### 14. Add Text to Speech
-
-If we open up `DetailsPage.xaml.cs` we can now add a few more click handlers. Let's start with ButtonSpeak, where we will use the [Text To Speech Plugin](https://github.com/jamesmontemagno/TextToSpeechPlugin) to read back the speaker's description.
-
-1. In `DetailsPage.xaml.cs`, in the constructor, add a clicked handler below the BindingContext
+1. In `DetailsPage.cs`, assign `item` to `speaker`;
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
     readonly Speaker speaker;
 
-    public DetailsPage(Speaker speaker)
+    public DetailsPage(Speaker item)
     {
-        InitializeComponent();
+        speaker = item;
+    }
+```
 
-        //Set local instance of speaker and set BindingContext
-        speaker = speaker;
-        BindingContext = speaker;
+2.  In `DetailsPage.cs`, in the constructor, initialize the `Image` and `Label` controls and bindings for the properties in the Speaker class:
 
-        ButtonSpeak.Clicked += ButtonSpeak_Clicked;
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
     }
 }
 ```
 
-2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will call the cross-platform API for text to speech
+3.  In `DetailsPage.cs`, in the constructor, add a `StackLayout` and adding each control
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
-    //...
-    private async void ButtonSpeak_Clicked(object sender, EventArgs e)
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+    }
+}
+```
+
+4.  In `DetailsPage.cs`, in the constructor, assign the `Padding`, `Title`, and `Content`
+    - `Padding` adds spacing between the `ContentPage` and the edge of the device
+    - The content will use a `ScrollView` that allows the `StackLayout` to scroll if its content is too long to fit onto the screen
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView 
+        { 
+            Content = stackLayout 
+        };
+    }
+}
+```
+
+### 13. Add Text to Speech
+
+1. In `DetailsPage.cs`, add an event handler called `HandleSpeakButtonClicked`
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView 
+        { 
+            Content = stackLayout 
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
     {
         await TextToSpeech.SpeakAsync(speaker.Description);
     }
 }
 ```
 
-### 15. Add Open Website Functionality
-Xamarin.Forms includes many APIs for performing common tasks such as opening a URL in the default browser.
-
-1. In `DetailsPage.xaml.cs`, add a clicked handler for `ButtonWebsite.Clicked`:
+2. In `DetailsPage.cs`, add a `Button` called `speakButton`
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
-    //...
-    public DetailsPage(Speaker speaker)
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
     {
-        InitializeComponent();
+        speaker = item;
 
-        //Set local instance of speaker and set BindingContext
-        speaker = speaker;
-        BindingContext = speaker;
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
 
-        ButtonSpeak.Clicked += ButtonSpeak_Clicked;
-        ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
     }
-    //...
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
 }
 ```
 
-2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will use the static class `Device` to call the `OpenUri` method
+3. In `DetailsPage.cs`, add `speakButton` to as a child to the `StackLayout`
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
-    //...
-    private async void ButtonWebsite_Clicked(object sender, EventArgs e)
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+}
+```
+
+### 14. Add Open Website Functionality
+
+1. In `DetailsPage.cs`, add an event handler method called `HandleWebsiteButtonClicked.Clicked`:
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+
+    async void HandleWebsiteButtonClicked(object sender, EventArgs e)
     {
         if (speaker.Website.StartsWith("https"))
             await Browser.OpenAsync(speaker.Website);
@@ -641,8 +944,169 @@ public partial class DetailsPage : ContentPage
 }
 ```
 
-### 16. Compile & Run
-Now, we should be all set to compile and run our application!
+2. In `DetailsPage.cs`, in the constructor, add a `Button` called `websiteButton`
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var websiteButton = new Button
+        {
+            Text = "Go to Website"
+        };
+        websiteButton.Clicked += HandleWebsiteButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+
+    async void HandleWebsiteButtonClicked(object sender, EventArgs e)
+    {
+        if (speaker.Website.StartsWith("https"))
+            await Browser.OpenAsync(speaker.Website);
+    }
+}
+```
+
+3. In `DetailsPage.cs`, add `websiteButton` as a child to the `StackLayout`
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var websiteButton = new Button
+        {
+            Text = "Go to Website"
+        };
+        websiteButton.Clicked += HandleWebsiteButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+        stackLayout.Children.Add(websiteButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+
+    async void HandleWebsiteButtonClicked(object sender, EventArgs e)
+    {
+        if (speaker.Website.StartsWith("https"))
+            await Browser.OpenAsync(speaker.Website);
+    }
+}
+```
+
+### 15. Compile & Run
+Now, we are ready to compile and run our application
 
 ## Azure Backend Walkthrough
 

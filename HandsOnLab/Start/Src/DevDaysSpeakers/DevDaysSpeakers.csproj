@@ -27,5 +27,8 @@
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="Views\SpeakersPage.xaml" />
+    </ItemGroup>
     <Import Project="..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems" Label="Shared" Condition="Exists('..\DevDaysSpeakers.Shared\DevDaysSpeakers.Shared.projitems')" />
 </Project>
