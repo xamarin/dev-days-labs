@@ -6,27 +6,30 @@ using Xamarin.Forms;
 [assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
 namespace MyWeather
 {
-	public class App : Application
+    public class App : Application
     {
-		public App()
-		{
-			var tabs = new TabbedPage
+        public App()
+        {
+            var tabbedPage = new TabbedPage
             {
-				Title = "My Weather",
-				BindingContext = new WeatherViewModel(),
-				Children =
-				{
-					new WeatherView(),
-					new ForecastView()
-				}
-			};
+                Title = "My Weather",
+                BindingContext = new WeatherViewModel(),
+                Children =
+                {
+                    new WeatherView(),
+                    new ForecastView()
+                }
+            };
 
-            MainPage = new NavigationPage(tabs)
-			{
-				BarBackgroundColor = Color.FromHex("3498db"),
-				BarTextColor = Color.White
-			};
-		}
-	}
+            if (Device.RuntimePlatform is Device.Android)
+                tabbedPage.BarBackgroundColor = Color.FromHex("1FAECE");
+
+            MainPage = new NavigationPage(tabbedPage)
+            {
+                BarBackgroundColor = Color.FromHex("1FAECE"),
+                BarTextColor = Color.White
+            };
+        }
+    }
 }
 

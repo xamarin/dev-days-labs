@@ -75,28 +75,30 @@
         <None Include="Resources\AboutResources.txt" />
         <None Include="Properties\AndroidManifest.xml" />
         <None Include="Assets\AboutAssets.txt" />
-        <AndroidResource Include="Resources\layout\tabs.axml">
-            <SubType>AndroidResource</SubType>
-        </AndroidResource>
-        <AndroidResource Include="Resources\layout\toolbar.axml">
-            <SubType>AndroidResource</SubType>
-        </AndroidResource>
     </ItemGroup>
     <ItemGroup>
-        <AndroidResource Include="Resources\layout\Main.axml" />
-        <AndroidResource Include="Resources\values\Strings.xml" />
         <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
         <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
         <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
         <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
         <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <AndroidResource Include="Resources\values\colors.xml" />
-        <AndroidResource Include="Resources\values\style.xml" />
+        <AndroidResource Include="Resources\layout\Tabbar.axml">
+          <SubType></SubType>
+          <Generator></Generator>
+        </AndroidResource>
+        <AndroidResource Include="Resources\layout\Toolbar.axml">
+          <SubType></SubType>
+          <Generator></Generator>
+        </AndroidResource>
+        <AndroidResource Include="Resources\values\styles.xml">
+          <SubType></SubType>
+          <Generator></Generator>
+        </AndroidResource>
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Resources\drawable\" />
+        <Folder Include="Resources\layout\" />
+        <Folder Include="Resources\values\" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\MyWeather\MyWeather.csproj">
