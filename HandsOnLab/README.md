@@ -21,7 +21,7 @@ This solution contains 4 projects
 
 ![Solution](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/44f4caa9-efb9-4405-95d4-7341608e1c0a/Portable.png)
 
-The **DevDaysSpeakers** project also has blank code files and XAML pages that we will use during the Hands on Lab.
+The **DevDaysSpeakers** project also has blank code files that we will use during the Hands on Lab.
 
 ### 2. NuGet Restore
 
