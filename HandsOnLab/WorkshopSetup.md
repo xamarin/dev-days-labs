@@ -82,7 +82,7 @@ Now we will try running the application in Windows and Android to see if everyth
    > You might have to select a video device when the emulator starts for the first time. You don’t have to select anything, you can just press OK. The emulator takes some time to boot, but once it is up and running, you don’t need to shut it down. It can just stay up.
 
    After the emulator runs, you should be able to see the application:
-   ![The UWP app running on the emulator](https://github.com/jimbobbennett/MobileAppsOfTomorrow-Lab/blob/master/Images/Setup/VS2017RunningAndroidEmulator.png)
+   ![The UWP app running on the emulator](https://github.com/jimbobbennett/MobileAppsOfTomorrow-Lab/blob/master/Images/Setup/VS2019RunningAndroidEmulator.png)
 
 ## Prerequisites on a Mac
 
