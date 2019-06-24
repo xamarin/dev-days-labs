@@ -9,15 +9,15 @@ namespace ImageSearch.Services
 {
     static class ImageSearchServices
     {
-        static readonly Lazy<ImageSearchAPI> imageSearchApiClient =
-            new Lazy<ImageSearchAPI>(() => new ImageSearchAPI(new ApiKeyServiceClientCredentials(ServiceKeys.BingSearch)));
+        static readonly Lazy<ImageSearchClient> imageSearchApiClient =
+            new Lazy<ImageSearchClient>(() => new ImageSearchClient(new ApiKeyServiceClientCredentials(ServiceKeys.BingSearch)));
 
         #region Events
         public static event EventHandler InvalidApiKey;
         public static event EventHandler Error429_TooManyApiRequests;
         #endregion
 
-        static ImageSearchAPI ImageSearchApiClient => imageSearchApiClient.Value;
+        static ImageSearchClient ImageSearchApiClient => imageSearchApiClient.Value;
 
         #region Methods
         public static async Task<Images> GetImage(string searchText)
@@ -31,7 +31,7 @@ namespace ImageSearch.Services
                 OnInvalidApiKey();
                 throw;
             }
-            catch (ErrorResponseException e) when (e.Response.StatusCode.Equals(429))
+            catch (ErrorResponseException e) when (e.Response.StatusCode.Equals(HttpStatusCode.TooManyRequests))
             {
                 OnError429_TooManyApiRequests();
                 throw;

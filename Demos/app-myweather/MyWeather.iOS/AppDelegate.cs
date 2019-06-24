@@ -1,13 +1,10 @@
 ﻿using Foundation;
 using UIKit;
 
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-
 namespace MyWeather.iOS
 {
 	[Register (nameof(AppDelegate))]
-	public class AppDelegate : FormsApplicationDelegate
+	public class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
 		
 		public override bool FinishedLaunching (UIApplication uiApplication, NSDictionary launchOptions)
@@ -20,7 +17,9 @@ namespace MyWeather.iOS
                 TextColor = UIColor.White
             });
 
-            Forms.Init();
+            Xamarin.Forms.Forms.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(uiApplication, launchOptions);

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+        <ProductVersion>8.0.30703</ProductVersion>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{367B4F1E-C7D4-432C-B767-59121E12C2BF}</ProjectGuid>
+        <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>DevDaysSpeakers.iOS</RootNamespace>
+        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+        <AssemblyName>DevDaysSpeakersiOS</AssemblyName>
+        <NuGetPackageImportStamp>
+        </NuGetPackageImportStamp>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+        <DefineConstants>DEBUG</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>false</ConsolePause>
+        <MtouchArch>x86_64</MtouchArch>
+        <MtouchLink>None</MtouchLink>
+        <MtouchDebug>true</MtouchDebug>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchLink>None</MtouchLink>
+        <MtouchArch>x86_64</MtouchArch>
+        <ConsolePause>false</ConsolePause>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\iPhone\Debug</OutputPath>
+        <DefineConstants>DEBUG</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>false</ConsolePause>
+        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchDebug>true</MtouchDebug>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\iPhone\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <ConsolePause>false</ConsolePause>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>True</Optimize>
+        <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>False</ConsolePause>
+        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <BuildIpa>True</BuildIpa>
+        <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+        <CodesignKey>iPhone Distribution</CodesignKey>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>True</Optimize>
+        <OutputPath>bin\iPhone\AppStore</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>False</ConsolePause>
+        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <CodesignProvision>Automatic:AppStore</CodesignProvision>
+        <CodesignKey>iPhone Distribution</CodesignKey>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Main.cs" />
+        <Compile Include="AppDelegate.cs" />
+        <None Include="app.config" />
+        <None Include="Entitlements.plist" />
+        <None Include="Info.plist" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <ITunesArtwork Include="iTunesArtwork" />
+        <ITunesArtwork Include="iTunesArtwork@2x" />
+    </ItemGroup>
+    <ItemGroup>
+        <BundleResource Include="Resources\Default-568h%402x.png" />
+        <BundleResource Include="Resources\Default-Portrait.png" />
+        <BundleResource Include="Resources\Default-Portrait%402x.png" />
+        <BundleResource Include="Resources\Default.png" />
+        <BundleResource Include="Resources\Default%402x.png" />
+        <BundleResource Include="Resources\Icon-60%402x.png" />
+        <BundleResource Include="Resources\Icon-60%403x.png" />
+        <BundleResource Include="Resources\Icon-76.png" />
+        <BundleResource Include="Resources\Icon-76%402x.png" />
+        <BundleResource Include="Resources\Icon-Small-40.png" />
+        <BundleResource Include="Resources\Icon-Small-40%402x.png" />
+        <BundleResource Include="Resources\Icon-Small-40%403x.png" />
+        <BundleResource Include="Resources\Icon-Small.png" />
+        <BundleResource Include="Resources\Icon-Small%402x.png" />
+        <BundleResource Include="Resources\Icon-Small%403x.png" />
+        <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="Xamarin.iOS" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DevDaysSpeakers\DevDaysSpeakers.csproj">
+            <Project>{AE6AFDCB-6945-48D4-9D5E-76D3EBB11C28}</Project>
+            <Name>DevDaysSpeakers</Name>
+        </ProjectReference>
+    </ItemGroup>
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

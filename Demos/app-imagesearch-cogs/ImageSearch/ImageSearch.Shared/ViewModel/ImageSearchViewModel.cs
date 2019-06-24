@@ -10,7 +10,7 @@ using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 
 using MvvmHelpers;
 
-using Plugin.Connectivity;
+using Xamarin.Essentials;
 
 namespace ImageSearch.ViewModel
 {
@@ -20,23 +20,25 @@ namespace ImageSearch.ViewModel
 
         public async Task<bool> SearchForImagesAsync(string query)
         {
-            if (!CrossConnectivity.Current.IsConnected)
+            if (Connectivity.NetworkAccess is NetworkAccess.Internet)
+            {
+                try
+                {
+                    var images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
+
+                    Images.ReplaceRange(images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false));
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
+                    return false;
+                }
+            }
+            else
             {
                 await UserDialogs.Instance.AlertAsync("Not connected to the internet, please check connection.");
-                return false;
-            }
-
-            try
-            {
-                var images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
-
-                Images.ReplaceRange(images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false));
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
                 return false;
             }
         }

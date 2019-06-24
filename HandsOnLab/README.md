@@ -1,6 +1,6 @@
 # Xamarin Dev Days Hands On Lab
 
-Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com/xamarin/xamarin-forms?WT.mc_id=devdayslabs-github-bramin) application that will display a list of Xamarin Dev Days speaker. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. Then we will connect it to an Azure Mobile App backend in just a few lines of code.
+Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com/xamarin/xamarin-forms?WT.mc_id=devdayslabs-github-bramin) application that will display a list of Xamarin Dev Days speakers. We will start by building the business logic backend that pulls down json-ecoded data from an existing RESTful endpoint. Then we will connect it to an Azure Functions backend in just a few lines of code.
 
 ## Mobile App Walkthrough
 
@@ -135,7 +135,7 @@ Notice that we call `OnPropertyChanged` when the value changes. The Xamarin.Form
 
 We will use an `ObservableCollection<Speaker>` that will be cleared and then loaded with **Speaker** objects. We use an `ObservableCollection` because it has built-in support to raise `CollectionChanged` events when we Add or Remove items from the collection. This means we don't call `OnPropertyChanged` when updating the collection.
 
-1. In `SpeakersViewModel.cs` declare an auto-property which we will initialize to an empty collection
+1. In `SpeakersViewModel.cs` declare a read-only property which we will initialize to an empty collection
 
 ```csharp
 public class SpeakersViewModel : INotifyPropertyChanged
@@ -332,105 +332,109 @@ public class SpeakersViewModel : INotifyPropertyChanged
 ```
 
 ## 9. Build The SpeakersPage User Interface
-It is now time to build the Xamarin.Forms user interface in `View/SpeakersPage.xaml`.
+It is now time to build the Xamarin.Forms UI.
 
-1. In `SpeakersPage.xaml`, add a `StackLayout` between the `ContentPage` tags
-    - By setting `Spacing="0"`, we're requesting that no space is added between the contents of the `StackLayout`
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-</ContentPage>
-```
-
-2. In `SpeakersPage.xaml`, add a ListView that binds to the `Speakers` collection to display all of the items. 
-    - We will use `x:Name="ListViewSpeakers"` so that we can access this XAML control from the C# code-behind
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-    <ListView x:Name="ListViewSpeakers"
-              ItemsSource="{Binding Speakers}"
-              IsPullToRefreshEnabled="true"
-              RefreshCommand="{Binding GetSpeakersCommand}"
-              IsRefreshing="{Binding IsBusy}"
-              CachingStrategy="RecycleElement">
-    <!--Add ItemTemplate Here-->
-    </ListView>
-
-</ContentPage>
-```
-
-3. In `SpeakersPage.xaml`, add a `ItemTemplate` to describe what each item looks like
-    - Xamarin.Forms contains a few default Templates that we can use, and we will use the `ImageCell` that displays an image and two rows of text
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.SpeakersPage"
-             Title="Speakers">
-
-    <ListView x:Name="ListViewSpeakers"
-              ItemsSource="{Binding Speakers}"
-              IsPullToRefreshEnabled="true"
-              RefreshCommand="{Binding GetSpeakersCommand}"
-              IsRefreshing="{Binding IsBusy}"
-              CachingStrategy="RecycleElement">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ImageCell Text="{Binding Name}"
-                     Detail="{Binding Title}"
-                     ImageSource="{Binding Avatar}"/>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-
-</ContentPage>
-```
-
-### 10. Connect SpeakersPage with SpeakersViewModel
-
-Because we have bound some elements of the View to ViewModel properties, we have to tell the View with which ViewModel to bind. For this, we have to set the `BindingContext` to the `SpeakersViewModel`.
-
-1. In `SpeakersPage.xaml.cs`, create a field `SpeakersViewModel vm`, initialize `vm` and assign it to the `BindingContext`
+1. In `SpeakersPage.cs`, in the constructor, set the `BindingContext` equal to `new SpeakersViewModel()`. This connects SpeakersPage with SpeakersViewModel via MVVM.
 
 ```csharp
-public partial class SpeakersPage : ContentPage
+public SpeakersPage()
 {
-    readonly SpeakersViewModel vm;
-
-    public SpeakersPage()
-    {
-        InitializeComponent();
-
-        // Create the view model and set as binding context
-        vm = new SpeakersViewModel();
-        BindingContext = vm;
-    }
+    BindingContext = new SpeakersViewModel();
 }
 ```
+
+2. In `SpeakersPage.cs`, initialize the `ListView`:
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+}
+```
+
+3. In `SpeakersPage.cs`, set the bindings for `speakersListView`. This follows the MVVM pattern to allow the `ListView` to display the data from `SpeakersViewModel`
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+    speakersListView.ItemSelected += ListViewSpeakers_ItemSelected;
+}
+```
+
+4. In `SpeakersPage.cs`, set the `Title` and `Content` for the page
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+
+    Title = "Speakers";
+
+    Content = speakersListView;
+}
+```
+
+
 
 2. In `SpeakersPage.xaml.xs`, override `OnAppearing()` by adding the following method which tells the ListView to automatically refresh when the page appears on the screen:
 
 ```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+
+    Title = "Speakers";
+
+    Content = speakersListView;
+}
+
 protected override void OnAppearing()
 {
     base.OnAppearing();
 
-    ListViewSpeakers.BeginRefresh();
+    speakersListView.BeginRefresh();
 }
 ```
 
-### 11. Run the App
+### 10. Run the App
 
 1. In Visual Studio, set the iOS, Android, or UWP project as the startup project 
 
@@ -462,178 +466,477 @@ If you are running into issues with Android support packages that can't be unzip
 
 Set the DevDaysSpeakers.UWP as the startup project and select debug to **Local Machine**.
 
-### 12. Add Navigation
+### 11. Add Navigation
 
 Now, let's add navigation to a second page that displays speaker details!
 
-1. In `SpeakersPage.xaml.cs`, under `BindingContext = vm;`, add an event to the `ListViewSpeakers` to get notified when an item is selected:
-
-```csharp
-public partial class SpeakersPage : ContentPage
-{
-    readonly SpeakersViewModel vm;
-
-    public SpeakersPage()
-    {
-        InitializeComponent();
-
-        // Create the view model and set as binding context
-        vm = new SpeakersViewModel();
-        BindingContext = vm;
-
-        ListViewSpeakers.ItemSelected += ListViewSpeakers_ItemSelected;
-    }
-}
-```
-
-2. In `SpeakersPage.xaml.cs`, create a method called `ListViewSpeakers_ItemSelected`:
+1. In `SpeakersPage.cs`, create a method called `ListViewSpeakers_ItemSelected`:
     - This code checks to see if the selected item is non-null and then use the built in `Navigation` API to push a new page and deselect the item.
+    - `listView.SelectedItem = null;` tells the `ListView` to unhighlight the selected row
 
 ```csharp
 private async void ListViewSpeakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
 {
-    if (e.SelectedItem is Speaker speaker)
+    if (sender is ListView listView && e.SelectedItem is Speaker speaker)
     {
         await Navigation.PushAsync(new DetailsPage(speaker));
-        ListViewSpeakers.SelectedItem = null;
+        listView.SelectedItem = null;
     }
 }
 ```
 
-### 13. Create DetailsPage.xaml UI
+2. In `SpeakersPage.cs`, in the constructor, assign `ListViewSpeakers_ItemSelected` to the `speakersListView.ItemSelected`
+
+```csharp
+public SpeakersPage()
+{
+    BindingContext = new SpeakersViewModel();
+
+    speakersListView = new ListView(ListViewCachingStrategy.RecycleElement)
+    {
+        IsPullToRefreshEnabled = true,
+        ItemTemplate = new DataTemplate(typeof(SpeakersCell)),
+        SeparatorColor = Color.Transparent
+    };
+    speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
+    speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
+    speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
+
+    Title = "Speakers";
+
+    Content = speakersListView;
+
+    speakersListView.ItemSelected += ListViewSpeakers_ItemSelected;
+}
+```
+
+### 12. Create DetailsPage.xaml UI
 
 Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView. This allows the user to scroll if the page content is longer than the available screen space.
 
-1. In `DetailsPage.xaml`, add a `ScrollView` and a `StackLayout`
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.DetailsPage"
-             Title="Details">
-    <ScrollView Padding="10">
-        <StackLayout Spacing="10">
-            <!-- Detail controls here -->
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
-```
-
-2.  In `DetailsPage.xaml`, add controls and bindings for the properties in the Speaker class:
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.DetailsPage"
-             Title="Details">
-
-    <ScrollView Padding="10">
-        <StackLayout Spacing="10">
-            <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
-
-            <Label Text="{Binding Name}" FontSize="24"/>
-            <Label Text="{Binding Title}" TextColor="Purple"/>
-            <Label Text="{Binding Description}"/>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
-```
-
-3. In `DetailsPage.xaml`, add two buttons and give them names so we can access them in the code-behind.
-     - We'll be adding click handlers to each button.
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevDaysSpeakers.View.DetailsPage"
-             Title="Details">
-
-    <ScrollView Padding="10">
-        <StackLayout Spacing="10">
-            <Image Source="{Binding Avatar}" HeightRequest="200" WidthRequest="200"/>
-
-            <Label Text="{Binding Name}" FontSize="24"/>
-            <Label Text="{Binding Title}" TextColor="Purple"/>
-            <Label Text="{Binding Description}"/>
-
-            <Button Text="Speak" x:Name="ButtonSpeak"/>
-            <Button Text="Go to Website" x:Name="ButtonWebsite"/>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
-```
-
-### 14. Add Text to Speech
-
-If we open up `DetailsPage.xaml.cs` we can now add a few more click handlers. Let's start with ButtonSpeak, where we will use the [Text To Speech Plugin](https://github.com/jamesmontemagno/TextToSpeechPlugin) to read back the speaker's description.
-
-1. In `DetailsPage.xaml.cs`, in the constructor, add a clicked handler below the BindingContext
+1. In `DetailsPage.cs`, assign `item` to `speaker`;
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
     readonly Speaker speaker;
 
-    public DetailsPage(Speaker speaker)
+    public DetailsPage(Speaker item)
     {
-        InitializeComponent();
+        speaker = item;
+    }
+```
 
-        //Set local instance of speaker and set BindingContext
-        speaker = speaker;
-        BindingContext = speaker;
+2.  In `DetailsPage.cs`, in the constructor, initialize the `Image` and `Label` controls and bindings for the properties in the Speaker class:
 
-        ButtonSpeak.Clicked += ButtonSpeak_Clicked;
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
     }
 }
 ```
 
-2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will call the cross-platform API for text to speech
+3.  In `DetailsPage.cs`, in the constructor, add a `StackLayout` and adding each control
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
-    //...
-    private async void ButtonSpeak_Clicked(object sender, EventArgs e)
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+    }
+}
+```
+
+4.  In `DetailsPage.cs`, in the constructor, assign the `Padding`, `Title`, and `Content`
+    - `Padding` adds spacing between the `ContentPage` and the edge of the device
+    - The content will use a `ScrollView` that allows the `StackLayout` to scroll if its content is too long to fit onto the screen
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView 
+        { 
+            Content = stackLayout 
+        };
+    }
+}
+```
+
+### 13. Add Text to Speech
+
+1. In `DetailsPage.cs`, add an event handler called `HandleSpeakButtonClicked`
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView 
+        { 
+            Content = stackLayout 
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
     {
         await TextToSpeech.SpeakAsync(speaker.Description);
     }
 }
 ```
 
-### 15. Add Open Website Functionality
-Xamarin.Forms includes many APIs for performing common tasks such as opening a URL in the default browser.
-
-1. In `DetailsPage.xaml.cs`, add a clicked handler for `ButtonWebsite.Clicked`:
+2. In `DetailsPage.cs`, add a `Button` called `speakButton`
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
-    //...
-    public DetailsPage(Speaker speaker)
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
     {
-        InitializeComponent();
+        speaker = item;
 
-        //Set local instance of speaker and set BindingContext
-        speaker = speaker;
-        BindingContext = speaker;
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
 
-        ButtonSpeak.Clicked += ButtonSpeak_Clicked;
-        ButtonWebsite.Clicked += ButtonWebsite_Clicked;
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
     }
-    //...
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
 }
 ```
 
-2. In `DetailsPage.xaml.cs`, create the `ButtonSpeak_Clicked` method which will use the static class `Device` to call the `OpenUri` method
+3. In `DetailsPage.cs`, add `speakButton` to as a child to the `StackLayout`
 
 ```csharp
-public partial class DetailsPage : ContentPage
+public class DetailsPage : ContentPage
 {
-    //...
-    private async void ButtonWebsite_Clicked(object sender, EventArgs e)
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+}
+```
+
+### 14. Add Open Website Functionality
+
+1. In `DetailsPage.cs`, add an event handler method called `HandleWebsiteButtonClicked.Clicked`:
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+
+    async void HandleWebsiteButtonClicked(object sender, EventArgs e)
     {
         if (speaker.Website.StartsWith("https"))
             await Browser.OpenAsync(speaker.Website);
@@ -641,218 +944,417 @@ public partial class DetailsPage : ContentPage
 }
 ```
 
-### 16. Compile & Run
-Now, we should be all set to compile and run our application!
+2. In `DetailsPage.cs`, in the constructor, add a `Button` called `websiteButton`
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var websiteButton = new Button
+        {
+            Text = "Go to Website"
+        };
+        websiteButton.Clicked += HandleWebsiteButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+
+    async void HandleWebsiteButtonClicked(object sender, EventArgs e)
+    {
+        if (speaker.Website.StartsWith("https"))
+            await Browser.OpenAsync(speaker.Website);
+    }
+}
+```
+
+3. In `DetailsPage.cs`, add `websiteButton` as a child to the `StackLayout`
+
+```csharp
+public class DetailsPage : ContentPage
+{
+    readonly Speaker speaker;
+
+    public DetailsPage(Speaker item)
+    {
+        speaker = item;
+
+        var avatarImage = new Image
+        {
+            HeightRequest = 200,
+            WidthRequest = 200,
+            Source = speaker.Avatar
+        };
+
+        var nameLabel = new Label
+        {
+            FontSize = 24,
+            Text = speaker.Name
+        };
+
+        var titleLabel = new Label
+        {
+            TextColor = Color.Purple,
+            Text = speaker.Title
+        };
+
+        var descriptionLabel = new Label
+        {
+            Text = speaker.Description
+        };
+
+        var speakButton = new Button
+        {
+            Text = "Speak",
+        };
+        speakButton.Clicked += HandleSpeakButtonClicked;
+
+        var websiteButton = new Button
+        {
+            Text = "Go to Website"
+        };
+        websiteButton.Clicked += HandleWebsiteButtonClicked;
+
+        var stackLayout = new StackLayout
+        {
+            Spacing = 10
+        };
+        stackLayout.Children.Add(avatarImage);
+        stackLayout.Children.Add(nameLabel);
+        stackLayout.Children.Add(titleLabel);
+        stackLayout.Children.Add(descriptionLabel);
+        stackLayout.Children.Add(speakButton);
+        stackLayout.Children.Add(websiteButton);
+
+        Title = speaker.Name;
+
+        Padding = new Thickness(10);
+
+        Content = new ScrollView
+        {
+            Content = stackLayout
+        };
+    }
+
+    async void HandleSpeakButtonClicked(object sender, EventArgs e)
+    {
+        await TextToSpeech.SpeakAsync(speaker.Description);
+    }
+
+    async void HandleWebsiteButtonClicked(object sender, EventArgs e)
+    {
+        if (speaker.Website.StartsWith("https"))
+            await Browser.OpenAsync(speaker.Website);
+    }
+}
+```
+
+### 15. Compile & Run
+Now, we are ready to compile and run our application
 
 ## Azure Backend Walkthrough
 
-Being able to grab data from a RESTful end point is great, but what about creating the back-end service? This is where Azure Mobile Apps comes in. Let's update our application to use an Azure Mobile Apps back-end.
+Being able to grab data from a RESTful end point is great, but what about creating the back-end service? Let's update our application to use an Azure Functions back-end.
 
-### 1. Create Azure Mobile App
+### 1. Write Code for Azure Functions Backend
 
-1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account
+1. In `GetSpeakersFunction.cs`, populate `GenerateSpeakers()` with the following `List<Speaker>`
 
-2. In the [Azure Portal](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), select the **Create a resource** button
-3. In **New** window, tap **Mobile**
-4. In **New** window, tap **Mobile App**
-
-![Create Resource](https://user-images.githubusercontent.com/13558917/40452936-6032bcf2-5e98-11e8-991d-8bca36d61bf1.png)
-
-5. In the **Mobile App** window, enter your **App name**
-    - This is a unique name for the app that you will need when connecting your Xamarin.Forms client app to the hosted Azure Mobile App
-    - You will need to choose a globally-unique name
-    - I recommend using `[Your Last Name]speakers`
-
-6. In the **Mobile App** window, select your **Subscription**
-    - Select a subscription or create a pay-as-you-go account
-        - We'll be using the free tier of Azure Mobile App and it will not cost anything
-
-7. In the **Mobile App** window, create a new **Resource Group**
-    - Select *Create new* and call it **DevDaysSpeakers**
-    - A resource group is just a folder that holds multiple Azure services
-
-8. In the **Mobile App** window, select **App Service plan/Location**
-9. In the **New App Service Plan** window, enter a unique name
-    - I recommend `[Your Last Name]speakersserver`
-10. In the **New App Service Plan** window, select a location (typically you would choose a location close to your customers)
-11. In the **New App Service Plan** window, select **Pricing tier**
-12. In the **Pricing Tier** window, select **Dev/Test**
-13. In the **Pricing Tier** window, select **Free**
-14. In the **Pricing Tier** window, select **Apply**
-15. In the **New App Service Plan** window, select **OK**
-16. In the **Mobile App** window, click Create
-
-![Create Mobile App](https://user-images.githubusercontent.com/13558917/40457467-6c74d398-5eab-11e8-8fe4-bf8b6669a64d.png)
-
-After clicking **Create**, it will take Azure about 3-5 minutes to create the new service, so let's head back to the code!
-
-### 2. Update AzureService.cs
-
-We will use the [Azure Mobile Apps SDK](https://azure.microsoft.com/documentation/articles/app-service-mobile-xamarin-forms-get-started/?none-XamarinWorkshop-bramin) to connect our mobile app to our Azure back-end with just a few lines of code.
-
-1. In `AzureService.cs`, add your url to the Initialize method:
-    - Be sure to update YOUR-APP-NAME-HERE with the app name you specified when creating your Azure Mobile App.
-    - My appUrl is "https://minnickspeakers.azurewebsites.net"
+    - Feel free to add yourself to the List
 
 ```csharp
-var appUrl = "https://YOUR-APP-NAME-HERE.azurewebsites.net";
-```
-
-The logic in the `Initialize` method will setup our database and create our `IMobileServiceSyncTable<Speaker>` table that we can use to retrieve speaker data from the Azure Mobile App. There are two methods that we need to fill in to get and sync data from the server.
-
-
-2. In `AzureService.cs`, update the `GetSpeakers` method to initialize, sync, and query the table for items using LINQ queries to order the results:
-
-```csharp
-public async Task<IEnumerable<Speaker>> GetSpeakers()
+static List<Speaker> GenerateSpeakers()
 {
-    await Initialize();
-    await SyncSpeakers();
-    return await table.OrderBy(s => s.Name).ToEnumerableAsync();
+    return new List<Speaker>
+    {
+        new Speaker
+        {
+            Name = "Kim Noel",
+            Description = "Kim is a co-organizer for Montreal Mobile .NET Developers",
+            Title = "Community Engineer",
+            Website = "https://www.linkedin.com/in/kimcodes/",
+            Avatar = "https://pbs.twimg.com/profile_images/1095401068442386433/83JOBFoE_400x400.jpg"
+        },
+        new Speaker
+        {
+            Name = "Martijn van Dijk",
+            Description = "Martijn is a Xamarin consultant at Xablu, Xamarin MVP, contributor of MvvmCross, and creator of several Xamarin plugins.",
+            Title = "Xamarin Consultant",
+            Website = "https://www.xablu.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/696643425706340353/QGsT4xLt_400x400.png",
+        },
+        new Speaker
+        {
+            Name = "Michael Stonis",
+            Description = "Michael Stonis is a partner at Eight-Bot, a software consultancy in Chicago, where he focuses on mobile and integration solutions for enterprises using .NET. He loves mobile technology and how it has opened up our world in new and interesting ways that seemed like an impossibility just a few years ago. Outside of work, you will probably find him spending time with his family, brewing beer, or playing pinball.",
+            Title = "President",
+            Website = "https://www.eightbot.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/3544049213/c90b7bfed6c5cbc1067b7d13b4f6f0e6_400x400.png",
+        },
+        new Speaker
+        {
+            Name = "Kasey Uhlenhuth",
+            Description = "Kasey Uhlenhuth is a program manager on the .NET Managed Languages team at Microsoft. She is currently working on modernizing the C# developer experience, but has also worked on C# scripting and the REPL. Before joining Microsoft, Kasey studied computer science and played varsity lacrosse at Harvard University. In her free time she can be found creating art, reading, or playing volleyball and ultimate frisbee.",
+            Title = "Program Manager, .NET Managed Languages",
+            Website = "https://microsoft.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/704473408638050304/bVbzez9X_400x400.jpg",
+        },
+        new Speaker
+        {
+            Name = "Santosh Hari",
+            Description = "Santosh is an Azure MVP, Azure Consultant at NewSignature, President of Orlando Dot Net User Group and organizer of Orlando Code Camp.",
+            Title = "Azure Consultant",
+            Website = "http://santoshhari.wordpress.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/1108107477017493504/rKaK9ZPO_400x400.png",
+        },
+        new Speaker
+        {
+            Name = "Ana Betts",
+            Description = "Ana is a developer at Slack who works on the Windows and Linux application. Previously she was at GitHub where she built the GitHub Desktop application on Windows, as well as the popular Xamarin libraries ReactiveUI, ModernHttpClient, and Akavache.",
+            Title = "Engineer",
+            Website = "https://slack.com/",
+            Avatar = "https://pbs.twimg.com/profile_images/1119744877825105920/Sv7VY9rm_400x400.png",
+        },
+    };
 }
 ```
 
-3. In `AzureService.cs`, update the `SyncSpeakers` method to sync the local database our in our app with our remote database in Azure:
+2. In `GetSpeakersFunction.cs`, populate `Run` with the following code:
 
 ```csharp
-public async Task SyncSpeakers()
+public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
 {
-    try
-    {
-        await Client.SyncContext.PushAsync();
-        await table.PullAsync("allSpeakers", table.CreateQuery());
-    }
-    catch (Exception ex)
-    {
-        Debug.WriteLine("Unable to sync speakers, that is alright as we have offline capabilities: " + ex);
-    }
+    log.LogInformation("Generating Speakers");
+
+    var speakersList = GenerateSpeakers();
+
+    log.LogInformation("Returning Speaker List");
+
+    return new OkObjectResult(speakersList);
 }
 ```
 
-That is it for our Azure code! Just a few lines, and we are ready to pull the data from Azure.
+### 2a. Publish Code to Azure Functions, Visual Studio PC
 
-### 3. Update SpeakersViewModel.cs
+Let's publish the Azure Functions code we wrote to the Azure cloud.
 
-1. In `SpeakersViewModel.cs`, update `GetSpeakers` to use the Azure Service by amending the code in the `try` block:
+The following steps are for Visual Studio on PC. If you are using Visual Studio for Mac, skip to **Step 2b**.
 
-```csharp
-private async Task GetSpeakers()
-{
-    //...
-    try
-    {
-        IsBusy = true;
+1. (If you don't yet have an Azure account) Create a Free Azure account including a free $200 credit by navigating to [this Azure Sign Up Page](https://azure.microsoft.com/free/services/mobile-apps?WT.mc_id=devdayslab-github-bramin) and creating an account.
 
-        var service = DependencyService.Get<AzureService>();
-        var items = await service.GetSpeakers();
+2. In Visual Studio on PC, on the top-right menu bar, select **Sign in**
+    - **Note:** If you have already signed in, skip this step
 
-        Speakers.Clear();
-        foreach (var item in items)
-            Speakers.Add(item);
-    }
-    //...
-}
-```
+![Sign In](https://user-images.githubusercontent.com/13558917/59391534-68075f80-8d29-11e9-87aa-b7a210fd53bf.png)
 
-Now, we have implemented the code we need in our app. `AzureService` will automatically handle all communication with your Azure back-end for you including online/offline synchronization so your app works even when it's not connected to the internet.
+3. On the **Sign in to your account** popup, sign into your Microsoft account
+    - **Note:** If you have already signed in, skip this step
 
-### 3. Populate Azure Database
+![sign in to your account](https://user-images.githubusercontent.com/13558917/59391535-68075f80-8d29-11e9-98b6-9c4326b177f3.png)
 
-Let's head back to the Azure Portal and populate the database!
+4. After signing in, on the top-right menu bar, select your profile icon
 
-1. In the [Azure Portal Dashboard](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), click on the notification button (bell icon)
+5. In the profile menu, select **Account settings...**
 
-1. In the **Notifiations** window, click **Go to resource**
+![Profile Settings](https://user-images.githubusercontent.com/13558917/59391526-66d63280-8d29-11e9-86f4-20b3c2a43cc2.png)
 
-![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/59301196-ec80b200-8c45-11e9-9631-83da7ee355ce.png)
+6. In the **Account Settings** window, under **All Accounts**, ensure that the account associated with your Azure Subscription has been added
+    - Note: If your Azure Subscription acount is not visible, click **Add an account...**
 
-3. On the left-hand menu, select **Quickstart**
+![Account Settings](https://user-images.githubusercontent.com/13558917/59391525-66d63280-8d29-11e9-9491-f8b838dede67.png)
 
-4. In the new window, select **Xamarin.Forms**
+7. On the Visual **Studio Solution Explorer**, right-click **DevDaysSpeakers.Functions**
 
-![Xamarin Forms Quick Start](https://user-images.githubusercontent.com/13558917/40458465-f9bf6362-5eb0-11e8-8520-4159ee8f22b3.png)
+8. On the right-click menu, select **Publish...**
 
-5. In the **Quick Start** menu, select the box below **Connect a database**
-6. In the **Data Connections** window, select **+ Add**
-7. In the **Add data connection** window, select the **SQL Database** box
-8. In the **Database** window, select **Create a new database**
+![Publish](https://user-images.githubusercontent.com/13558917/59391532-68075f80-8d29-11e9-856b-9f40ec0cee97.png)
 
-![Create Database](https://user-images.githubusercontent.com/13558917/40458584-886e203a-5eb1-11e8-9185-8a0e959e20f9.png)
+9. In the **Pick a publish target** window, make the following selections:
+    - **Publish Target**: Azure Function App
+    - **Create New**
 
-8. In the **SQL Database** window, enter a name
-    - The name must be unique
-    - I recommend using *LastnameSpeakersDatabase*
-10. In the **SQL Database** window, select **Target Server** *Configure required settings*
-11. In the **Server** window, select **Create a new server**
-12. In the **New server** window, enter a Server name
-  - The server name must be unique and all lower-case
-    - I recommend using *lastnamespeakerserver*
-13. In the **New server** window, create a **Server admin login**
-    - This will be your username for accessing the database remotely (which we won't be doing in this lab)
-14. In the **New server** window, create a **Password**
-    - This will be your password for accessing the database remotely (which we won't be doing in this lab)
-15. In the **New server** window, **Confirm Password**
-16. In the **New server** window, select a **Location**
-    - This is the physical location where your server will be located
-    - I recommend selecting a location that is closest to your users
-17. In the **New server** window, select **Select**
+11. In the **Pick a publish target** window, select **Publish**
 
-![Configure Database Server](https://user-images.githubusercontent.com/13558917/40458706-4797a8c8-5eb2-11e8-9c83-af6f4d9a5cca.png)
+![Create New Function](https://user-images.githubusercontent.com/13558917/59391529-676ec900-8d29-11e9-8c43-7460afcf5b78.png)
 
-18. In the **SQL Database** window, select **Pricing Tier**
-19. In the **Configure** window, select **Free**
-20. In the **Configure** window, select **Apply**
+12. In the **Azure App Service** window, make the following selections:
+    - **Name**: [YourLastName]DevDaysSpeakersFunction
+    - **Subscription**: [Select your subscription]
+    - **Resource Group**: [Click **New...**]
+        - **New resource group name**: DevDaysSpeakers
+    - **Hosting Plan**: [Click **New...**]
+        - **Hosting Plan**: DevDaysSpeakersFunctionHostingPlan
+        - **Location**: [Choose the location closest to you]
+        - **Size**: Consumption
+    - **Azure Storage**: [Click **New...**]
+        - **Account Name**: [YourLastName]devdayspeakers
+        - **Location**: [Choose the location closest to you]
+        - **Account Type**: Standard - Locally Redundant Storage
 
-![Database Pricing Tier](https://user-images.githubusercontent.com/13558917/40458930-84e5ecac-5eb3-11e8-82a1-75b958936bcf.png)
+13. In the **Azure App Service** window, click **Create**
 
-21. In the **SQL Database** window, select **Select**
+![Create New Azure App Service](https://user-images.githubusercontent.com/13558917/59960601-bacfdc80-94ca-11e9-9901-0fb8b78e484d.png)
 
-![Select SQL Database](https://user-images.githubusercontent.com/13558917/40459019-e2aa3d3e-5eb3-11e8-9dc6-258f8871db40.png)
+14. Stand by while the Function deploys to Azure
 
-22. In the **Add data connection** window, select **Connection String**
-23. In the **Connection string** window, select **OK**, leaving the default value
-24. In the **Add data connection** window, select **OK**
+![Deploying](https://user-images.githubusercontent.com/13558917/59960602-bacfdc80-94ca-11e9-9a88-b8864f62539a.png)
 
-![Connection String](https://user-images.githubusercontent.com/13558917/40459075-43d05a3a-5eb4-11e8-8b47-6971c22176b2.png)
+15. Once the deployment has completed, in the **Output** pad, ensure it says **Publish: 1 succeeded**
 
-25. Standby while Azure creates the Data Connection
-    - This may take 3-5 minutes
+![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59391533-68075f80-8d29-11e9-9c57-1728913de4b8.png)
 
-![Data Connection Create](https://user-images.githubusercontent.com/13558917/40459143-a5437ffe-5eb4-11e8-8558-5acd9dc0e6a5.png)
+16. Ensure Visual Studio has automatically launched a browser, confirming that the Azure Functions App is 
 
-![Data Connection Completed](https://user-images.githubusercontent.com/13558917/40459358-cdf13eb8-5eb5-11e8-9f1f-3f161d4d3eed.png)
+### 2b. Publish Code to Azure Functions, Visual Studio for Mac
 
-Our database is now created! Let's populate it with some data!
+Let's publish the Azure Functions code we wrote to the Azure cloud.
 
-### 4. Populate Database with Data
+The following steps are for Visual Studio for Mac. If you are using Visual Studio on PC, continue to **Step 3**.
 
-1. In the [Azure Portal Dashboard](https://portal.azure.com?WT.mc_id=devdayslabs-github-bramin), click on the  **Mobile App**
+1. On Visual Studio for Mac, on the top menu bar, select **Visual Studio** > **Account**
 
-![Select Azure Mobile App](https://user-images.githubusercontent.com/13558917/40458389-9a48ad9e-5eb0-11e8-9378-4464d4381958.png)
+![Account](https://user-images.githubusercontent.com/13558917/59393954-ace3c400-8d32-11e9-9b4f-50ea0b104618.png)
 
-2. In the **Mobile App** menu, enter **easy** into the search bar
-3. In the **Mobile App** menu, select **Easy tables**
+2. In the **Account** window, sign in with your Microsoft account
+    - **Note:** If you have already signed in, skip this step
 
-![Easy Tables](https://user-images.githubusercontent.com/13558917/40459471-6874bf96-5eb6-11e8-8e29-edb5ef08b9f8.png)
+![Sign In](https://user-images.githubusercontent.com/13558917/59393961-ad7c5a80-8d32-11e9-9d4e-fec5df8decd8.png)
 
-4. In the **Easy tables** window, select **Click here to continue**
-5. In the new **Easy tables** window, check the box **I acknowledge that this will overwrite all site contents.**
-6. In the new **Easy tables** window, select **Create TodoItem table**
-    - Ignore that it says "TodoItem Table"; selecting **Create** will create an empty table
-![Initialize Easy Tables](https://user-images.githubusercontent.com/13558917/40459585-0f9d2d8a-5eb7-11e8-8bed-6480ab69862c.png)
+3. In the **Account** window, ensure that the account associated with your Azure Subscription has been added
+    - Note: If your Azure Subscription account is not visible, click **Add an account...**
 
-7. In the **Easy tables** window, select **Add from CSV**
+4. In the **Visual Studio for Mac Solution Explorer**, right-click **DevDaysSpeakers.Functions** > **Publish** > **Publish to Azure...**
 
-![Add From CSV](https://user-images.githubusercontent.com/13558917/40459674-92841420-5eb7-11e8-80d3-618ccc630882.png)
+![Right-click Publish](https://user-images.githubusercontent.com/13558917/59393959-ace3c400-8d32-11e9-92f7-a6523131be45.png)
 
-8. In the **Add from CSV** window, select the **Folder Icon**
-9. In the file browser, locate and select the [**Speakers.csv** file](https://github.com/brminnick/dev-days-labs/blob/master/HandsOnLab/Speaker.csv) in the HandsOnLabs folder
-10. In the **Add from CSV** window, after uploading the CSV file, select the blank white button at the bottom
-    - This is the save button; it's blank because of a bug
-    - Note: If you get an error while uploading the Speaker.CSV file, it may be a bug that has been resolved. To workaround this, go to the "Application settings" under the "Settings" section and scroll to "App Settings". Change the value for MobileAppsManagement_EXTENSION_VERSION to 1.0.367 and save the changes. Now retry the "Add from CSV" process again
+5. In the **Publish to Azure App Service** window, select your Azure account
 
-![Upload CSV](https://user-images.githubusercontent.com/13558917/40459751-fc8e29f0-5eb7-11e8-9534-4ad6f276c003.png)
+6. In the **Publish to Azure App Service** window, select **New**
 
-![application settings fix](appsettingsfix.png)
+![New Function](https://user-images.githubusercontent.com/13558917/59393957-ace3c400-8d32-11e9-9fcc-3c7f22e636e1.png)
 
-11. Re-run your application and get data from Azure!
+7. In the **New App Service** window, enter the following:
+
+    - **App Service Name**: [YourLastName]DevDaysSpeakersFunction
+    - **Subscription**: [Select your Azure subscription]
+    - **Resource Group**:
+        - [Click the **+** icon]
+        - DevDaysSpeakers
+    - **Service Plan**: Custom
+    - **Plan Name**: DevDaysSpeakersFunctionPlan
+    - **Region**: [Choose the location closest to you]
+    - **Pricing**: Consumption
+
+8. In the **New App Service** window, click **Next**
+
+![Create new App Service on Azure](https://user-images.githubusercontent.com/13558917/59393958-ace3c400-8d32-11e9-8c31-302d30b6bc57.png)
+
+9. In the **Configure Storage Account** window, enter the following:
+    - **Storage Account**: Custom
+    - **Account Name**: [YourLastName]devdaysspeakers
+    - **Account Type**: Standard - Locally Redundant Storage
+
+10. In the **Configure Storage Account** window, click **Create**
+
+![Create new App Service](https://user-images.githubusercontent.com/13558917/60039566-50c85a80-96b7-11e9-8816-ca6028223d76.png)
+
+11. Stand by while the Function is published to Azure
+
+12. If the **Update Functions Runtime on Azure** popup appears, click **Yes**
+
+13. In the **Publish** pad, ensure it says **Publish Succeeded**
+
+![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59394342-24feb980-8d34-11e9-92c1-d7f383703964.png)
+ 
+
+### 3. Get Azure Functions URL
+
+1. In an internet browser, open the [Azure Portal](https://portal.azure.com?WT.mc_id=devdayslab-github-bramin)
+
+2. In the Azure Portal, on the left menu, click on the Resource Group icon
+
+![Azure Resource Group](https://user-images.githubusercontent.com/13558917/60040905-54111580-96ba-11e9-907a-7faff1741239.png)
+
+3. In the Resource Group window, click on **DevDaysSpeakers**
+
+![DevDaysSpeakers](https://user-images.githubusercontent.com/13558917/60040802-190ee200-96ba-11e9-99c6-3ee47699aecb.png)
+
+4. In the DevDaysSpeakers Resource Group, click on **[YourLastName]DevDaysSpeakersFunctions**
+
+![Speakers Functions](https://user-images.githubusercontent.com/13558917/60040808-190ee200-96ba-11e9-9630-869475777cbc.png)
+
+5. In the Azure Functions window, select **GetSpeakersFunction** 
+
+![GetSpeakersFunction](https://user-images.githubusercontent.com/13558917/60040805-190ee200-96ba-11e9-8502-9c49d0c8bb3f.png)
+
+6. In the **GetSpeakersFunction** window, click **Get function URL**
+
+![Get Function URL](https://user-images.githubusercontent.com/13558917/60040804-190ee200-96ba-11e9-8d13-a3dcd049d68f.png)
+
+7. In the **Get function URL** popup, select **Copy**
+
+![Copy Functions URL](https://user-images.githubusercontent.com/13558917/60040800-18764b80-96ba-11e9-8071-3546924b8e54.png)
+
+### 4. Update SpeakersViewModel Logic to Use AzureService 
+
+1. In Visual Studio, open **DevDaysSpeakers** > **Services** > **AzureService.cs**
+
+2. In the **AzureService.cs** editor, set the value of `getSpeakersFunctionUrl` to the actual URL copied from the Azure Portal
+
+3. Build/run the app
