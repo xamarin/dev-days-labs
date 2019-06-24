@@ -45,6 +45,12 @@
         <AndroidLinkMode>SdkOnly</AndroidLinkMode>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
+        <BundleAssemblies>true</BundleAssemblies>
+        <AotAssemblies>true</AotAssemblies>
+        <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+        <AndroidDexTool>d8</AndroidDexTool>
+        <AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
+        <AndroidUseAapt2>true</AndroidUseAapt2>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />

@@ -43,10 +43,11 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <MtouchArch>ARM64</MtouchArch>
         <ConsolePause>false</ConsolePause>
         <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
         <DebugType>full</DebugType>
@@ -56,9 +57,10 @@
         <WarningLevel>4</WarningLevel>
         <MtouchArch>x86_64</MtouchArch>
         <ConsolePause>false</ConsolePause>
-        <MtouchLink>None</MtouchLink>
+        <MtouchLink>SdkOnly</MtouchLink>
         <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
         <DebugSymbols>true</DebugSymbols>
