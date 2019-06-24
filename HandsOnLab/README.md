@@ -10,7 +10,7 @@ Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com
 
 ### 1. Open Solution in Visual Studio
 
-1. Open **Start/DevDaysSpeakers.sln**
+1. Open **HandsOnLab/Start/DevDaysSpeakers.sln**
 
 This solution contains 4 projects
 
