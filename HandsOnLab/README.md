@@ -1323,11 +1323,33 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
 ![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59394342-24feb980-8d34-11e9-92c1-d7f383703964.png)
  
 
-### 3. Add Azure Functions URL to Mobile App
+### 3. Get Azure Functions URL
 
 1. In an internet browser, open the [Azure Portal](https://portal.azure.com?WT.mc_id=devdayslab-github-bramin)
 
-2. 
+2. In the Azure Portal, on the left menu, click on the Resource Group icon
+
+![Azure Resource Group](https://user-images.githubusercontent.com/13558917/60040905-54111580-96ba-11e9-907a-7faff1741239.png)
+
+3. In the Resource Group window, click on **DevDaysSpeakers**
+
+![DevDaysSpeakers](https://user-images.githubusercontent.com/13558917/60040802-190ee200-96ba-11e9-99c6-3ee47699aecb.png)
+
+4. In the DevDaysSpeakers Resource Group, click on **[YourLastName]DevDaysSpeakersFunctions**
+
+![Speakers Functions](https://user-images.githubusercontent.com/13558917/60040808-190ee200-96ba-11e9-9630-869475777cbc.png)
+
+5. In the Azure Functions window, select **GetSpeakersFunction** 
+
+![GetSpeakersFunction](https://user-images.githubusercontent.com/13558917/60040805-190ee200-96ba-11e9-8502-9c49d0c8bb3f.png)
+
+6. In the **GetSpeakersFunction** window, click **Get function URL**
+
+![Get Function URL](https://user-images.githubusercontent.com/13558917/60040804-190ee200-96ba-11e9-8d13-a3dcd049d68f.png)
+
+7. In the **Get function URL** popup, select **Copy**
+
+![Copy Functions URL](https://user-images.githubusercontent.com/13558917/60040800-18764b80-96ba-11e9-8071-3546924b8e54.png)
 
 ### 4. Update SpeakersViewModel Logic to Use AzureService 
 
