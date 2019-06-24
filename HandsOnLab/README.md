@@ -1234,7 +1234,7 @@ The following steps are for Visual Studio on PC. If you are using Visual Studio 
 ![Create New Function](https://user-images.githubusercontent.com/13558917/59391529-676ec900-8d29-11e9-8c43-7460afcf5b78.png)
 
 12. In the **Azure App Service** window, make the following selections:
-    - **Name**: [Your Last Name]DevDaysSpeakersFunction
+    - **Name**: [YourLastName]DevDaysSpeakersFunction
     - **Subscription**: [Select your subscription]
     - **Resource Group**: [Click **New...**]
         - **New resource group name**: DevDaysSpeakers
@@ -1243,7 +1243,7 @@ The following steps are for Visual Studio on PC. If you are using Visual Studio 
         - **Location**: [Choose the location closest to you]
         - **Size**: Consumption
     - **Azure Storage**: [Click **New...**]
-        - **Account Name**: [Your Last Name]devdayspeakers
+        - **Account Name**: [YourLastName]devdayspeakers
         - **Location**: [Choose the location closest to you]
         - **Account Type**: Standard - Locally Redundant Storage
 
@@ -1291,7 +1291,7 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
 
 7. In the **New App Service** window, enter the following:
 
-    - **App Service Name**: [Your Last Name]MinnickDevDaysSpeakersFunction
+    - **App Service Name**: [YourLastName]DevDaysSpeakersFunction
     - **Subscription**: [Select your Azure subscription]
     - **Resource Group**:
         - [Click the **+** icon]
@@ -1305,11 +1305,20 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
 
 ![Create new App Service on Azure](https://user-images.githubusercontent.com/13558917/59393958-ace3c400-8d32-11e9-8c31-302d30b6bc57.png)
 
-9. Stand by while the Function is published to Azure
+9. In the **Configure Storage Account** window, enter the following:
+    - **Storage Account**: Custom
+    - **Account Name**: [YourLastName]devdaysspeakers
+    - **Account Type**: Standard - Locally Redundant Storage
 
-10. If the **Update Functions Runtime on Azure** popup appears, click **Yes**
+10. In the **Configure Storage Account** window, click **Create**
 
-11. In the **Publish** pad, ensure it says **Publish Succeeded**
+![Create new App Service](https://user-images.githubusercontent.com/13558917/60039566-50c85a80-96b7-11e9-8816-ca6028223d76.png)
+
+11. Stand by while the Function is published to Azure
+
+12. If the **Update Functions Runtime on Azure** popup appears, click **Yes**
+
+13. In the **Publish** pad, ensure it says **Publish Succeeded**
 
 ![Publish Succeeded](https://user-images.githubusercontent.com/13558917/59394342-24feb980-8d34-11e9-92c1-d7f383703964.png)
  
