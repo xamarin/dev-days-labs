@@ -4,6 +4,10 @@ Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com
 
 ## Mobile App Walkthrough
 
+### 0. Configure Your Machine for Xamarin
+
+1. On you machine, follow the steps in the [Workshop Setup](./WorkshopSetup.md) to install and configure Xamarin and Visual Studio
+
 ### 1. Open Solution in Visual Studio
 
 1. Open **Start/DevDaysSpeakers.sln**
