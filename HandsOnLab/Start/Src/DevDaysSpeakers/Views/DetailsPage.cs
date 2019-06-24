@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace DevDaysSpeakers.Views
 {
-	public class DetailsPage
+	public class DetailsPage : ContentPage
 	{
 		readonly Speaker speaker;
 
