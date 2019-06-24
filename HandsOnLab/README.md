@@ -35,23 +35,30 @@ All projects have the required NuGet packages already installed, so there will b
 
 We will download details about the speakers.
 
-1. Open `Speaker.cs`
+1. Open `Common/DevDaysSpeakers.Shared/Models/Speaker.cs`
 2. In `Speaker.cs`, copy/paste the following properties:
 
 ```csharp
-public string Id { get; set; }
-public string Name { get; set; }
-public string Description { get; set; }
-public string Website { get; set; }
-public string Title { get; set; }
-public string Avatar { get; set; }
+namespace DevDaysSpeakers.Shared.Models
+{
+    public class Speaker
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Website { get; set; }
+        public string Title { get; set; }
+        public string Avatar { get; set; }
+    }
+}
+
 ```
 
 ### 4. Implementing INotifyPropertyChanged
 
 *INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, lets our view know about changes to the model.
 
-1. In Visual Studio, open `SpeakersViewModel.cs`
+1. In Visual Studio, open `Mobile/DevDaysSpeakers/ViewModels/SpeakersViewModel.cs`
 2. In `SpeakersViewModel.cs`, implement INotifyPropertyChanged by changing this
 
 ```csharp
@@ -83,15 +90,6 @@ public event PropertyChangedEventHandler PropertyChanged;
 
 6. In `SpeakersViewModel.cs`, create a new method called `OnPropertyChanged`
     - Note: We will call `OnPropertyChanged` whenever a property updates
-
-```csharp
-private void OnPropertyChanged([CallerMemberName] string name = null)
-{
-
-}
-```
-
-7. Add code to `OnPropertyChanged`:
 
 ```csharp
 private void OnPropertyChanged([CallerMemberName] string name = null) =>
@@ -308,7 +306,7 @@ Our method for getting data is now complete.
 
 Instead of invoking this method directly, we will expose it with a `Command`. A `Command` has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
 
-1. In `SpeakersViewModel.cs`, create a new Command called `GetSpeakersCommand`:
+1. In `SpeakersViewModel.cs`, create a new `ICommand` called `GetSpeakersCommand`:
 
 ```csharp
 public class SpeakersViewModel : INotifyPropertyChanged
@@ -338,7 +336,7 @@ public class SpeakersViewModel : INotifyPropertyChanged
 ## 9. Build The SpeakersPage User Interface
 It is now time to build the Xamarin.Forms UI.
 
-1. In `SpeakersPage.cs`, in the constructor, set the `BindingContext` equal to `new SpeakersViewModel()`. This connects SpeakersPage with SpeakersViewModel via MVVM.
+1. In `Mobile/DevDaysSpeakers/Views/SpeakersPage.cs`, in the constructor, set the `BindingContext` equal to `new SpeakersViewModel()`. This connects SpeakersPage with SpeakersViewModel via MVVM.
 
 ```csharp
 public SpeakersPage()
@@ -379,7 +377,6 @@ public SpeakersPage()
     speakersListView.SetBinding(ListView.ItemsSourceProperty, nameof(SpeakersViewModel.Speakers));
     speakersListView.SetBinding(ListView.RefreshCommandProperty, nameof(SpeakersViewModel.GetSpeakersCommand));
     speakersListView.SetBinding(ListView.IsRefreshingProperty, nameof(SpeakersViewModel.IsBusy));
-    speakersListView.ItemSelected += ListViewSpeakers_ItemSelected;
 }
 ```
 
@@ -514,11 +511,11 @@ public SpeakersPage()
 }
 ```
 
-### 12. Create DetailsPage.xaml UI
+### 12. Create DetailsPage UI
 
 Let's add UI to the DetailsPage. Similar to the SpeakersPage, we will use a StackLayout, but we will wrap it in a ScrollView. This allows the user to scroll if the page content is longer than the available screen space.
 
-1. In `DetailsPage.cs`, assign `item` to `speaker`;
+1. In `Mobile/DevDaysSpeakers/Views/DetailsPage.cs`, assign `item` to `speaker`;
 
 ```csharp
 public class DetailsPage : ContentPage
@@ -1118,7 +1115,7 @@ Being able to grab data from a RESTful end point is great, but what about creati
 
 ### 1. Write Code for Azure Functions Backend
 
-1. In `GetSpeakersFunction.cs`, populate `GenerateSpeakers()` with the following `List<Speaker>`
+1. In `Backend/DevDaysSpeakers.Function/GetSpeakersFunction.cs`, populate `GenerateSpeakers()` with the following `List<Speaker>`
 
     - Feel free to add yourself to the List
 
@@ -1182,6 +1179,7 @@ static List<Speaker> GenerateSpeakers()
 2. In `GetSpeakersFunction.cs`, populate `Run` with the following code:
 
 ```csharp
+[FunctionName(nameof(GetSpeakersFunction))]
 public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
 {
     log.LogInformation("Generating Speakers");
