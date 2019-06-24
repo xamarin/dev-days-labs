@@ -5,11 +5,12 @@ using Xamarin.Forms;
 
 namespace DevDaysSpeakers.Views
 {
-	public class SpeakersPage
-    {
+	public class SpeakersPage : ContentPage
+	{
 		readonly ListView speakersListView;
 
 		public SpeakersPage()
 		{
 		}
+	}
 }

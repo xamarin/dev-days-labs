@@ -7,9 +7,9 @@ namespace DevDaysSpeakers.Views
     {
         public SpeakersCell()
         {
-            this.SetBinding(TextProperty, nameof(Speaker.Name));
-            this.SetBinding(DetailProperty, nameof(Speaker.Title));
-            this.SetBinding(ImageSourceProperty, nameof(Speaker.Avatar));
+            this.SetBinding(TextProperty, "Name");
+            this.SetBinding(DetailProperty, "Title");
+            this.SetBinding(ImageSourceProperty, "Avatar");
         }
     }
 }

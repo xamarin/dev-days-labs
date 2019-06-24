@@ -1355,4 +1355,6 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
 
 1. In Visual Studio, open **DevDaysSpeakers** > **Services** > **AzureService.cs**
 
-2. In the **AzureService.cs** edit,
+2. In the **AzureService.cs** editor, set the value of `getSpeakersFunctionUrl` to the actual URL copied from the Azure Portal
+
+3. Build/run the app
