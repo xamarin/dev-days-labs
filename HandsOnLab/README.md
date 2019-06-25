@@ -411,7 +411,7 @@ public SpeakersPage()
 
 
 
-2. In `SpeakersPage.xaml.xs`, override `OnAppearing()` by adding the following method which tells the ListView to automatically refresh when the page appears on the screen:
+5. In `SpeakersPage.cs`, override `OnAppearing()` by adding the following method which tells the ListView to automatically refresh when the page appears on the screen:
 
 ```csharp
 public SpeakersPage()
@@ -438,6 +438,24 @@ protected override void OnAppearing()
     base.OnAppearing();
 
     speakersListView.BeginRefresh();
+}
+```
+
+6. Open Mobile/DevDaysSpeakers/Views/SpeakerCell.cs. 
+    - This defines each row in the ListView
+    
+7. In SpeakerCell.cs, create bindings to the Speaker model
+    - This tells the ListView (whose `ItemSource` is `List<Speaker>`) which properties to display
+
+```csharp
+public class SpeakersCell : ImageCell
+{
+    public SpeakersCell()
+    {
+        this.SetBinding(TextProperty, nameof(Speaker.Name));
+        this.SetBinding(DetailProperty, nameof(Speaker.Title));
+        this.SetBinding(ImageSourceProperty, nameof(Speaker.Avatar));
+    }
 }
 ```
 
