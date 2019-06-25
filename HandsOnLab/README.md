@@ -312,7 +312,7 @@ Our method for getting data is now complete.
 
 Instead of invoking this method directly, we will expose it with a `Command`. A `Command` has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
 
-1. In `SpeakersViewModel.cs`, create a new `ICommand` called `GetSpeakersCommand`:
+1. In `SpeakersViewModel.cs`, create a new `Command` called `GetSpeakersCommand`:
 
 ```csharp
 public class SpeakersViewModel : INotifyPropertyChanged
@@ -894,7 +894,7 @@ public class DetailsPage : ContentPage
 
 ### 14. Add Open Website Functionality
 
-1. In `DetailsPage.cs`, add an event handler method called `HandleWebsiteButtonClicked.Clicked`:
+1. In `DetailsPage.cs`, add an event handler method called `HandleWebsiteButtonClicked`:
 
 ```csharp
 public class DetailsPage : ContentPage
