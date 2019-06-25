@@ -12,14 +12,22 @@ Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com
 
 1. Open **HandsOnLab/Start/DevDaysSpeakers.sln**
 
-This solution contains 4 projects
+This solution contains 3 solution folders (Mobile, Common and Backend)
 
-* DevDaysSpeakers  - Shared Project that will have all shared code (model, views, and view models)
+Mobile contains 4 projects:
+
+* DevDaysSpeakers  - .NET Standard Project that is used by the Droid, iOS and UWP projects and will have all shared code (model, views, and view models)
 * DevDaysSpeakers.Droid - Xamarin.Android application
 * DevDaysSpeakers.iOS - Xamarin.iOS application (requires a Mac)
 * DevDaysSpeakers.UWP - Windows 10 UWP application (requires Visual Studio on PC)
 
 ![Solution](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/44f4caa9-efb9-4405-95d4-7341608e1c0a/Portable.png)
+
+Common contains 1 project:
+* DevDaysSpeakers.Shared - this is a Shared Project that contains code used by both the Backend and Mobile solutions
+
+Backend contains 1 project: 
+* DevDaysSpeakers.Functions - this is an Azure Functions project we will use to create an API running in the cloud
 
 The **DevDaysSpeakers** project also has blank code files that we will use during the Hands on Lab.
 
