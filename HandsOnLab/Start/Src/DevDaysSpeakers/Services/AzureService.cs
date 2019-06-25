@@ -12,6 +12,7 @@ namespace DevDaysSpeakers.Services
 {
     public static class AzureService
     {
+     	//Change this to match your Azure Functions URL	
         const string getSpeakersFunctionUrl = "[Your Azure Functions URL]";
 
 		static readonly Lazy<HttpClient> clientHolder = new Lazy<HttpClient>();
