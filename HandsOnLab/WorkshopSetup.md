@@ -31,9 +31,9 @@ __Keys to success:__
 
 ## Prerequisites on a Windows PC
 
-You can see the requirements and follow the steps in the [Xamarin environment setup on Windows](https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/windows/?WT.mc_id=mobileappsoftomorrow-workshop-jabenn).
+You can see the requirements and follow the steps in the [Xamarin environment setup on Windows](https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/windows?WT.mc_id=devdayslab-github-bramin).
 
-1. Install Visual Studio 2019 from [VisualStudio.com](https://www.visualstudio.com/vs/?WT.mc_id=mobileappsoftomorrow-workshop-jabenn). The free Community Edition is sufficient for this workshop.
+1. Install Visual Studio 2019 from [VisualStudio.com](https://www.visualstudio.com/vs/WT.mc_id=devdayslab-github-bramin). The free Community Edition is sufficient for this workshop.
 2. Make sure to select the _"Mobile development with .NET"_ workload in the installer screen:
    ![The Xamarin workload selected in the installer](https://github.com/jimbobbennett/MobileAppsOfTomorrow-Lab/blob/master/Images/Setup/VS2019Workload.png)
 
@@ -86,9 +86,9 @@ Now we will try running the application in Windows and Android to see if everyth
 
 ## Prerequisites on a Mac
 
-You can see the requirements and follow the steps in the [Xamarin environment setup on Mac](https://docs.microsoft.com/visualstudio/mac/installation/?WT.mc_id=mobileappsoftomorrow-workshop-jabenn).
+You can see the requirements and follow the steps in the [Xamarin environment setup on Mac](https://docs.microsoft.com/visualstudio/mac/installation?WT.mc_id=devdayslab-github-bramin).
 
-1. Install Visual Studio for Mac from [VisualStudio.com](https://www.visualstudio.com/vs/?WT.mc_id=mobileappsoftomorrow-workshop-jabenn). The free Community Edition is sufficient for this workshop.
+1. Install Visual Studio for Mac from [VisualStudio.com](https://www.visualstudio.com/vs?WT.mc_id=devdayslab-github-bramin). The free Community Edition is sufficient for this workshop.
 2. Open the App Store app on macOS, search for Xcode and install Xcode. Visual Studio requires Xcode to build the iOS applications as well as run them on the Simulator.
    > Important: After you finish installing Xcode, run it once to make sure that all the necessary component are up to date. Some components are only downloaded the first time that Xcode runs.
 
