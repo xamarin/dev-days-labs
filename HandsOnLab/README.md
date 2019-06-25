@@ -1387,4 +1387,30 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
  const string getSpeakersFunctionUrl = "[Your Azure Functions URL]";
  ```
 
-3. Build/run the app
+3. In `SpeakersViewModel.cs`, update the code in the `GetSpeakers` method to use `AzureService`
+
+```csharp
+private async Task GetSpeakers()
+{
+    try
+    {
+        List<Speaker> items = await AzureService.GetSpeakers();
+
+        Speakers.Clear();
+
+        foreach (var item in items)
+            Speakers.Add(item);
+    }
+    catch (Exception e)
+    {
+        await Application.Current.MainPage.DisplayAlert("Error!", e.Message, "OK");
+    }
+    finally
+    {
+        IsBusy = false;
+    }
+}
+```
+
+
+4. Build/run the app
