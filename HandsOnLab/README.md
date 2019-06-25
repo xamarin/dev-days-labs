@@ -12,7 +12,7 @@ Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com
 
 1. Open **HandsOnLab/Start/DevDaysSpeakers.sln**
 
-This solution contains 3 solution folders (Mobile, Common and Backend)
+This solution contains 3 solution folders: Mobile, Common and Backend
 
 Mobile contains 4 projects:
 
