@@ -442,7 +442,6 @@ protected override void OnAppearing()
 ```
 
 6. Open Mobile/DevDaysSpeakers/Views/SpeakerCell.cs. 
-    - This defines each row in the ListView
     
 7. In SpeakerCell.cs, create bindings to the Speaker model
     - This tells the ListView (whose `ItemSource` is `List<Speaker>`) which properties to display
