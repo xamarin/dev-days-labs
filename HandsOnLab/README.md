@@ -1378,8 +1378,13 @@ The following steps are for Visual Studio for Mac. If you are using Visual Studi
 
 ### 4. Update SpeakersViewModel Logic to Use AzureService 
 
-1. In Visual Studio, open **DevDaysSpeakers** > **Services** > **AzureService.cs**
+1. In Visual Studio, open **Mobile** > **DevDaysSpeakers** > **Services** > **AzureService.cs**
 
 2. In the **AzureService.cs** editor, set the value of `getSpeakersFunctionUrl` to the actual URL copied from the Azure Portal
+ 
+ ```csharp
+ //Change this to match your Azure Functions URL
+ const string getSpeakersFunctionUrl = "[Your Azure Functions URL]";
+ ```
 
 3. Build/run the app
