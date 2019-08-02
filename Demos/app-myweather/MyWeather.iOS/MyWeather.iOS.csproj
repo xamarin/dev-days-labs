@@ -9,6 +9,7 @@
         <RootNamespace>MyWeather.iOS</RootNamespace>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <AssemblyName>MyWeatheriOS</AssemblyName>
+        <ProduceAssemblyReference>true</ProduceAssemblyReference>
         <NuGetPackageImportStamp>
         </NuGetPackageImportStamp>
     </PropertyGroup>
@@ -25,40 +26,51 @@
         <MtouchLink>None</MtouchLink>
         <MtouchDebug>true</MtouchDebug>
         <MtouchProfiling>true</MtouchProfiling>
-        <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
         <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+        <MtouchFastDev>true</MtouchFastDev>
+        <MtouchFloat32>true</MtouchFloat32>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-        <DebugType>full</DebugType>
+        <DebugType>portable</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\iPhone\Release</OutputPath>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <MtouchArch>ARM64</MtouchArch>
         <ConsolePause>false</ConsolePause>
         <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
+        <MtouchFloat32>true</MtouchFloat32>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
-        <DebugType>full</DebugType>
+        <DebugType>portable</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <MtouchArch>i386</MtouchArch>
+        <MtouchArch>x86_64</MtouchArch>
         <ConsolePause>false</ConsolePause>
         <MtouchLink>None</MtouchLink>
+        <DeviceSpecificBuild>true</DeviceSpecificBuild>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
+        <MtouchFloat32>true</MtouchFloat32>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
         <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
+        <DebugType>portable</DebugType>
         <Optimize>false</Optimize>
         <OutputPath>bin\iPhone\Debug</OutputPath>
         <DefineConstants>DEBUG;</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <ConsolePause>false</ConsolePause>
-        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <MtouchArch>ARM64</MtouchArch>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
         <MtouchProfiling>True</MtouchProfiling>
         <CodesignKey>iPhone Developer</CodesignKey>
@@ -66,14 +78,16 @@
         <CodesignProvision />
         <CodesignResourceRules />
         <CodesignExtraArgs />
-        <MtouchSdkVersion>9.0</MtouchSdkVersion>
-        <MtouchLink>None</MtouchLink>
-        <MtouchFastDev>False</MtouchFastDev>
+        <MtouchLink>SdkOnly</MtouchLink>
+        <MtouchFastDev>true</MtouchFastDev>
         <MtouchUseLlvm>False</MtouchUseLlvm>
         <MtouchUseThumb>False</MtouchUseThumb>
         <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-        <DeviceSpecificBuild>False</DeviceSpecificBuild>
+        <DeviceSpecificBuild>true</DeviceSpecificBuild>
         <MtouchI18n />
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+        <MtouchFloat32>true</MtouchFloat32>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Xamarin.iOS" />
