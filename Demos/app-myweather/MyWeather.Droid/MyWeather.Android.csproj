@@ -52,7 +52,7 @@
         <AndroidUseAapt2>true</AndroidUseAapt2>
         <AndroidDexTool>d8</AndroidDexTool>
         <AndroidLinkTool>r8</AndroidLinkTool>
-        <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
+        <AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -68,7 +68,7 @@
         <PackageReference Include="Refit" Version="4.7.9" />
         <PackageReference Include="Polly" Version="7.1.0" />
         <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.0" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
