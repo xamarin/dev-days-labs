@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace MyWeather.Models
 {
-	public class Coord
+	class Coord
     {
         [JsonProperty("lon")]
         public double Longitude { get; set; } = 0;
@@ -14,13 +14,13 @@ namespace MyWeather.Models
         public double Latitude { get; set; } = 0;
     }
 
-    public class Sys
+    class Sys
     {
         [JsonProperty("country")]
         public string Country { get; set; } = string.Empty;
     }
 
-    public class Weather
+    class Weather
     {
         [JsonProperty("id")]
         public int Id { get; set; } = 0;
@@ -35,7 +35,7 @@ namespace MyWeather.Models
         public string Icon { get; set; } = string.Empty;
     }
 
-    public class Main
+    class Main
     {
         [JsonProperty("temp")]
         public double Temperature { get; set; } = 0;
@@ -51,7 +51,7 @@ namespace MyWeather.Models
         public double MaxTemperature { get; set; } = 0;
     }
 
-    public class Wind
+    class Wind
     {
         [JsonProperty("speed")]
         public double Speed { get; set; } = 0;
@@ -61,14 +61,14 @@ namespace MyWeather.Models
 
     }
 
-    public class Clouds
+    class Clouds
     {
 
         [JsonProperty("all")]
         public int CloudinessPercent { get; set; } = 0;
     }
 
-    public class WeatherRoot
+    class WeatherRoot
     {
         [JsonIgnore]
         public string DisplayDate => DateTime.Parse(Date).ToLocalTime().ToString("g");
@@ -105,7 +105,7 @@ namespace MyWeather.Models
         public string Date { get; set; } = string.Empty;
     }
 
-    public class WeatherForecastRoot
+    class WeatherForecastRoot
     {
         [JsonProperty("city")]
         public City City { get; set; }
@@ -123,7 +123,7 @@ namespace MyWeather.Models
         public List<WeatherRoot> Items { get; set; }      
     }
 
-    public class City
+    class City
     {
         [JsonProperty("id")]
         public int Id { get; set; }

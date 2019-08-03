@@ -114,8 +114,6 @@
         <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
         <Content Include="Assets\StoreLogo.png" />
         <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-        <Content Include="tab1.png" />
-        <Content Include="tab2.png" />
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="App.xaml">

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace MyWeather
 {
-	public static class DebugServices
+	static class DebugServices
 	{
 		#region Methods
 		public static void Report(Exception exception,

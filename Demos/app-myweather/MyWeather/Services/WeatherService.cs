@@ -9,13 +9,13 @@ using Xamarin.Forms;
 
 namespace MyWeather.Services
 {
-    public enum Units
+    enum Units
     {
         Imperial,
         Metric
     }
 
-    public static class WeatherService
+    static class WeatherService
     {
         public const string AppId = "fc9f6c524fc093759cd28d41fda89a1b";
 

@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using AsyncAwaitBestPractices;
 using AsyncAwaitBestPractices.MVVM;
-using MyWeather.Helpers;
 using MyWeather.Models;
 using MyWeather.Services;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace MyWeather.ViewModels
 {
-    public class WeatherViewModel : INotifyPropertyChanged
+    class WeatherViewModel : INotifyPropertyChanged
     {
         readonly WeakEventManager onPropertyChangedEventManager = new WeakEventManager();
 
@@ -25,7 +23,7 @@ namespace MyWeather.ViewModels
         string condition = string.Empty;
         bool isBusy;
         WeatherForecastRoot forecast;
-        ICommand getWeatherCommand;
+        AsyncCommand getWeatherCommand;
 
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
@@ -33,10 +31,12 @@ namespace MyWeather.ViewModels
             remove => onPropertyChangedEventManager.RemoveEventHandler(value);
         }
 
-        public ICommand GetWeatherCommand => getWeatherCommand ??
-            (getWeatherCommand = new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS), continueOnCapturedContext: false));
+        public AsyncCommand GetWeatherCommand => getWeatherCommand ??
+            (getWeatherCommand = new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS), _ => !IsBusy));
 
         public bool IsLocationEntryEnabled => !UseGPS;
+
+        public List<WeatherRoot> ForecastItems => Forecast?.Items;
 
         public string Location
         {
@@ -71,17 +71,20 @@ namespace MyWeather.ViewModels
         public bool IsBusy
         {
             get => isBusy;
-            set => SetProperty(ref isBusy, value);
+            set => SetProperty(ref isBusy, value, () => Device.BeginInvokeOnMainThread(GetWeatherCommand.RaiseCanExecuteChanged));
         }
 
         public WeatherForecastRoot Forecast
         {
             get => forecast;
-            set => SetProperty(ref forecast, value);
+            set => SetProperty(ref forecast, value, () => OnPropertyChanged(nameof(ForecastItems)));
         }
 
         async Task ExecuteGetWeatherCommand(bool useGps)
         {
+            IsBusy = true;
+            Temperature = Condition = string.Empty;
+
             try
             {
                 WeatherRoot weatherRoot;
@@ -106,9 +109,7 @@ namespace MyWeather.ViewModels
                 Temperature = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
                 Condition = $"{weatherRoot.Name}: {weatherRoot?.Weather?[0]?.Description ?? string.Empty}";
 
-                IsBusy = false;
-
-                await TextToSpeech.SpeakAsync(Temperature + " " + Condition).ConfigureAwait(false);
+                TextToSpeech.SpeakAsync(Temperature + " " + Condition).SafeFireAndForget();
             }
             catch (Exception e)
             {
@@ -121,7 +122,7 @@ namespace MyWeather.ViewModels
             }
         }
 
-        protected void SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyname = "")
+        protected void SetProperty<T>(ref T backingStore, in T value, in Action onChanged = null, [CallerMemberName] in string propertyname = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return;
@@ -133,7 +134,7 @@ namespace MyWeather.ViewModels
             OnPropertyChanged(propertyname);
         }
 
-        void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
+        void OnPropertyChanged([CallerMemberName] in string propertyName = "") =>
             onPropertyChangedEventManager.HandleEvent(this, new PropertyChangedEventArgs(propertyName), nameof(INotifyPropertyChanged.PropertyChanged));
     }
 }
