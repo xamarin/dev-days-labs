@@ -7,6 +7,4 @@ Built with Xamarin.Forms with support for:
 * Android
 * UWP
 
-Grabs current weather and 5 day forecast.
-
-![](Images/promo.png)
+Grabs current weather and forecast.
