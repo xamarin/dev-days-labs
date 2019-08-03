@@ -9,6 +9,7 @@
         <RootNamespace>ImageSearch.iOS</RootNamespace>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <AssemblyName>ImageSearchiOS</AssemblyName>
+        <ProduceAssemblyReference>true</ProduceAssemblyReference>
         <NuGetPackageImportStamp>
         </NuGetPackageImportStamp>
     </PropertyGroup>
@@ -25,16 +26,18 @@
         <MtouchLink>None</MtouchLink>
         <MtouchDebug>True</MtouchDebug>
         <MtouchProfiling>False</MtouchProfiling>
-        <MtouchFastDev>False</MtouchFastDev>
+        <MtouchFastDev>true</MtouchFastDev>
         <MtouchUseLlvm>False</MtouchUseLlvm>
         <MtouchUseThumb>False</MtouchUseThumb>
         <MtouchEnableBitcode>False</MtouchEnableBitcode>
         <OptimizePNGs>True</OptimizePNGs>
         <MtouchTlsProvider>Default</MtouchTlsProvider>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-        <MtouchFloat32>False</MtouchFloat32>
+        <MtouchFloat32>true</MtouchFloat32>
         <PlatformTarget>x64</PlatformTarget>
         <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
         <DebugType>full</DebugType>
@@ -48,6 +51,8 @@
         <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
         <MtouchUseLlvm>true</MtouchUseLlvm>
+        <MtouchFloat32>true</MtouchFloat32>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
         <DebugType>full</DebugType>
@@ -61,6 +66,10 @@
         <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
         <MtouchUseLlvm>true</MtouchUseLlvm>
+        <DeviceSpecificBuild>true</DeviceSpecificBuild>
+        <MtouchFastDev>true</MtouchFastDev>
+        <MtouchFloat32>true</MtouchFloat32>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
         <DebugSymbols>true</DebugSymbols>
@@ -71,22 +80,24 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <ConsolePause>false</ConsolePause>
-        <MtouchArch>ARMv7, ARM64</MtouchArch>
+        <MtouchArch>ARM64</MtouchArch>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
         <MtouchProfiling>False</MtouchProfiling>
         <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchDebug>True</MtouchDebug>
         <PlatformTarget>x64</PlatformTarget>
         <MtouchLink>SdkOnly</MtouchLink>
-        <MtouchFastDev>False</MtouchFastDev>
+        <MtouchFastDev>true</MtouchFastDev>
         <MtouchUseLlvm>False</MtouchUseLlvm>
         <MtouchUseThumb>False</MtouchUseThumb>
         <MtouchEnableBitcode>False</MtouchEnableBitcode>
         <OptimizePNGs>True</OptimizePNGs>
         <MtouchTlsProvider>Default</MtouchTlsProvider>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-        <MtouchFloat32>False</MtouchFloat32>
-        <DeviceSpecificBuild>False</DeviceSpecificBuild>
+        <MtouchFloat32>true</MtouchFloat32>
+        <DeviceSpecificBuild>true</DeviceSpecificBuild>
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -97,7 +108,7 @@
         <Reference Include="System.IO.Compression" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
         <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
         <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
         <PackageReference Include="Microsoft.Azure.CognitiveServices.Search.ImageSearch" Version="2.0.0" />

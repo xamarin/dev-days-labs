@@ -18,6 +18,7 @@
         <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+        <ProduceAssemblyReference>true</ProduceAssemblyReference>
         <NuGetPackageImportStamp>
         </NuGetPackageImportStamp>
     </PropertyGroup>
@@ -30,9 +31,10 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-        <AndroidLinkMode>None</AndroidLinkMode>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
+        <AndroidUseAapt2>true</AndroidUseAapt2>
+        <AndroidDexTool>d8</AndroidDexTool>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -42,7 +44,6 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-        <AndroidLinkMode>SdkOnly</AndroidLinkMode>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
         <BundleAssemblies>true</BundleAssemblies>
@@ -51,6 +52,9 @@
         <AndroidDexTool>d8</AndroidDexTool>
         <AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
         <AndroidUseAapt2>true</AndroidUseAapt2>
+        <EnableLLVM>true</EnableLLVM>
+        <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+        <AndroidLinkTool>r8</AndroidLinkTool>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
@@ -61,7 +65,7 @@
         <Reference Include="System.Xml.Linq" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
         <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
         <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
         <PackageReference Include="Microsoft.Azure.CognitiveServices.Search.ImageSearch" Version="2.0.0" />
@@ -107,6 +111,9 @@
         <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
         <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
         <AndroidResource Include="Resources\menu\menu_gps.xml" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProguardConfiguration Include="proguard.cfg" />
     </ItemGroup>
     <Import Project="..\ImageSearch.Shared\ImageSearch.Shared.projitems" Label="Shared" Condition="Exists('..\ImageSearch.Shared\ImageSearch.Shared.projitems')" />
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
