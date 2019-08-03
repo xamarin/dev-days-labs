@@ -8,7 +8,7 @@ using Xamarin.Forms.Xaml;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("James Montemagno")]
+[assembly: AssemblyCopyright ("Brandon Minnick")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 

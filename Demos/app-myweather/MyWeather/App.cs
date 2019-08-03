@@ -1,16 +1,18 @@
-﻿using MyWeather.View;
+﻿using MyWeather.Views;
 using MyWeather.ViewModels;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-[assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
 namespace MyWeather
 {
-    public class App : Application
+    public class App : Xamarin.Forms.Application
     {
         public App()
         {
-            var tabbedPage = new TabbedPage
+            var tabbedPage = new Xamarin.Forms.TabbedPage
             {
                 Title = "My Weather",
                 BindingContext = new WeatherViewModel(),
@@ -20,16 +22,19 @@ namespace MyWeather
                     new ForecastView()
                 }
             };
+            tabbedPage.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
 
             if (Device.RuntimePlatform is Device.Android)
                 tabbedPage.BarBackgroundColor = Color.FromHex("1FAECE");
 
-            MainPage = new NavigationPage(tabbedPage)
+            var navigationPage = new Xamarin.Forms.NavigationPage(tabbedPage)
             {
                 BarBackgroundColor = Color.FromHex("1FAECE"),
                 BarTextColor = Color.White
             };
+            navigationPage.On<iOS>().SetPrefersLargeTitles(true);
+
+            MainPage = navigationPage;
         }
     }
 }
-

@@ -1,6 +1,6 @@
 using Xamarin.Essentials;
 
-namespace MyWeather.Helpers
+namespace MyWeather.Services
 {
     public static class Settings
     {

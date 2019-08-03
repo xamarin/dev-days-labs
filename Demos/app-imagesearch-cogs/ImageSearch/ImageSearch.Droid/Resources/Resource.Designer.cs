@@ -3339,9 +3339,6 @@ namespace ImageSearch.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7F09004A
-			public const int @fixed = 2131296330;
-			
 			// aapt resource value: 0x7F090018
 			public const int actions = 2131296280;
 			
@@ -3551,6 +3548,9 @@ namespace ImageSearch.Droid
 			
 			// aapt resource value: 0x7F090048
 			public const int fill_vertical = 2131296328;
+			
+			// aapt resource value: 0x7F09004A
+			public const int @fixed = 2131296330;
 			
 			// aapt resource value: 0x7F09004B
 			public const int forever = 2131296331;
