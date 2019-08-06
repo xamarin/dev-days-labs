@@ -14,26 +14,26 @@
         android:layout_below="@id/toolbar"
         android:padding="8dp">
         <EditText
-            android:id="@+id/my_query"
+            android:id="@+id/SearchEditText"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Xamarin" />
         <ProgressBar
-            android:id="@+id/my_progress"
+            android:id="@+id/ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             style="?android:attr/android:progressBarStyleSmall"
             android:indeterminate="true" />
         <Button
-            android:id="@+id/my_button"
+            android:id="@+id/GoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go!" />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/ImageRecyclerView"
         android:layout_below="@id/main_content"
         android:scrollbars="vertical"
         android:layout_width="fill_parent"
