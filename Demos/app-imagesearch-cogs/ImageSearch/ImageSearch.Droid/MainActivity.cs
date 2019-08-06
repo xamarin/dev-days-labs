@@ -1,9 +1,13 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+
+using Acr.UserDialogs;
 
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 
 using ImageSearch.Droid.Adapters;
@@ -11,50 +15,65 @@ using ImageSearch.ViewModel;
 
 namespace ImageSearch.Droid
 {
-	[Activity(Label = "Image Search", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Image Search", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : BaseActivity
     {
+        ProgressBar progressBar;
+        ImageSearchViewModel viewModel;
+        EditText editText;
+
         protected override int LayoutResource => Resource.Layout.main;
 
-		protected override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
 
-            var viewModel = new ImageSearchViewModel();
+            viewModel = new ImageSearchViewModel();
 
-			var adapter = new ImageAdapter(this, viewModel);
+            var adapter = new ImageAdapter(this, viewModel);
 
-			var recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
-			
-			recyclerView.SetAdapter(adapter);
-			
-			var layoutManager = new GridLayoutManager(this, 2);
-			
-			recyclerView.SetLayoutManager(layoutManager);
-			
-			var progressBar = FindViewById<ProgressBar>(Resource.Id.my_progress);
-			progressBar.Visibility = ViewStates.Gone;
+            var recyclerView = FindViewById<RecyclerView>(Resource.Id.ImageRecyclerView);
 
-			var query = FindViewById<EditText>(Resource.Id.my_query);
+            recyclerView.SetAdapter(adapter);
 
-			var clickButton = FindViewById<Button>(Resource.Id.my_button);
+            var layoutManager = new GridLayoutManager(this, 2);
 
-			clickButton.Click += async (sender, args) =>
-			{
-				clickButton.Enabled = false;
-				progressBar.Visibility = ViewStates.Visible;
+            recyclerView.SetLayoutManager(layoutManager);
 
-				await viewModel.SearchForImagesAsync(query.Text.Trim());
+            progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            progressBar.Visibility = ViewStates.Gone;
 
-				progressBar.Visibility = ViewStates.Gone;
-				clickButton.Enabled = true;
-			};
+            editText = FindViewById<EditText>(Resource.Id.SearchEditText);
 
-			UserDialogs.Init(this);
+            var clickButton = FindViewById<Button>(Resource.Id.GoButton);
 
-			SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-			SupportActionBar.SetHomeButtonEnabled(false);         
-		}
-	}
+            clickButton.Click += HandleButtonClicked;
+
+            UserDialogs.Init(this);
+
+            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+            SupportActionBar.SetHomeButtonEnabled(false);
+        }
+
+        async void HandleButtonClicked(object sender, EventArgs e)
+        {
+            //Dismiss Keyboard
+            if (GetSystemService(InputMethodService) is InputMethodManager inputMethodManager && CurrentFocus?.WindowToken != null)
+            {
+                inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+            }
+
+            if (sender is Button clickButton)
+            {
+                clickButton.Enabled = false;
+                progressBar.Visibility = ViewStates.Visible;
+
+                await viewModel.SearchForImagesAsync(editText.Text.Trim());
+
+                progressBar.Visibility = ViewStates.Gone;
+                clickButton.Enabled = true;
+            }
+        }
+    }
 }
 

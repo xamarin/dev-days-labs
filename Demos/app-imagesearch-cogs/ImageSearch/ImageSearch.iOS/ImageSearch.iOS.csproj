@@ -67,7 +67,6 @@
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
         <MtouchUseLlvm>true</MtouchUseLlvm>
         <DeviceSpecificBuild>true</DeviceSpecificBuild>
-        <MtouchFastDev>true</MtouchFastDev>
         <MtouchFloat32>true</MtouchFloat32>
         <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     </PropertyGroup>
