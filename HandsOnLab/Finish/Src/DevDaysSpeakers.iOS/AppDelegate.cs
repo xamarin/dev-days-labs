@@ -20,6 +20,10 @@ namespace DevDaysSpeakers.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
+            FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
+            {
+                HttpHeadersTimeout = 60
+            });
 
             LoadApplication(new App());
 

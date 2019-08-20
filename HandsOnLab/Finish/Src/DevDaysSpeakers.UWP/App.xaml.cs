@@ -57,7 +57,12 @@ namespace DevDaysSpeakers.UWP
                 };
 
                 FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-                Xamarin.Forms.Forms.Init(e, assembliesToInclude);
+				FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
+				{
+					HttpHeadersTimeout = 60
+				});
+
+				Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

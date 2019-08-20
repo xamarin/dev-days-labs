@@ -25,8 +25,12 @@ namespace DevDaysSpeakers.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
+			FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
+			{
+				HttpHeadersTimeout = 60
+			});
 
-            LoadApplication(new App());
+			LoadApplication(new App());
         }
     }
 }
