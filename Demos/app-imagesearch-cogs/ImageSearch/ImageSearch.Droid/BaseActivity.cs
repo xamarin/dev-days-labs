@@ -6,10 +6,8 @@ namespace ImageSearch.Droid
 {
     public abstract class BaseActivity : AppCompatActivity
     {
-        public Toolbar Toolbar { get; set; }
-
         protected abstract int LayoutResource { get; }
-        protected int ActionBarIcon { set => Toolbar.SetNavigationIcon(value); }
+        Toolbar? Toolbar { get; set; }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [Android.Runtime.GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -21,6 +19,8 @@ namespace ImageSearch.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            Acr.UserDialogs.UserDialogs.Init(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 

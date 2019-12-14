@@ -6,7 +6,7 @@ namespace ImageSearch.iOS
     [Register(nameof(AppDelegate))]
     public class AppDelegate : UIApplicationDelegate
     {
-        public override UIWindow Window { get; set; }
+        public override UIWindow? Window { get; set; }
     }
 }
 

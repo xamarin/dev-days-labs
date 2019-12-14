@@ -16,7 +16,7 @@ namespace ImageSearch.ViewModel
 {
     public class ImageSearchViewModel
     {
-        public ObservableRangeCollection<ImageObject> Images { get; } = new ObservableRangeCollection<ImageObject>();
+        public ObservableRangeCollection<ImageObject?> Images { get; } = new ObservableRangeCollection<ImageObject?>();
 
         public async Task<bool> SearchForImagesAsync(string query)
         {
@@ -24,8 +24,8 @@ namespace ImageSearch.ViewModel
             {
                 try
                 {
-                    var images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
-                    var filteredImages = images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false).ToList();
+                    Images? images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
+                    var filteredImages = images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false);
 
                     Images.Clear();
                     Images.AddRange(filteredImages);

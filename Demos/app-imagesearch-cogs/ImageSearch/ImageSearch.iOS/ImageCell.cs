@@ -32,11 +32,6 @@ namespace ImageSearch.iOS
             return InverseEdgeInsets.InsetRect(textRect);
         }
 
-        public override void DrawText(CoreGraphics.CGRect rect)
-        {
-            base.DrawText(EdgeInsets.InsetRect(rect));
-        }
+        public override void DrawText(CoreGraphics.CGRect rect) => base.DrawText(EdgeInsets.InsetRect(rect));
     }
-
-
 }
