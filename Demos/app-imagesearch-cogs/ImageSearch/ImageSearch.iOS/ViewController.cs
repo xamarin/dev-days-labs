@@ -3,7 +3,6 @@
 using Foundation;
 
 using ImageSearch.ViewModel;
-using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 using SDWebImage;
 
 using UIKit;

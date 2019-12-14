@@ -9,7 +9,7 @@
         <RootNamespace>ImageSearch.iOS</RootNamespace>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <AssemblyName>ImageSearchiOS</AssemblyName>
-        <ProduceAssemblyReference>true</ProduceAssemblyReference>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <NuGetPackageImportStamp>

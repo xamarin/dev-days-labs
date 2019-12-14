@@ -18,7 +18,7 @@
         <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
-        <ProduceAssemblyReference>true</ProduceAssemblyReference>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <NuGetPackageImportStamp>
@@ -119,6 +119,9 @@
     </ItemGroup>
     <ItemGroup>
       <ProguardConfiguration Include="proguard.cfg" />
+    </ItemGroup>
+    <ItemGroup>
+      <LinkDescription Include="linker.xml" />
     </ItemGroup>
     <Import Project="..\ImageSearch.Shared\ImageSearch.Shared.projitems" Label="Shared" Condition="Exists('..\ImageSearch.Shared\ImageSearch.Shared.projitems')" />
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
