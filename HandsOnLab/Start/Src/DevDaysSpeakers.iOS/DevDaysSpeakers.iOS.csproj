@@ -11,6 +11,7 @@
         <RootNamespace>DevDaysSpeakers.iOS</RootNamespace>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <AssemblyName>DevDaysSpeakersiOS</AssemblyName>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <NuGetPackageImportStamp>
         </NuGetPackageImportStamp>
     </PropertyGroup>
