@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AsyncAwaitBestPractices;
@@ -22,8 +23,9 @@ namespace MyWeather.ViewModels
         bool isImperial = Settings.IsImperial;
         string condition = string.Empty;
         bool isBusy;
-        WeatherForecastRoot forecast;
-        AsyncCommand getWeatherCommand;
+
+        WeatherForecastRoot? forecast;
+        IAsyncCommand? getWeatherCommand;
 
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
@@ -31,12 +33,11 @@ namespace MyWeather.ViewModels
             remove => onPropertyChangedEventManager.RemoveEventHandler(value);
         }
 
-        public AsyncCommand GetWeatherCommand => getWeatherCommand ??
-            (getWeatherCommand = new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS), _ => !IsBusy));
+        public IAsyncCommand GetWeatherCommand => getWeatherCommand ??= new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS), _ => !IsBusy);
 
         public bool IsLocationEntryEnabled => !UseGPS;
 
-        public List<WeatherRoot> ForecastItems => Forecast?.Items;
+        public List<WeatherRoot> ForecastItems => Forecast?.Items ?? Enumerable.Empty<WeatherRoot>().ToList();
 
         public string Location
         {
@@ -74,7 +75,7 @@ namespace MyWeather.ViewModels
             set => SetProperty(ref isBusy, value, () => Device.BeginInvokeOnMainThread(GetWeatherCommand.RaiseCanExecuteChanged));
         }
 
-        public WeatherForecastRoot Forecast
+        WeatherForecastRoot? Forecast
         {
             get => forecast;
             set => SetProperty(ref forecast, value, () => OnPropertyChanged(nameof(ForecastItems)));
@@ -106,10 +107,10 @@ namespace MyWeather.ViewModels
                 Forecast = await WeatherService.GetForecast(weatherRoot, units).ConfigureAwait(false);
 
                 var unit = IsImperial ? "F" : "C";
-                Temperature = $"Temp: {weatherRoot?.MainWeather?.Temperature ?? 0}°{unit}";
-                Condition = $"{weatherRoot.Name}: {weatherRoot?.Weather?[0]?.Description ?? string.Empty}";
+                Temperature = $"Temp: {weatherRoot.MainWeather.Temperature}°{unit}";
+                Condition = $"{weatherRoot.Name}: {weatherRoot.Weather.First().Description}";
 
-                TextToSpeech.SpeakAsync(Temperature + " " + Condition).SafeFireAndForget();
+                TextToSpeech.SpeakAsync(Temperature + " " + Condition).SafeFireAndForget(onException: ex => DebugServices.Report(ex));
             }
             catch (Exception e)
             {
@@ -122,7 +123,7 @@ namespace MyWeather.ViewModels
             }
         }
 
-        protected void SetProperty<T>(ref T backingStore, in T value, in Action onChanged = null, [CallerMemberName] in string propertyname = "")
+        protected void SetProperty<T>(ref T backingStore, in T value, in Action? onChanged = null, [CallerMemberName] in string propertyname = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return;

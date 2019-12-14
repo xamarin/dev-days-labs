@@ -16,7 +16,7 @@ namespace MyWeather.Views
 
             var collectionView = new CollectionView
             {
-                SelectionMode = SelectionMode.Single,
+                SelectionMode = SelectionMode.None,
                 ItemTemplate = new ForecastDataTemplate()
             };
             collectionView.SelectionChanged += HandleSelectionChanged;
@@ -27,8 +27,8 @@ namespace MyWeather.Views
 
         void HandleSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is CollectionView collectionView)
-                collectionView.SelectedItem = null;
+            var collectionView = (CollectionView)sender;
+            collectionView.SelectedItem = null;
         }
     }
 }

@@ -19,7 +19,9 @@
         <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <PackageCertificateKeyFile>MyWeather.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
         <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
-        <ProduceAssemblyReference>true</ProduceAssemblyReference>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
         <DebugSymbols>true</DebugSymbols>
@@ -133,13 +135,11 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
-        <PackageReference Include="Xamarin.Forms" Version="4.2.0.618605-pre2" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.1.0-pre2" />
-        <PackageReference Include="Refit" Version="4.7.9" />
-        <PackageReference Include="Polly" Version="7.1.0" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+        <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="4.0.1" />
+        <PackageReference Include="Refit" Version="5.0.23" />
+        <PackageReference Include="Polly" Version="7.2.0" />
         <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     </ItemGroup>
     <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
