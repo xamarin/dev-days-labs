@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevDaysSpeakers.Shared.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,13 @@ namespace DevDaysSpeakers.Functions
         public static IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
         {
             //Add logic to return a 200 OK Response with a JSON body containing the list of speakers in the body
-			return null;
+            throw new NotImplementedException();
         }
 
         static List<Speaker> GenerateSpeakers()
         {
             //Generate a list of speakers
-			return null;
+            throw new NotImplementedException();
         }
     }
 }

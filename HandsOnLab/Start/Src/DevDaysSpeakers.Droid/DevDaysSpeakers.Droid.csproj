@@ -16,8 +16,9 @@
         <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
         <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-        <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <AndroidStoreUncompressedFileExtensions />
         <MandroidI18n />
         <JavaMaximumHeapSize />
@@ -38,6 +39,7 @@
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
         <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+        <AndroidDexTool>d8</AndroidDexTool>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -51,16 +53,18 @@
         <AndroidTlsProvider>btls</AndroidTlsProvider>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a</AndroidSupportedAbis>
+        <AndroidDexTool>d8</AndroidDexTool>
+        <AndroidLinkTool>r8</AndroidLinkTool>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
         <Reference Include="System" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
         <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
@@ -91,6 +95,12 @@
             <Project>{AE6AFDCB-6945-48D4-9D5E-76D3EBB11C28}</Project>
             <Name>DevDaysSpeakers</Name>
         </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <LinkDescription Include="linker.xml" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProguardConfiguration Include="proguard.cfg" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

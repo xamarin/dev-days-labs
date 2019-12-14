@@ -12,10 +12,12 @@
         <AndroidResgenClass>Resource</AndroidResgenClass>
         <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
         <AndroidApplication>True</AndroidApplication>
-        <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AssemblyName>MyWeather.Droid</AssemblyName>
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-        <ProduceAssemblyReference>true</ProduceAssemblyReference>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <NuGetPackageImportStamp>
         </NuGetPackageImportStamp>
     </PropertyGroup>
@@ -60,15 +62,12 @@
         <Reference Include="Java.Interop" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
-        <PackageReference Include="Xamarin.Forms" Version="4.2.0.618605-pre2" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.1.0-pre2" />
-        <PackageReference Include="Refit" Version="4.7.9" />
-        <PackageReference Include="Polly" Version="7.1.0" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+        <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="4.0.1" />
+        <PackageReference Include="Refit" Version="5.0.23" />
+        <PackageReference Include="Polly" Version="7.2.0" />
         <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
@@ -117,6 +116,12 @@
             <Project>{6664B839-80A9-47CF-BFE1-0BA26BADF026}</Project>
             <Name>MyWeather</Name>
         </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <ProguardConfiguration Include="proguard.cfg" />
+    </ItemGroup>
+    <ItemGroup>
+      <LinkDescription Include="linker.xml" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

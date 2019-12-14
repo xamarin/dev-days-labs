@@ -3,7 +3,6 @@
 using Foundation;
 
 using ImageSearch.ViewModel;
-
 using SDWebImage;
 
 using UIKit;
@@ -31,7 +30,7 @@ namespace ImageSearch.iOS
 
         public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
         {
-            var cell = collectionView.DequeueReusableCell("imagecell", indexPath) as ImageCell;
+            var cell = (ImageCell)collectionView.DequeueReusableCell("imagecell", indexPath);
 
             var item = viewModel.Images[indexPath.Row];
 

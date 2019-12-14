@@ -9,7 +9,9 @@
         <RootNamespace>ImageSearch.iOS</RootNamespace>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <AssemblyName>ImageSearchiOS</AssemblyName>
-        <ProduceAssemblyReference>true</ProduceAssemblyReference>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
         <NuGetPackageImportStamp>
         </NuGetPackageImportStamp>
     </PropertyGroup>
@@ -107,11 +109,14 @@
         <Reference Include="System.IO.Compression" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
         <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
-        <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
+        <PackageReference Include="Acr.UserDialogs" Version="7.0.35" />
         <PackageReference Include="Microsoft.Azure.CognitiveServices.Search.ImageSearch" Version="2.0.0" />
-        <PackageReference Include="Xamarin.SDWebImage" Version="4.4.6" />
+        <PackageReference Include="Xamarin.SDWebImage" Version="4.4.7" />
+        <PackageReference Include="AsyncAwaitBestPractices">
+          <Version>4.0.1</Version>
+        </PackageReference>
     </ItemGroup>
     <ItemGroup>
         <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">

@@ -12,6 +12,11 @@ namespace MyWeather
     {
         public App()
         {
+            FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
+            {
+                HttpHeadersTimeout = 60
+            });
+
             var tabbedPage = new Xamarin.Forms.TabbedPage
             {
                 Title = "My Weather",
