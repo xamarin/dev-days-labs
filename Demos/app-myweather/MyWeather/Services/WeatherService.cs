@@ -8,12 +8,6 @@ using Xamarin.Forms;
 
 namespace MyWeather.Services
 {
-    enum Units
-    {
-        Imperial,
-        Metric
-    }
-
     static class WeatherService
     {
         public const string AppId = "c62b6ebb8355e7c293d97020bcbb52e8";
@@ -66,9 +60,11 @@ namespace MyWeather.Services
         {
             return Policy.Handle<Exception>().WaitAndRetryAsync(numRetries, pollyRetryAttempt).ExecuteAsync(action);
 
-            TimeSpan pollyRetryAttempt(int attemptNumber) => TimeSpan.FromSeconds(Math.Pow(2, attemptNumber));
+            static TimeSpan pollyRetryAttempt(int attemptNumber) => TimeSpan.FromSeconds(Math.Pow(2, attemptNumber));
         }
 
         static string ToLowerString(this Units units) => units.ToString().ToLower();
     }
+
+    enum Units { Imperial, Metric }
 }

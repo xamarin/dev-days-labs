@@ -9,7 +9,6 @@ using AsyncAwaitBestPractices.MVVM;
 using MyWeather.Models;
 using MyWeather.Services;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace MyWeather.ViewModels
 {
@@ -33,9 +32,7 @@ namespace MyWeather.ViewModels
             remove => onPropertyChangedEventManager.RemoveEventHandler(value);
         }
 
-        public IAsyncCommand GetWeatherCommand => getWeatherCommand ??= new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS), _ => !IsBusy);
-
-        public bool IsLocationEntryEnabled => !UseGPS;
+        public IAsyncCommand GetWeatherCommand => getWeatherCommand ??= new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS, IsImperial, Location), _ => !IsBusy);
 
         public List<WeatherRoot> ForecastItems => Forecast?.Items ?? Enumerable.Empty<WeatherRoot>().ToList();
 
@@ -48,7 +45,7 @@ namespace MyWeather.ViewModels
         public bool UseGPS
         {
             get => useGPS;
-            set => SetProperty(ref useGPS, value, () => OnPropertyChanged(nameof(IsLocationEntryEnabled)));
+            set => SetProperty(ref useGPS, value);
         }
 
         public bool IsImperial
@@ -72,7 +69,7 @@ namespace MyWeather.ViewModels
         public bool IsBusy
         {
             get => isBusy;
-            set => SetProperty(ref isBusy, value, () => Device.BeginInvokeOnMainThread(GetWeatherCommand.RaiseCanExecuteChanged));
+            set => SetProperty(ref isBusy, value, () => MainThread.BeginInvokeOnMainThread(GetWeatherCommand.RaiseCanExecuteChanged));
         }
 
         WeatherForecastRoot? Forecast
@@ -81,7 +78,7 @@ namespace MyWeather.ViewModels
             set => SetProperty(ref forecast, value, () => OnPropertyChanged(nameof(ForecastItems)));
         }
 
-        async Task ExecuteGetWeatherCommand(bool useGps)
+        async Task ExecuteGetWeatherCommand(bool useGps, bool isImperial, string location)
         {
             IsBusy = true;
             Temperature = Condition = string.Empty;
@@ -90,7 +87,7 @@ namespace MyWeather.ViewModels
             {
                 WeatherRoot weatherRoot;
 
-                var units = IsImperial ? Units.Imperial : Units.Metric;
+                var units = isImperial ? Units.Imperial : Units.Metric;
 
                 if (useGps)
                 {
@@ -100,13 +97,14 @@ namespace MyWeather.ViewModels
                 else
                 {
                     //Get weather by city
-                    weatherRoot = await WeatherService.GetWeather(Location.Trim(), units).ConfigureAwait(false);
+                    weatherRoot = await WeatherService.GetWeather(location.Trim(), units).ConfigureAwait(false);
                 }
 
                 //Get forecast based on cityId
                 Forecast = await WeatherService.GetForecast(weatherRoot, units).ConfigureAwait(false);
 
-                var unit = IsImperial ? "F" : "C";
+                var unit = isImperial ? "F" : "C";
+
                 Temperature = $"Temp: {weatherRoot.MainWeather.Temperature}°{unit}";
                 Condition = $"{weatherRoot.Name}: {weatherRoot.Weather.First().Description}";
 

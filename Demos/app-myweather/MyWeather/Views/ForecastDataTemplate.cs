@@ -1,59 +1,73 @@
 ﻿using MyWeather.Models;
 using Xamarin.Forms;
+using Xamarin.Forms.Markup;
+using static Xamarin.Forms.Markup.GridRowsColumns;
+using static MyWeather.MarkupExtensions;
 
 namespace MyWeather
 {
     public class ForecastDataTemplate : DataTemplate
     {
+        const int imageHeight = 50;
+
         public ForecastDataTemplate() : base(GenerateTemplate)
         {
         }
 
-        static Grid GenerateTemplate()
+        static Grid GenerateTemplate() => new Grid
         {
-            const int imageHeight = 50;
+            Padding = new Thickness(10, 5, 0, 10),
 
-            var weatherImage = new Image
+            RowSpacing = 2,
+
+            RowDefinitions = Rows.Define(
+                (Row.Weather, Star),
+                (Row.DateTime, Star)),
+
+            ColumnDefinitions = Columns.Define(
+                (Column.Image, AbsoluteGridLength(imageHeight + 10)),
+                (Column.Forecast, Star)),
+
+            Children =
             {
-                HeightRequest = imageHeight,
-                WidthRequest = imageHeight,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center
-            };
-            weatherImage.SetBinding(Image.SourceProperty, nameof(WeatherRoot.DisplayIcon));
+                new WeatherImage().Center()
+                    .Column(Column.Image).RowSpan(All<Row>())
+                    .Bind(Image.SourceProperty, nameof(WeatherRoot.DisplayIcon)),
 
-            var temperatureLabel = new Label
+                new TemperatureLabel().TextBottom().TextStart()
+                    .Row(Row.Weather).Column(Column.Forecast)
+                    .Bind(Label.TextProperty, nameof(WeatherRoot.DisplayTemp)),
+
+                new DateTimeLabel().TextTop().TextStart()
+                    .Row(Row.DateTime).Column(Column.Forecast)
+                    .Bind(Label.TextProperty,nameof(WeatherRoot.DisplayDate))
+            }
+        };
+
+        enum Row { Weather, DateTime }
+        enum Column { Image, Forecast }
+
+        class WeatherImage : Image
+        {
+            public WeatherImage()
             {
-                Style = Device.Styles.ListItemTextStyle,
-                TextColor = Color.FromHex("3498DB"),
-                VerticalTextAlignment = TextAlignment.End
-            };
-            temperatureLabel.SetBinding(Label.TextProperty, nameof(WeatherRoot.DisplayTemp));
+                HeightRequest = imageHeight;
+                WidthRequest = imageHeight;
+            }
+        }
 
-            var dateLabel = new Label
+        class TemperatureLabel : Label
+        {
+            public TemperatureLabel()
             {
-                Style = Device.Styles.ListItemDetailTextStyle,
-                VerticalTextAlignment = TextAlignment.Start
-            };
-            dateLabel.SetBinding(Label.TextProperty, nameof(WeatherRoot.DisplayDate));
+                Style = Device.Styles.ListItemTextStyle;
+                TextColor = Color.FromHex("3498DB");
+            }
+        }
 
-            var grid = new Grid { RowSpacing = 2 };
-
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(imageHeight + 10, GridUnitType.Absolute) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-
-            grid.Children.Add(weatherImage, 0, 0);
-            Grid.SetRowSpan(weatherImage, 2);
-
-            grid.Children.Add(temperatureLabel, 1, 0);
-            grid.Children.Add(dateLabel, 1, 1);
-
-            grid.Padding = new Thickness(10, 5, 0, 10);
-
-            return grid;
+        class DateTimeLabel : Label
+        {
+            public DateTimeLabel() => Style = Device.Styles.ListItemDetailTextStyle;
         }
     }
 }

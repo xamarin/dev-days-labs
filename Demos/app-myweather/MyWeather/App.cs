@@ -12,6 +12,8 @@ namespace MyWeather
     {
         public App()
         {
+            Device.SetFlags(new[] { "Markup_Experimental" });
+
             FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
             {
                 HttpHeadersTimeout = 60
@@ -41,5 +43,10 @@ namespace MyWeather
 
             MainPage = navigationPage;
         }
+    }
+
+    static class MarkupExtensions
+    {
+        public static GridLength AbsoluteGridLength(double value) => new GridLength(value, GridUnitType.Absolute);
     }
 }
