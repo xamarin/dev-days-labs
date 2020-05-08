@@ -1,14 +1,10 @@
 ﻿using System;
-
-using Acr.UserDialogs;
-
 using Android.App;
 using Android.OS;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-
+using AndroidX.RecyclerView.Widget;
 using ImageSearch.Droid.Adapters;
 using ImageSearch.ViewModel;
 

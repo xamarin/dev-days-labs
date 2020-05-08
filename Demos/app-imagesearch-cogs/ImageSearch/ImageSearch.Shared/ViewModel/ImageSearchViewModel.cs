@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Acr.UserDialogs;
-
 using ImageSearch.Services;
-
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
-
 using MvvmHelpers;
-
 using Xamarin.Essentials;
 
 namespace ImageSearch.ViewModel
@@ -25,7 +20,7 @@ namespace ImageSearch.ViewModel
                 try
                 {
                     Images? images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
-                    var filteredImages = images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false);
+                    var filteredImages = images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false) ?? Enumerable.Empty<ImageObject>();
 
                     Images.Clear();
                     Images.AddRange(filteredImages);
