@@ -1,8 +1,8 @@
 using System;
 using Android.App;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
 using AsyncAwaitBestPractices;
 using ImageSearch.ViewModel;
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;

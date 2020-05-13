@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            style="?android:attr/android:progressBarStyleSmall"
+            style="?android:attr/progressBarStyle"
             android:indeterminate="true" />
         <Button
             android:id="@+id/GoButton"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Go!" />
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ImageRecyclerView"
         android:layout_below="@id/main_content"
         android:scrollbars="vertical"

@@ -1,5 +1,7 @@
-﻿using MyWeather.ViewModels;
+﻿using System;
+using MyWeather.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Markup;
 
 namespace MyWeather.Views
 {
@@ -9,20 +11,22 @@ namespace MyWeather.Views
         {
             Title = "Forecast";
 
-            if (Device.RuntimePlatform is Device.iOS || Device.RuntimePlatform is Device.Android)
+            IconImageSource = Device.RuntimePlatform switch
             {
-                IconImageSource = "cloud";
-            }
+                Device.iOS => "cloud",
+                Device.Android => "cloud",
+                Device.UWP => null,
+                _ => throw new NotSupportedException()
+            };
 
-            var collectionView = new CollectionView
+            Content = new CollectionView
             {
                 SelectionMode = SelectionMode.None,
                 ItemTemplate = new ForecastDataTemplate()
-            };
-            collectionView.SelectionChanged += HandleSelectionChanged;
-            collectionView.SetBinding(CollectionView.ItemsSourceProperty, nameof(WeatherViewModel.ForecastItems));
+            }.Assign(out CollectionView collectionView)
+             .Bind(CollectionView.ItemsSourceProperty, nameof(WeatherViewModel.ForecastItems));
 
-            Content = collectionView;
+            collectionView.SelectionChanged += HandleSelectionChanged;
         }
 
         void HandleSelectionChanged(object sender, SelectionChangedEventArgs e)

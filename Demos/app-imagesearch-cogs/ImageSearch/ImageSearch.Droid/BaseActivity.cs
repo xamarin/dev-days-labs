@@ -1,6 +1,6 @@
 using Android.OS;
-using Android.Support.V7.App;
-using Android.Support.V7.Widget;
+using AndroidX.AppCompat.App;
+using AndroidX.AppCompat.Widget;
 
 namespace ImageSearch.Droid
 {
