@@ -16,12 +16,12 @@ namespace MyWeather.ViewModels
     {
         readonly WeakEventManager onPropertyChangedEventManager = new WeakEventManager();
 
-        bool useGPS;
-        string temperature = string.Empty;
-        string location = Settings.City;
+        bool useGPS, isBusy;
         bool isImperial = Settings.IsImperial;
+
         string condition = string.Empty;
-        bool isBusy;
+        string location = Settings.City;
+        string temperature = string.Empty;
 
         WeatherForecastRoot? forecast;
         IAsyncCommand? getWeatherCommand;
@@ -34,7 +34,7 @@ namespace MyWeather.ViewModels
 
         public IAsyncCommand GetWeatherCommand => getWeatherCommand ??= new AsyncCommand(() => ExecuteGetWeatherCommand(UseGPS, IsImperial, Location), _ => !IsBusy);
 
-        public List<WeatherRoot> ForecastItems => Forecast?.Items ?? Enumerable.Empty<WeatherRoot>().ToList();
+        public IReadOnlyList<WeatherRoot> ForecastItems => Forecast?.Items ?? Enumerable.Empty<WeatherRoot>().ToList();
 
         public string Location
         {
@@ -134,6 +134,6 @@ namespace MyWeather.ViewModels
         }
 
         void OnPropertyChanged([CallerMemberName] in string propertyName = "") =>
-            onPropertyChangedEventManager.HandleEvent(this, new PropertyChangedEventArgs(propertyName), nameof(INotifyPropertyChanged.PropertyChanged));
+            onPropertyChangedEventManager.RaiseEvent(this, new PropertyChangedEventArgs(propertyName), nameof(INotifyPropertyChanged.PropertyChanged));
     }
 }
