@@ -26,21 +26,19 @@ namespace ImageSearch.Droid
 
             var adapter = new ImageAdapter(this, _viewModel);
 
-            var recyclerView = FindViewById<RecyclerView>(Resource.Id.ImageRecyclerView);
-
+            var recyclerView = FindViewById<RecyclerView>(Resource.Id.ImageRecyclerView) ?? throw new NullReferenceException($"Could Not Find {nameof(Resource.Id.ImageRecyclerView)}");
             recyclerView.SetAdapter(adapter);
 
             var layoutManager = new GridLayoutManager(this, 2);
-
             recyclerView.SetLayoutManager(layoutManager);
 
-            _progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            _progressBar = FindViewById<ProgressBar>(Resource.Id.ProgressBar) ?? throw new NullReferenceException($"Could not find {nameof(Resource.Id.ProgressBar)}");
             _progressBar.Visibility = ViewStates.Gone;
 
             _editText = FindViewById<EditText>(Resource.Id.SearchEditText);
 
-            var clickButton = FindViewById<Button>(Resource.Id.GoButton);
-            clickButton.Click += HandleButtonClicked;
+            var goButton = FindViewById<Button>(Resource.Id.GoButton) ?? throw new NullReferenceException($"Could Not Find {nameof(Resource.Id.GoButton)}");
+            goButton.Click += HandleButtonClicked;
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
             SupportActionBar.SetHomeButtonEnabled(false);
@@ -57,7 +55,7 @@ namespace ImageSearch.Droid
             if (_progressBar != null)
                 _progressBar.Visibility = ViewStates.Visible;
 
-            await _viewModel.SearchForImagesAsync(_editText?.Text.Trim() ?? string.Empty);
+            await _viewModel.SearchForImagesAsync(_editText?.Text?.Trim() ?? string.Empty);
 
             if (_progressBar != null)
                 _progressBar.Visibility = ViewStates.Gone;

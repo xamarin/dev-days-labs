@@ -11,7 +11,7 @@ namespace ImageSearch.iOS
 {
     public partial class ViewController : UIViewController, IUICollectionViewDataSource
     {
-        readonly ImageSearchViewModel viewModel = new ImageSearchViewModel();
+        readonly ImageSearchViewModel _viewModel = new ImageSearchViewModel();
 
         public ViewController(IntPtr handle) : base(handle)
         {
@@ -26,17 +26,19 @@ namespace ImageSearch.iOS
             ButtonSearch.TouchUpInside += HandleButtonSearchTouchUpInside;
         }
 
-        public nint GetItemsCount(UICollectionView collectionView, nint section) => viewModel.Images.Count;
+        public nint GetItemsCount(UICollectionView collectionView, nint section) => _viewModel.Images.Count;
 
         public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
         {
             var cell = (ImageCell)collectionView.DequeueReusableCell("imagecell", indexPath);
 
-            var item = viewModel.Images[indexPath.Row];
+            var item = _viewModel.Images[indexPath.Row];
 
-            cell.Caption.Text = item?.Name;
-
-            cell.Image.SetImage(new NSUrl(item?.ContentUrl));
+            if (item != null)
+            {
+                cell.Caption.Text = item.Name;
+                cell.Image.SetImage(new NSUrl(item.ContentUrl));
+            }
 
             return cell;
         }
@@ -44,13 +46,18 @@ namespace ImageSearch.iOS
         async void HandleButtonSearchTouchUpInside(object sender, EventArgs e)
         {
             //Dismiss Keyboard
-            View.EndEditing(true);
+            View?.EndEditing(true);
 
             ButtonSearch.Enabled = false;
             ActivityIsLoading.StartAnimating();
 
-            await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
-            CollectionViewImages.ReloadData();
+            var text = TextFieldQuery.Text;
+
+            if (text != null && text != " ")
+            {
+                await _viewModel.SearchForImagesAsync(text);
+                CollectionViewImages.ReloadData();
+            }
 
             ButtonSearch.Enabled = true;
             ActivityIsLoading.StopAnimating();
