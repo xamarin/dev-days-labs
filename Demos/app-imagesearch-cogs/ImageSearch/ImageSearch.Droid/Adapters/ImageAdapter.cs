@@ -5,7 +5,6 @@ using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using AsyncAwaitBestPractices;
 using ImageSearch.ViewModel;
-using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 using Square.Picasso;
 
 namespace ImageSearch.Droid.Adapters
@@ -44,33 +43,33 @@ namespace ImageSearch.Droid.Adapters
         {
             var id = Resource.Layout.item;
 
-            var itemView = LayoutInflater.From(parent.Context).Inflate(id, parent, false);
+            var itemView = LayoutInflater.From(parent.Context)?.Inflate(id, parent, false) ?? throw new NullReferenceException($"Cannot Inflate {nameof(Resource.Layout.item)}");
 
             return new ImageAdapterViewHolder(itemView, OnClick, OnLongClick);
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            ImageObject? item = _viewModel.Images[position];
+            var item = _viewModel.Images[position];
 
             var imageAdapterViewHolder = (ImageAdapterViewHolder)holder;
 
             imageAdapterViewHolder.Caption.Text = item?.Name;
 
-            Picasso.With(_activity).Load(item?.ContentUrl).Into(imageAdapterViewHolder.Image);
+            Picasso.Get().Load(item?.ContentUrl).Into(imageAdapterViewHolder.Image);
         }
 
-        void OnClick(ImageAdapterClickEventArgs args) => _itemClickEventManager.HandleEvent(this, args, nameof(ItemClick));
-        void OnLongClick(ImageAdapterClickEventArgs args) => _itemLongClickEventManager.HandleEvent(this, args, nameof(ItemLongClick));
+        void OnClick(ImageAdapterClickEventArgs args) => _itemClickEventManager.RaiseEvent(this, args, nameof(ItemClick));
+        void OnLongClick(ImageAdapterClickEventArgs args) => _itemLongClickEventManager.RaiseEvent(this, args, nameof(ItemLongClick));
     }
 
-    public class ImageAdapterViewHolder : RecyclerView.ViewHolder
+    class ImageAdapterViewHolder : RecyclerView.ViewHolder
     {
         public ImageAdapterViewHolder(View itemView, Action<ImageAdapterClickEventArgs> clickListener,
                             Action<ImageAdapterClickEventArgs> longClickListener) : base(itemView)
         {
-            Image = itemView.FindViewById<ImageView>(Resource.Id.imageView);
-            Caption = itemView.FindViewById<TextView>(Resource.Id.textView);
+            Image = itemView.FindViewById<ImageView>(Resource.Id.imageView) ?? throw new NullReferenceException($"Cannot find {nameof(Resource.Id.imageView)}");
+            Caption = itemView.FindViewById<TextView>(Resource.Id.textView) ?? throw new NullReferenceException($"Cannot find {nameof(Resource.Id.textView)}");
 
             itemView.Click += (sender, e) => clickListener(new ImageAdapterClickEventArgs(itemView, AdapterPosition));
             itemView.LongClick += (sender, e) => longClickListener(new ImageAdapterClickEventArgs(itemView, AdapterPosition));
@@ -80,7 +79,7 @@ namespace ImageSearch.Droid.Adapters
         public TextView Caption { get; }
     }
 
-    public class ImageAdapterClickEventArgs : EventArgs
+    class ImageAdapterClickEventArgs : EventArgs
     {
         public ImageAdapterClickEventArgs(View view, int position) => (View, Position) = (view, position);
 

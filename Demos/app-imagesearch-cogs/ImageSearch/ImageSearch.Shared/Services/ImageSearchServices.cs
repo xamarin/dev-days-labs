@@ -29,7 +29,7 @@ namespace ImageSearch.Services
 
         static ImageSearchClient ImageSearchApiClient => imageSearchApiClient.Value;
 
-        public static async Task<Images> GetImage(string searchText)
+        public static async Task<Images?> GetImages(string searchText)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ImageSearch.Services
             }
         }
 
-        static void OnInvalidApiKey() => _invalidApiKeyEventManager.HandleEvent(null, EventArgs.Empty, nameof(InvalidApiKey));
-        static void OnError429_TooManyApiRequests() => _error429TooManyApiRequestsEventManager.HandleEvent(null, EventArgs.Empty, nameof(Error429_TooManyApiRequests));
+        static void OnInvalidApiKey() => _invalidApiKeyEventManager.RaiseEvent(null, EventArgs.Empty, nameof(InvalidApiKey));
+        static void OnError429_TooManyApiRequests() => _error429TooManyApiRequestsEventManager.RaiseEvent(null, EventArgs.Empty, nameof(Error429_TooManyApiRequests));
     }
 }

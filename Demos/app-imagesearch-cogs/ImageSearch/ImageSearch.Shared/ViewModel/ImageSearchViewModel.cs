@@ -19,7 +19,7 @@ namespace ImageSearch.ViewModel
             {
                 try
                 {
-                    Images? images = await ImageSearchServices.GetImage(query).ConfigureAwait(false);
+                    var images = await ImageSearchServices.GetImages(query).ConfigureAwait(false);
                     var filteredImages = images?.Value.Where(x => x?.ContentUrl?.Contains("https") ?? false) ?? Enumerable.Empty<ImageObject>();
 
                     Images.Clear();
